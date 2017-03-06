@@ -41,13 +41,13 @@ compile: scatt/Scatt.class test/ScattTest.class
 
 test/ScattTest.class: $(JUNIT_LOCAL)
 
-style: test/ScattTest.java scatt/Scatt.java $(CHECKSTYLE_JAR)
+style: test/ScattTest.java scatt/Scatt.java $(CHECKSTYLE_LOCAL)
 	java -cp .:$(CHECKSTYLE_LOCAL) com.puppycrawl.tools.checkstyle.Main -c $(STYLE_XML) test/ScattTest.java scatt/Scatt.java
 
 clean: 
 	rm -f scatt/Scatt.class
 	rm -f test/ScattTest.class
-    
+	
 test:  scatt/Scatt.class test/ScattTest.class $(JUNIT_LOCAL) $(HAMCREST_LOCAL)
 	java -cp .:$(JUNIT_LOCAL):$(HAMCREST_LOCAL) org.junit.runner.JUnitCore test.ScattTest
 
@@ -60,4 +60,4 @@ $(JUNIT_LOCAL): jars
 $(HAMCREST_LOCAL): jars
 	curl $(HAMCREST_URI) -o $(HAMCREST_LOCAL) --silent --location
 $(CHECKSTYLE_LOCAL): jars
-    curl $(CHECKSTYLE_URI) -o $(CHECKSTYLE_LOCAL) --silent --location
+	curl $(CHECKSTYLE_URI) -o $(CHECKSTYLE_LOCAL) --silent --location
