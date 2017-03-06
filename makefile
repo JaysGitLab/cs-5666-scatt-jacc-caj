@@ -20,7 +20,10 @@ JUNIT_LOCAL = jars/$(JUNIT_JAR)
 HAMCREST_JAR = hamcrest-core-1.3.jar
 HAMCREST_URI = http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/$(HAMCREST_JAR)
 HAMCREST_LOCAL = jars/$(HAMCREST_JAR)
-STYLE_XML = misc/appstate_style.xml
+CHECKSTYLE_JAR = checkstyle-7.6.jar 
+CHECKSTYLE_URI = http://search.maven.org/remotecontent?filepath=com/puppycrawl/tools/checkstyle/7.6/$(CHECKSTYLE_JAR)
+CHECKSTYLE_LOCAL = jars/$(CHECKSTYLE_JAR)
+STYLE_XML = misc/style.xml
 CLASSPATH = -cp .:$(JUNIT_LOCAL)
 CC = javac $(CLASSPATH) -Xlint:deprecation
 
@@ -33,20 +36,20 @@ default:
 	@echo "usage: make target"
 	@echo "available targets: compile, test, clean"
 
-compile: java/Scatt.class test/ScattTest.class
+compile: scatt/Scatt.class test/ScattTest.class
 	@echo "compiled"
 
 test/ScattTest.class: $(JUNIT_LOCAL)
 
-style:
-	checkstyle -c $(STYLE_XML) test/ScattTest.java java/Scatt.java
+style: test/ScattTest.java scatt/Scatt.java $(CHECKSTYLE_JAR)
+	java -cp .:$(CHECKSTYLE_LOCAL) com.puppycrawl.tools.checkstyle.Main -c $(STYLE_XML) test/ScattTest.java scatt/Scatt.java
 
-clean:
-	rm -f java/Scatt.class
+clean: 
+	rm -f scatt/Scatt.class
 	rm -f test/ScattTest.class
     
-test:  java/Scatt.class test/ScattTest.class $(JUNIT_LOCAL) $(HAMCREST_LOCAL)
-	java -cp .:$(JUNIT_LOCAL):$(HAMCREST_LOCAL) org.junit.runner.JUnitCore junit.ScattTest
+test:  scatt/Scatt.class test/ScattTest.class $(JUNIT_LOCAL) $(HAMCREST_LOCAL)
+	java -cp .:$(JUNIT_LOCAL):$(HAMCREST_LOCAL) org.junit.runner.JUnitCore test.ScattTest
 
 jars:
 	mkdir jars
@@ -56,3 +59,5 @@ $(JUNIT_LOCAL): jars
 	curl $(JUNIT_URI) -o $(JUNIT_LOCAL) --silent --location
 $(HAMCREST_LOCAL): jars
 	curl $(HAMCREST_URI) -o $(HAMCREST_LOCAL) --silent --location
+$(CHECKSTYLE_LOCAL): jars
+    curl $(CHECKSTYLE_URI) -o $(CHECKSTYLE_LOCAL) --silent --location
