@@ -29,6 +29,9 @@ dependencies {
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+
+    // We need a json parser for this project
+    compile 'org.json:json:20160810'
 }
 
 // Define the main class for the application
