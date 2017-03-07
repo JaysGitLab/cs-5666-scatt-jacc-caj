@@ -20,8 +20,8 @@ JUNIT_LOCAL = jars/$(JUNIT_JAR)
 HAMCREST_JAR = hamcrest-core-1.3.jar
 HAMCREST_URI = http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/$(HAMCREST_JAR)
 HAMCREST_LOCAL = jars/$(HAMCREST_JAR)
-CHECKSTYLE_JAR = checkstyle-7.6.jar 
-CHECKSTYLE_URI = http://search.maven.org/remotecontent?filepath=com/puppycrawl/tools/checkstyle/7.6/$(CHECKSTYLE_JAR)
+CHECKSTYLE_JAR = checkstyle-7.6-all.jar
+CHECKSTYLE_URI = https://sourceforge.net/projects/checkstyle/files/checkstyle/7.6/checkstyle-7.6-all.jar/download
 CHECKSTYLE_LOCAL = jars/$(CHECKSTYLE_JAR)
 STYLE_XML = misc/style.xml
 CLASSPATH = -cp .:$(JUNIT_LOCAL)
@@ -60,4 +60,4 @@ $(JUNIT_LOCAL): jars
 $(HAMCREST_LOCAL): jars
 	curl $(HAMCREST_URI) -o $(HAMCREST_LOCAL) --silent --location
 $(CHECKSTYLE_LOCAL): jars
-	curl $(CHECKSTYLE_URI) -o $(CHECKSTYLE_LOCAL) --silent --location
+	curl -L $(CHECKSTYLE_URI) -o $(CHECKSTYLE_LOCAL) --silent --location
