@@ -23,7 +23,7 @@ HAMCREST_LOCAL = jars/$(HAMCREST_JAR)
 CHECKSTYLE_JAR = checkstyle-7.6-all.jar
 CHECKSTYLE_URI = https://sourceforge.net/projects/checkstyle/files/checkstyle/7.6/checkstyle-7.6-all.jar/download
 CHECKSTYLE_LOCAL = jars/$(CHECKSTYLE_JAR)
-STYLE_XML = misc/style.xml
+STYLE_XML = misc/cs_appstate_checks.xml
 CLASSPATH = -cp .:$(JUNIT_LOCAL)
 CC = javac $(CLASSPATH) -Xlint:deprecation
 
