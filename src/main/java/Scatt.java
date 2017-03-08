@@ -1,4 +1,5 @@
-import org.json.*;
+import org.json.JSONObject;
+import org.json.JSONArray;
 /**
  * @version 1.0
  * @author Clint Hall
@@ -9,10 +10,13 @@ import org.json.*;
 public class Scatt {
 
     /**
-     * Just a dummy main method for now
+     * Just a dummy main method for now.
+     * @param args command line arguments
      */
-    public static void main(String... args){
+    public static void main(String... args) {
         System.out.print("Hello from Scatt");
+        JSONObject obj = new JSONObject();
+        JSONArray ary = new JSONArray();
     }
 
     /**
