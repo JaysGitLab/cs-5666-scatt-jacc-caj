@@ -1,7 +1,5 @@
-package test;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import scatt.Scatt;
 
 /**
  * @version 1.0
