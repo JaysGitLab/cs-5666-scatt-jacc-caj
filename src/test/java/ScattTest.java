@@ -13,19 +13,10 @@ import org.json.JSONObject;
  * @author Erik Cole
  */
 public class ScattTest {
-
-    /**
-     * Just a dummy test for a dummy method.
-     */
-    @Test
-    public void testHello() {
-        Scatt s = new Scatt();
-        assertEquals(s.hello(), "Hello from Scatt");
-    }
     /**
      * Test Sb2.getSpriteCount.
      */
-   /* @Test
+    @Test
     public void testGetSpriteCount() {
         String filePath = this
             .getClass()
@@ -34,38 +25,59 @@ public class ScattTest {
         Sb2 wizardSpells = new Sb2(filePath);
         int spriteCount = wizardSpells.getSpriteCount();
         assertTrue(spriteCount == 3);
-    }*/
+    }
+
+    /**
+     * Get a string representing a path to a project test resource.
+     * Project test resources should be put in src/test/resources.
+     * @param resName The name of the resource file
+     */
+    private String getTestResource(String resName){
+      URL url = this.getClass().getResource("/" + resName);
+      String filePath = url.getFile();
+      return filePath;
+    }
     /**
      * Test sb2 constructor with valid file path.
      */
     @Test
     public void testSb2Ctor1() {
-        URL url = this.getClass().getResource("/WizardSpells.sb2");
-        String filePath = url.getFile();
+        String filePath = getTestResource("WizardSpells.sb2");
         Sb2 wizardSpells = new Sb2(filePath);
         assertTrue(wizardSpells.getJSONObject() instanceof org.json.JSONObject);
+    }
+
+    /**
+     * Test extract Sb2. With valid path.
+     */
+    @Test
+    public void testExtractSb2(){
+        String filePath = getTestResource("test.zip");
+        String destPath = getTestResource("sb2extract");
+        Sb2.extractSb2(filePath, destPath);
+        File destDir = new File(destPath);
+        String[] childrenNames = {"a.txt", "b.txt", "c.txt"};
+        assertEquals(destDir.list(), childrenNames);
+    }
+    /**
+     * Test getFileContents with valid file path.
+     */
+    @Test
+    public void testGetFileContents1() {
+        String filePath = getTestResource("DummyForTestGetFileContents1.txt");
+        String contents = Sb2.getFileContents(filePath);
+        assertEquals("You got the contents of DummyForTestGetFileContents1.txt", contents);
     }
     /**
      * Test getJSONObject.
      */
     @Test
     public void testGetJSONObject(){
-        URL url = this.getClass().getResource("/project.json");
-        String filePath = url.getFile();
-        JSONObject jsonObj = Sb2.getJSONObject(filePath);
+        String filePath = getTestResource("project.json");
+        String jsonString = Sb2.getFileContents(filePath);
+        JSONObject jsonObj = Sb2.getJSONObject(jsonString);
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
-        
-    /**
-     * Test getFileContents with valid file path.
-     */
-    @Test
-    public void testGetFileContents1() {
-        String filePath = this
-            .getClass()
-            .getResource("/DummyForTestGetFileContents1.txt")
-            .getFile();
-        String contents = Sb2.getFileContents(filePath);
-        assertEquals("You got the contents of DummyForTestGetFileContents1.txt", contents);
-    }
+
+
 }
