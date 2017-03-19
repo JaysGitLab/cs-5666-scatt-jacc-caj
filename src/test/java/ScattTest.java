@@ -14,28 +14,15 @@ import org.json.JSONObject;
  */
 public class ScattTest {
     /**
-     * Test Sb2.getSpriteCount.
-     */
-    @Test
-    public void testGetSpriteCount() {
-        String filePath = this
-            .getClass()
-            .getResource("WizardSpells.sb2")
-            .getFile();
-        Sb2 wizardSpells = new Sb2(filePath);
-        int spriteCount = wizardSpells.getSpriteCount();
-        assertTrue(spriteCount == 3);
-    }
-
-    /**
      * Get a string representing a path to a project test resource.
      * Project test resources should be put in src/test/resources.
      * @param resName The name of the resource file
+     * @return String representation of path to resource
      */
-    private String getTestResource(String resName){
-      URL url = this.getClass().getResource("/" + resName);
-      String filePath = url.getFile();
-      return filePath;
+    private String getTestResource(String resName) {
+        URL url = this.getClass().getResource("/" + resName);
+        String filePath = url.getFile();
+        return filePath;
     }
     /**
      * Test sb2 constructor with valid file path.
@@ -46,12 +33,22 @@ public class ScattTest {
         Sb2 wizardSpells = new Sb2(filePath);
         assertTrue(wizardSpells.getJSONObject() instanceof org.json.JSONObject);
     }
+    /**
+     * Test Sb2.getSpriteCount.
+     */
+    @Test
+    public void testGetSpriteCount() {
+        String filePath = getTestResource("WizardSpells.sb2");
+        Sb2 wizardSpells = new Sb2(filePath);
+        int spriteCount = wizardSpells.getSpriteCount();
+        assertTrue(spriteCount == 3);
+    }
 
     /**
      * Test extract Sb2. With valid path.
      */
     @Test
-    public void testExtractSb2(){
+    public void testExtractSb2() {
         String filePath = getTestResource("test.zip");
         String destPath = getTestResource("sb2extract");
         Sb2.extractSb2(filePath, destPath);
@@ -72,7 +69,7 @@ public class ScattTest {
      * Test getJSONObject.
      */
     @Test
-    public void testGetJSONObject(){
+    public void testGetJSONObject() {
         String filePath = getTestResource("project.json");
         String jsonString = Sb2.getFileContents(filePath);
         JSONObject jsonObj = Sb2.getJSONObject(jsonString);

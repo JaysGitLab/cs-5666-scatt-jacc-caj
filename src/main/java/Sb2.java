@@ -45,7 +45,7 @@ public class Sb2 {
      * @param sb2Path Path to the sb2 file.
      * @param destPath Path to directory where sb2 should be extracted
      */
-    public static void extractSb2(String sb2Path, String destPath){
+    public static void extractSb2(String sb2Path, String destPath) {
 
     }
     /**
@@ -66,9 +66,10 @@ public class Sb2 {
     }
     /**
      * Given a path to a json file, return a JSONObject.
-     * @param pathStr Path to the json file
+     * @param jsonString Path to the json file
+     * @return org.json.JSONObject
      */
-    public static JSONObject getJSONObject(String jsonString){
+    public static JSONObject getJSONObject(String jsonString) {
         return new JSONObject(jsonString);
     }
 
