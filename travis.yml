@@ -1,0 +1,24 @@
+# @Date:   2017-03-20T16:36:18-04:00
+# @Project: scatt-jacc-caj
+# @Filename: travis.yml
+# @Last modified time: 2017-03-20T16:45:59-04:00
+
+#defining the language used
+language: java
+
+script:
+#installing dependencies
+- ./gradlew assemble
+#calling default script
+- ./gradlew check
+
+
+#the following lines help travis avoid uploading of unneccessary caches related to
+#gradle functionality
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
