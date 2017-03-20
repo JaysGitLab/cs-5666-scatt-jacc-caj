@@ -1,7 +1,7 @@
 # @Date:   2017-03-20T16:36:18-04:00
 # @Project: scatt-jacc-caj
 # @Filename: travis.yml
-# @Last modified time: 2017-03-20T16:45:59-04:00
+# @Last modified time: 2017-03-20T16:53:05-04:00
 
 #defining the language used
 language: java
