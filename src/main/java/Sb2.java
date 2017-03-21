@@ -14,15 +14,16 @@ public class Sb2 {
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
+     * @throws IOException passed from extractSb2(String, String)
      */
-    public Sb2(String filePath) {
+    public Sb2(String filePath) throws IOException {
         // Path to dest where .sb2 should be extracted
         String destPath = "";
         extractSb2(filePath, destPath);
 
         String pathToPackageJson = destPath + File.separator + "package.json";
         String jsonString = getFileContents(pathToPackageJson);
-        sb2Json = getJSONObject(jsonString);
+        sb2Json = createJSONObject(jsonString);
     }
     /**
      * Return underlying JSONObject.
@@ -36,7 +37,7 @@ public class Sb2 {
      * Return the number of Sprites in Sb2 object.
      * @return The number of sprites in project
      */
-    public int getSpriteCount() {
+    public int countSprites() {
         return 0;
     }
 
@@ -44,8 +45,9 @@ public class Sb2 {
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
      * @param destPath Path to directory where sb2 should be extracted
+     * @throws IOException if something goes wrong.
      */
-    public static void extractSb2(String sb2Path, String destPath) {
+    public static void extractSb2(String sb2Path, String destPath) throws IOException {
 
     }
     /**
@@ -58,8 +60,7 @@ public class Sb2 {
         String fileString = null;
         try {
             fileString = Files.lines(path).collect(Collectors.joining("\n"));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return fileString;
@@ -69,7 +70,7 @@ public class Sb2 {
      * @param jsonString Path to the json file
      * @return org.json.JSONObject
      */
-    public static JSONObject getJSONObject(String jsonString) {
+    public static JSONObject createJSONObject(String jsonString) {
         return new JSONObject(jsonString);
     }
 
