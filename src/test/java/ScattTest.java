@@ -21,6 +21,8 @@ public class ScattTest {
      * @return String representation of path to resource
      */
     private String getTestResourcePath(String resName) {
+        // Thank you James Lorenzen
+        // http://jlorenzen.blogspot.co.uk/2007/06/proper-way-to-access-file-resources-in.html
         URL url = this.getClass().getResource("/" + resName);
         String filePath = url.getFile();
         return filePath;
