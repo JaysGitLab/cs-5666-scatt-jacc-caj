@@ -1,16 +1,20 @@
 import org.json.JSONObject;
+import org.json.JSONArray;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
+
 /**
  * @version 1.0
  * @author B. Clint Hall
  */
 public class Sb2 {
-    private JSONObject sb2Json;
+    private JSONObject stage;
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -27,17 +31,17 @@ public class Sb2 {
     }
     /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
-     * @param jsonObj JSONObject from which to construct Sb2
+     * @param stage JSONObject from which to construct Sb2
      */
-    public Sb2(JSONObject jsonObj) {
-        init(jsonObj);
+    public Sb2(JSONObject stage) {
+        init(stage);
     }
     /**
      * Function to be called from all constructors.
-     * @param jsonObj JSONObject which is underlying data structure for Sb2.
+     * @param stage JSONObject which is underlying data structure for Sb2.
      */
-    public void init(JSONObject jsonObj) {
-        this.sb2Json = jsonObj;
+    public void init(JSONObject stage) {
+        this.stage = stage;
     }
     
     /**
@@ -45,7 +49,7 @@ public class Sb2 {
      * @return The underlying JSONObject.
      */
     public JSONObject getJSONObject() {
-        return sb2Json;
+        return stage;
     }
 
     /**
@@ -56,12 +60,31 @@ public class Sb2 {
         return 0;
     }
     /**
+     * Check whether a stage child is a Sprite.  It could also be
+     * a StageMonitor.
+     * @param stageChild A JSONObject that may represent a Sprite or a
+     *        StageMonitor
+     */
+    private boolean isSprite(JSONObject stageChild) {
+        return stageChild.has("spriteInfo");
+    }
+    /**
      * Each sprite has a unique name.
      * This method returns these names in a array of strings.
      * @return Array of sprite names.
      */
     public String[] getSpriteNames() {
-        return null;
+        JSONArray stageChildren = stage.getJSONArray("children");
+        List<String> spriteNamesList = new ArrayList<String>();
+        for (int i = 0; i < stageChildren.length(); i++) {
+           JSONObject child = stageChildren.getJSONObject(i);
+           if(isSprite(child)){
+                spriteNamesList.add(child.getString("objName"));
+           }
+        }
+        String[] spriteNamesArray = new String[spriteNamesList.size()];
+        spriteNamesList.toArray(spriteNamesArray);
+        return spriteNamesArray;
     }
     /**
      * Unzip sb2 file.
