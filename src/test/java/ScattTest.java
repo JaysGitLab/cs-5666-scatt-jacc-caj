@@ -93,6 +93,17 @@ public class ScattTest {
         JSONObject jsonObj = Sb2.createJSONObject(jsonString);
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
-
+    /**
+     * Test getSpriteNames.
+     */
+    @Test
+    public void testGetSpriteNames() {
+        String filePath = getTestResourcePath("project.json");
+        String jsonString = Sb2.getFileContents(filePath);
+        JSONObject jsonObj = Sb2.createJSONObject(jsonString);
+        Sb2 sb2 = new Sb2(jsonObj);
+        String[] expected = {"Wizard Girl", "Creature", "Instructions"};
+        assertEquals(expected, sb2.getSpriteNames());
+    }
 
 }
