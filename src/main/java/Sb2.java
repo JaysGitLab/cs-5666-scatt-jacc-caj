@@ -37,8 +37,9 @@ public class Sb2 {
     /**
      * Given a path to a json file, return a JSONObject.
      * @param pathStr Path to the json file
+     * @return An org.json.JSONObject 
      */
-    public static JSONObject getJSONObject(String pathStr){
+    public static JSONObject getJSONObject(String pathStr) {
         String contents = getFileContents(pathStr);
         return new JSONObject(contents);
     }
