@@ -38,7 +38,7 @@ public class ScattTest {
             assertTrue(wizardSpells.getJSONObject() instanceof org.json.JSONObject);
         } catch (IOException e) {
             e.printStackTrace();
-            assertTrue("Constructor threw an error", false);
+            fail("Constructor threw an error");
         }
     }
     /**
