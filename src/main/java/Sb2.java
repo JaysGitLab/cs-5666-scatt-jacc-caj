@@ -23,8 +23,23 @@ public class Sb2 {
 
         String pathToPackageJson = destPath + File.separator + "package.json";
         String jsonString = getFileContents(pathToPackageJson);
-        sb2Json = createJSONObject(jsonString);
+        init(createJSONObject(jsonString));
     }
+    /**
+     * Construct an Sb2 object from a JSONObject. Useful for testing.
+     * @param jsonObj JSONObject from which to construct Sb2
+     */
+    public Sb2(JSONObject jsonObj) {
+        init(jsonObj);
+    }
+    /**
+     * Function to be called from all constructors.
+     * @param jsonObj JSONObject which is underlying data structure for Sb2.
+     */
+    public void init(JSONObject jsonObj) {
+        this.sb2Json = jsonObj;
+    }
+    
     /**
      * Return underlying JSONObject.
      * @return The underlying JSONObject.
@@ -40,7 +55,14 @@ public class Sb2 {
     public int countSprites() {
         return 0;
     }
-
+    /**
+     * Each sprite has a unique name.
+     * This method returns these names in a array of strings.
+     * @return Array of sprite names.
+     */
+    public String[] getSpriteNames() {
+        return null;
+    }
     /**
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
