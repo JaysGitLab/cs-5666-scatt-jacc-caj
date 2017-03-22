@@ -1,11 +1,11 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 import org.junit.Test;
-import java.io.File;
+//import java.io.File;
 import java.net.URL;
 import org.json.JSONObject;
-import java.io.IOException;
+//import java.io.IOException;
 
 /**
  * @version 1.0
