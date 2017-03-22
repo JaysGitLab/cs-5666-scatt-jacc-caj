@@ -15,8 +15,12 @@ public class Scatt {
      */
     public static void main(String... args) {
         System.out.print("Hello from Scatt");
-        JSONObject obj = new JSONObject();
-        JSONArray ary = new JSONArray();
+        //JSONObject obj = new JSONObject();
+        //JSONArray ary = new JSONArray();
+        //FileChooser.StartGui();
+        FileChooser fc = new FileChooser();
+        fc.createAndShowGUI();
+
     }
 
     /**
