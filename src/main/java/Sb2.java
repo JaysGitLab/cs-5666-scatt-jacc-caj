@@ -43,10 +43,13 @@ public class Sb2 {
      */
     public void init(JSONObject stage) {
         this.stage = stage;
-        JSONArray stageChildren = stage.getJSONArray("children");
+        JSONArray stageChildren = stage.optJSONArray("children");
+        if (stageChildren == null) {
+            stageChildren = new JSONArray();
+        }
         spriteMap = new HashMap<String, JSONObject>();
         for (int i = 0; i < stageChildren.length(); i++) {
-            JSONObject child = stageChildren.getJSONObject(i);
+            JSONObject child = stageChildren.optJSONObject(i);
             if (isSprite(child)) {
                 spriteMap.put(child.getString("objName"), child);
             }
@@ -69,7 +72,7 @@ public class Sb2 {
      * @return whether the stageChild is a Sprite.
      */
     private boolean isSprite(JSONObject stageChild) {
-        return stageChild.has("spriteInfo");
+        return stageChild != null && stageChild.has("spriteInfo");
     }
     /**
      * Each sprite has a unique name.
@@ -86,7 +89,13 @@ public class Sb2 {
      * @return The number of Scripts associated with the Sprite.
      */
     public int getScriptCountForSprite(String spriteName) {
-        return -1;
+        JSONObject sprite = spriteMap.get(spriteName);
+        JSONArray scripts = sprite.optJSONArray("scripts");
+        if (scripts == null) {
+            return 0;
+        } else {
+            return scripts.length();
+        }
     }
      
     /**
