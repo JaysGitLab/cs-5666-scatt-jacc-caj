@@ -13,6 +13,8 @@ import java.io.IOException;
 public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
+    private static final int UNZIP_BUFFER_SIZE = 2048;
+
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -92,5 +94,4 @@ public class Sb2 {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
     }
-
 }
