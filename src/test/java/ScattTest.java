@@ -5,7 +5,9 @@ import org.junit.Test;
 //import java.io.File;
 import java.net.URL;
 import org.json.JSONObject;
+import java.util.Arrays;
 //import java.io.IOException;
+
 
 /**
  * @version 1.0
@@ -93,7 +95,19 @@ public class ScattTest {
     public void testGetSpriteNames() {
         Sb2 sb2 = new Sb2(getWizardJSONObject());
         String[] expected = {"Wizard Girl", "Creature", "Instructions"};
-        assertEquals(expected, sb2.getSpriteNames());
+        String[] actual = sb2.getSpriteNames();
+        assertTrue(sameContents(expected, sb2.getSpriteNames()));
+    }
+    /**
+     * Test whether arrays have same contents regardless of order.
+     * @param a One array.
+     * @param b another array.
+     * @return whether a and b have same contents
+     */
+    private boolean sameContents(Comparable[] a, Comparable[] b) {
+        Arrays.sort(a);
+        Arrays.sort(b);
+        return Arrays.equals(a, b);
     }
     /**
      * Test getScriptCountForSprite.
