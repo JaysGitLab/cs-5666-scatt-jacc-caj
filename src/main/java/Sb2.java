@@ -25,20 +25,20 @@ public class Sb2 {
 
         String pathToPackageJson = destPath + File.separator + "package.json";
         String jsonString = getFileContents(pathToPackageJson);
-        init(createJSONObject(jsonString));
+        configureWithJson(createJSONObject(jsonString));
     }
     /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
      * @param stage JSONObject from which to construct Sb2
      */
     public Sb2(JSONObject stage) {
-        init(stage);
+        configureWithJson(stage);
     }
     /**
      * Function to be called from all constructors.
      * @param stage JSONObject which is underlying data structure for Sb2.
      */
-    public void init(JSONObject stage) {
+    public void configureWithJson(JSONObject stage) {
         this.stage = stage;
         this.sprites = new Sprites(stage);
     }

@@ -8,6 +8,7 @@ import java.util.HashMap;
  * @author B. Clint Hall
  */
 public class Sprites {
+    private final static int BLOCK_TUPLE_INDEX = 2;
     private Map<String, JSONObject> spriteMap;
     /**
      * The root of the sb2 json object is a Stage object.
@@ -16,17 +17,48 @@ public class Sprites {
      */
     public Sprites(JSONObject stage) {
         JSONArray stageChildren = stage.optJSONArray("children");
-        if (stageChildren == null) {
-            stageChildren = new JSONArray();
-        }
         spriteMap = new HashMap<String, JSONObject>();
+        if (stageChildren == null) {
+            return;
+        }
         for (int i = 0; i < stageChildren.length(); i++) {
             JSONObject child = stageChildren.optJSONObject(i);
             if (isSprite(child)) {
-                spriteMap.put(child.getString("objName"), child);
+                addSpriteToSpriteMap(child);
             }
         }
     }
+    /**
+     * Add sprite to spriteMap. Guarantee unique name.
+     * @param sprite A Sprite JSONObject
+     */
+    private void addSpriteToSpriteMap(JSONObject sprite) {
+        String spriteName = sprite.optString("objName");
+        //make sure the Sprite has a name
+        if (spriteName == "") {
+            spriteName = "NO_NAME";
+            sprite.put("objName", spriteName);
+        }
+        //if there is already a sprite with this name, let's add '_0' to it's name.
+        if (spriteMap.containsKey(spriteName)) {
+            JSONObject sameNameSprite = spriteMap.get(spriteName);
+            sameNameSprite.put("objName", spriteName + "_0");
+            spriteMap.put(spriteName + "_0", sameNameSprite);
+            spriteMap.remove(spriteName);
+        }
+        //let's add '_n' to this Sprites name, where n is the smallest unused positive int
+        if (spriteMap.containsKey(spriteName + "_0")) {
+            int count = 1;
+            while (spriteMap.containsKey(spriteName + "_" + count)) {
+                count++;
+            }
+            spriteName = spriteName + "_" + count;
+            sprite.put("objName", spriteName);
+        } 
+        spriteMap.put(spriteName, sprite);
+    }
+        
+
     /**
      * Check whether a stage child is a Sprite.  It could also be
      * a StageMonitor.
@@ -83,7 +115,7 @@ public class Sprites {
         if (scriptTuple == null) {
             return new JSONArray();
         } else {
-            JSONArray blockTuple = scriptTuple.getJSONArray(2);
+            JSONArray blockTuple = scriptTuple.getJSONArray(BLOCK_TUPLE_INDEX);
             return blockTuple == null ? new JSONArray() : blockTuple;
         }
     }
