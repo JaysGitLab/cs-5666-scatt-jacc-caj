@@ -64,6 +64,7 @@ public class Sb2 {
      * a StageMonitor.
      * @param stageChild A JSONObject that may represent a Sprite or a
      *        StageMonitor
+     * @return whether the stageChild is a Sprite.
      */
     private boolean isSprite(JSONObject stageChild) {
         return stageChild.has("spriteInfo");
@@ -77,10 +78,10 @@ public class Sb2 {
         JSONArray stageChildren = stage.getJSONArray("children");
         List<String> spriteNamesList = new ArrayList<String>();
         for (int i = 0; i < stageChildren.length(); i++) {
-           JSONObject child = stageChildren.getJSONObject(i);
-           if(isSprite(child)){
+            JSONObject child = stageChildren.getJSONObject(i);
+            if (isSprite(child)) {
                 spriteNamesList.add(child.getString("objName"));
-           }
+            }
         }
         String[] spriteNamesArray = new String[spriteNamesList.size()];
         spriteNamesList.toArray(spriteNamesArray);
