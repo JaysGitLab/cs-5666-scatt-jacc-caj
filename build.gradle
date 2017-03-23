@@ -34,6 +34,20 @@ dependencies {
     compile 'org.json:json:20160810'
 }
 
+//Thank you http://stackoverflow.com/a/27433508 
+task copyTestResources(type: Copy) {
+    from "${projectDir}/src/test/resources"
+    into "${buildDir}/classes/test"
+}
+
+//Thank you http://stackoverflow.com/a/20359498
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+processTestResources.dependsOn copyTestResources
 // Define the main class for the application
 mainClassName = 'Scatt'
 

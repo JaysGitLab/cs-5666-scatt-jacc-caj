@@ -67,7 +67,7 @@ Checkstyle configuration for CS department at Appalachian State University
             <!--<property name="maxLineLength" value="80"/> -->
         </module>
         <module name="RightCurly">
-            <property name="option" value="alone"/>            
+            <property name="option" value="same"/>
         </module>
 	<module name="NeedBraces"/>
 
