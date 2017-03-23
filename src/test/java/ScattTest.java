@@ -42,21 +42,6 @@ public class ScattTest {
             fail("Constructor threw an error");
         }
     }*/
-    /**
-     * Test Sb2.countSprites.
-     */
-/*    @Test
-    public void testCountSprites() {
-        String filePath = getTestResourcePath("WizardSpells.sb2");
-        try {
-            Sb2 wizardSpells = new Sb2(filePath);
-            int spriteCount = wizardSpells.countSprites();
-            assertTrue(spriteCount == 3);
-        } catch (IOException e) {
-            e.printStackTrace();
-            assertTrue("Constructor threw an error", false);
-        }
-    }/*
 
     /**
      * Test extractSb2. With valid path.
@@ -74,6 +59,7 @@ public class ScattTest {
         String[] childrenNames = {"a.txt", "b.txt", "c.txt"};
         assertEquals(destDir.list(), childrenNames);
     }*/
+
     /**
      * Test getFileContents with valid file path.
      */
@@ -84,13 +70,20 @@ public class ScattTest {
         assertEquals("You got the contents of DummyForTestGetFileContents1.txt", contents);
     }
     /**
+     * Get the JSONObject for the Wizard project.
+     * @return the JSONObject for the Wizard project.
+     */
+    private JSONObject getWizardJSONObject() {
+        String filePath = getTestResourcePath("project.json");
+        String jsonString = Sb2.getFileContents(filePath);
+        return Sb2.createJSONObject(jsonString);
+    }
+    /**
      * Test getJSONObject.
      */
     @Test
     public void testGetJSONObject() {
-        String filePath = getTestResourcePath("project.json");
-        String jsonString = Sb2.getFileContents(filePath);
-        JSONObject jsonObj = Sb2.createJSONObject(jsonString);
+        JSONObject jsonObj = getWizardJSONObject();
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
     /**
@@ -98,12 +91,19 @@ public class ScattTest {
      */
     @Test
     public void testGetSpriteNames() {
-        String filePath = getTestResourcePath("project.json");
-        String jsonString = Sb2.getFileContents(filePath);
-        JSONObject jsonObj = Sb2.createJSONObject(jsonString);
-        Sb2 sb2 = new Sb2(jsonObj);
+        Sb2 sb2 = new Sb2(getWizardJSONObject());
         String[] expected = {"Wizard Girl", "Creature", "Instructions"};
         assertEquals(expected, sb2.getSpriteNames());
+    }
+    /**
+     * Test getScriptCountForSprite.
+     */
+    @Test
+    public void testGetScriptCountForSprite1() {
+        Sb2 sb2 = new Sb2(getWizardJSONObject());
+        assertEquals(sb2.getScriptCountForSprite("Wizard Girl"), 3);
+        assertEquals(sb2.getScriptCountForSprite("Creature"), 4);
+        assertEquals(sb2.getScriptCountForSprite("Instructions"), 0);
     }
 
 }
