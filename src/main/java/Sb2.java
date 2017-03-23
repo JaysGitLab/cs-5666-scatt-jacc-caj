@@ -4,8 +4,8 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class Sb2 {
     private JSONObject stage;
+    private Map<String, JSONObject> spriteMap;
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -42,6 +43,14 @@ public class Sb2 {
      */
     public void init(JSONObject stage) {
         this.stage = stage;
+        JSONArray stageChildren = stage.getJSONArray("children");
+        spriteMap = new HashMap<String, JSONObject>();
+        for (int i = 0; i < stageChildren.length(); i++) {
+            JSONObject child = stageChildren.getJSONObject(i);
+            if (isSprite(child)) {
+                spriteMap.put(child.getString("objName"), child);
+            }
+        }
     }
     
     /**
@@ -68,17 +77,8 @@ public class Sb2 {
      * @return Array of sprite names.
      */
     public String[] getSpriteNames() {
-        JSONArray stageChildren = stage.getJSONArray("children");
-        List<String> spriteNamesList = new ArrayList<String>();
-        for (int i = 0; i < stageChildren.length(); i++) {
-            JSONObject child = stageChildren.getJSONObject(i);
-            if (isSprite(child)) {
-                spriteNamesList.add(child.getString("objName"));
-            }
-        }
-        String[] spriteNamesArray = new String[spriteNamesList.size()];
-        spriteNamesList.toArray(spriteNamesArray);
-        return spriteNamesArray;
+        String[] spriteNames = new String[spriteMap.size()];
+        return spriteMap.keySet().toArray(spriteNames);
     }
     /**
      * Return the number of Scripts associated with a particular Sprite.
