@@ -119,5 +119,26 @@ public class ScattTest {
         assertEquals(sb2.getScriptCountForSprite("Creature"), 4);
         assertEquals(sb2.getScriptCountForSprite("Instructions"), 0);
     }
+    /**
+     * Test getScriptLengthsForSprite.
+     */
+    @Test
+    public void testGetScriptLengthsForSprite1(){
+        Sb2 sb2 = new Sb2(getWizardJSONObject());
+        assertTrue(Arrays.equals(
+            sb2.getScriptLengthsForSprite("Wizard Girl"),
+            new int[]{4, 4, 4}
+        ));
+        assertTrue(Arrays.equals(
+            sb2.getScriptLengthsForSprite("Creature"),
+            new int[]{2, 2, 2, 2}
+        ));
+        assertTrue(Arrays.equals(
+            sb2.getScriptLengthsForSprite("Instructions"),
+            new int[0]
+        ));
+
+    }
+    
 
 }

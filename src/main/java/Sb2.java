@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 import java.io.File;
 import java.io.IOException;
 
@@ -132,7 +133,20 @@ public class Sb2 {
     public int getScriptCountForSprite(String spriteName) {
         return getScripts(spriteName).length;
     }
-     
+    /**
+     * Count the number of blocks in each script for the given Sprite.
+     * @param spriteName The name of the sprite in question.
+     * @return An array with the lengths of each script
+     *         associated with the Sprite.
+     */
+    public int[] getScriptLengthsForSprite(String spriteName) {
+        JSONArray[] scripts = getScripts(spriteName);
+        int[] lengths = new int[scripts.length];
+        for (int i = 0; i < scripts.length; i++) {
+            lengths[i] = scripts[i].length();
+        }
+        return lengths;
+    }
     /**
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
