@@ -53,13 +53,6 @@ public class Sb2 {
     }
 
     /**
-     * Return the number of Sprites in Sb2 object.
-     * @return The number of sprites in project
-     */
-    public int countSprites() {
-        return 0;
-    }
-    /**
      * Check whether a stage child is a Sprite.  It could also be
      * a StageMonitor.
      * @param stageChild A JSONObject that may represent a Sprite or a
@@ -87,6 +80,15 @@ public class Sb2 {
         spriteNamesList.toArray(spriteNamesArray);
         return spriteNamesArray;
     }
+    /**
+     * Return the number of Scripts associated with a particular Sprite.
+     * @param spriteName The name of the Sprite.
+     * @return The number of Scripts associated with the Sprite.
+     */
+    public int getScriptCountForSprite(String spriteName) {
+        return -1;
+    }
+     
     /**
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
