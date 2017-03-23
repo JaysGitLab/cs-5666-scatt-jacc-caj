@@ -4,6 +4,12 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipEntry;
+import java.util.Enumeration;
 import java.io.IOException;
 
 /**
@@ -59,7 +65,33 @@ public class Sb2 {
      * @throws IOException if something goes wrong.
      */
     public static void extractSb2(String sb2Path, String destPath) throws IOException {
-
+        // Thanks to Oracle for code structure:
+        // http://www.oracle.com/technetwork/articles/java/compress-1565076.html
+        BufferedOutputStream dest;
+        BufferedInputStream input;
+        FileOutputStream fileOut;
+        ZipEntry entry;
+        ZipFile zipFile;
+	try {
+            zipFile = new ZipFile(sb2Path);
+            Enumeration e = zipFile.entries();
+            while (e.hasMoreElements()) {
+		entry = (ZipEntry) e.nextElement();
+		input = new BufferedInputStream(zipFile.getInputStream(entry));
+		int count;
+		byte data[] = new byte[UNZIP_BUFFER_SIZE];
+		fileOut = new FileOutputStream(destPath + "/" + entry.getName());
+		dest = new BufferedOutputStream(fileOut, UNZIP_BUFFER_SIZE);
+		while ((count = input.read(data, 0, UNZIP_BUFFER_SIZE)) != -1) {
+		    dest.write(data, 0, count);
+		}
+		dest.flush();
+		dest.close();
+		input.close();
+            }
+	} catch (IOException e) {
+	    throw e;
+	}
     }
     /**
      * Given a file path return a String of file contents.
