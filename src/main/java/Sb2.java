@@ -90,6 +90,10 @@ public class Sb2 {
      */
     public int getScriptCountForSprite(String spriteName) {
         JSONObject sprite = spriteMap.get(spriteName);
+        if(sprite == null){
+            throw new IllegalArgumentException(
+                spriteName + " is not the name of a Sprite in this project");
+        }
         JSONArray scripts = sprite.optJSONArray("scripts");
         if (scripts == null) {
             return 0;
