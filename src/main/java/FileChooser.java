@@ -43,21 +43,30 @@ import javax.swing.filechooser.*;
  *   images/Open16.gif
  *   images/Save16.gif
  */
+interface FileGet {
+    public String RetFilePath(File F);
+}
+
 public class FileChooser extends JPanel
-        implements ActionListener {
-    static private final String newline = "\n";
+        implements ActionListener,FileGet {
+    static private final String Newline = "\n";
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
     File file;
+    
+    public String RetFilePath(File f){
+
+        return f.getPath();
+    }
 
     public FileChooser() {
         super(new BorderLayout());
 
         //Create the log first, because the action listeners
         //need to refer to it.
-        log = new JTextArea(5,20);
-        log.setMargin(new Insets(5,5,5,5));
+        log = new JTextArea(5, 20);
+        log.setMargin(new Insets(5, 5, 5, 5));
         log.setEditable(false);
         JScrollPane logScrollPane = new JScrollPane(log);
 
@@ -87,7 +96,8 @@ public class FileChooser extends JPanel
         saveButton.addActionListener(this);
 
         //For layout purposes, put the buttons in a separate panel
-        JPanel buttonPanel = new JPanel(); //use FlowLayout
+        JPanel buttonPanel = new JPanel();
+         //use FlowLayout
         buttonPanel.add(openButton);
         buttonPanel.add(saveButton);
 
@@ -104,22 +114,27 @@ public class FileChooser extends JPanel
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fc.getSelectedFile();
                 //This is where a real application would open the file.
+                
                 System.out.println(file.getPath());
-                log.append("Opening: " + file.getName() + "." + newline);
-            } else {
-                log.append("Open command cancelled by user." + newline);
+                RetFilePath(file);
+                log.append("Opening: " + file.getName() + "." + Newline);
+            } 
+            else {
+                log.append("Open command cancelled by user." + Newline);
             }
             log.setCaretPosition(log.getDocument().getLength());
 
             //Handle save button action.
-        } else if (e.getSource() == saveButton) {
+        } 
+        else if (e.getSource() == saveButton) {
             int returnVal = fc.showSaveDialog(FileChooser.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would save the file.
-                log.append("Saving: " + file.getName() + "." + newline);
-            } else {
-                log.append("Save command cancelled by user." + newline);
+                log.append("Saving: " + file.getName() + "." + Newline);
+            } 
+            else {
+                log.append("Save command cancelled by user." + Newline);
             }
             log.setCaretPosition(log.getDocument().getLength());
         }
@@ -130,7 +145,8 @@ public class FileChooser extends JPanel
         java.net.URL imgURL = FileChooser.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
-        } else {
+        } 
+        else {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
@@ -141,7 +157,7 @@ public class FileChooser extends JPanel
      * this method should be invoked from the
      * event dispatch thread.
      */
-   public static void createAndShowGUI() {
+    public static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("FileChooserDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,11 +169,11 @@ public class FileChooser extends JPanel
         frame.pack();
         frame.setVisible(true);
     }
-    public String getFilePath(){
+    public String getFilePath() {
         return file.getPath();
     }
 
-    public void setFile(File f){
+    public void setFile(File f) {
         file=f;
     }
 
