@@ -15,37 +15,37 @@ public class SpritesTests {
      */
     @Test
     public void testGetSpriteNames() {
-        Sb2 sb2 = new Sb2(Utils.getWizardJSONObject());
+        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
         String[] expected = {"Wizard Girl", "Creature", "Instructions"};
-        String[] actual = sb2.getSpriteNames();
-        assertTrue(Utils.sameContents(expected, sb2.getSpriteNames()));
+        String[] actual = sprites.getSpriteNames();
+        assertTrue(Utils.sameContents(expected, sprites.getSpriteNames()));
     }
     /**
      * Test getScriptCountForSprite.
      */
     @Test
     public void testGetScriptCountForSprite1() {
-        Sb2 sb2 = new Sb2(Utils.getWizardJSONObject());
-        assertEquals(sb2.getScriptCountForSprite("Wizard Girl"), 3);
-        assertEquals(sb2.getScriptCountForSprite("Creature"), 4);
-        assertEquals(sb2.getScriptCountForSprite("Instructions"), 0);
+        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
+        assertEquals(sprites.getScriptCountForSprite("Wizard Girl"), 3);
+        assertEquals(sprites.getScriptCountForSprite("Creature"), 4);
+        assertEquals(sprites.getScriptCountForSprite("Instructions"), 0);
     }
     /**
      * Test getScriptLengthsForSprite.
      */
     @Test
     public void testGetScriptLengthsForSprite1() {
-        Sb2 sb2 = new Sb2(Utils.getWizardJSONObject());
+        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
         assertTrue(Arrays.equals(
-            sb2.getScriptLengthsForSprite("Wizard Girl"),
+            sprites.getScriptLengthsForSprite("Wizard Girl"),
             new int[]{4, 4, 4}
         ));
         assertTrue(Arrays.equals(
-            sb2.getScriptLengthsForSprite("Creature"),
+            sprites.getScriptLengthsForSprite("Creature"),
             new int[]{2, 2, 2, 2}
         ));
         assertTrue(Arrays.equals(
-            sb2.getScriptLengthsForSprite("Instructions"),
+            sprites.getScriptLengthsForSprite("Instructions"),
             new int[0]
         ));
 

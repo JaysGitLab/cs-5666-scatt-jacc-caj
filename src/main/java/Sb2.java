@@ -50,32 +50,6 @@ public class Sb2 {
     public JSONObject getJSONObject() {
         return stage;
     }
-
-    /**
-     * Each sprite has a unique name.
-     * This method returns these names in a array of strings.
-     * @return Array of sprite names.
-     */
-    public String[] getSpriteNames() {
-        return sprites.getSpriteNames();
-    }
-    /**
-     * Return the number of Scripts associated with a particular Sprite.
-     * @param spriteName The name of the Sprite.
-     * @return The number of Scripts associated with the Sprite.
-     */
-    public int getScriptCountForSprite(String spriteName) {
-        return sprites.getScriptCountForSprite(spriteName);
-    }
-    /**
-     * Count the number of blocks in each script for the given Sprite.
-     * @param spriteName The name of the sprite in question.
-     * @return An array with the lengths of each script
-     *         associated with the Sprite.
-     */
-    public int[] getScriptLengthsForSprite(String spriteName) {
-        return sprites.getScriptLengthsForSprite(spriteName);
-    }
     /**
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
