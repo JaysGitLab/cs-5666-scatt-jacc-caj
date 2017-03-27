@@ -13,6 +13,7 @@ import java.io.IOException;
 public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
+    private String name;
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -21,18 +22,22 @@ public class Sb2 {
     public Sb2(String filePath) throws IOException {
         // Path to dest where .sb2 should be extracted
         String destPath = "";
+        name = new File(filePath).getName();
         extractSb2(filePath, destPath);
-
         String pathToPackageJson = destPath + File.separator + "package.json";
         String jsonString = getFileContents(pathToPackageJson);
         configureWithJson(createJSONObject(jsonString));
+    }
+    public Sb2(JSONObject stage, String name){
+        this.name = name;
+        configureWithJson(stage);
     }
     /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
      * @param stage JSONObject from which to construct Sb2
      */
     public Sb2(JSONObject stage) {
-        configureWithJson(stage);
+        this(stage, "UninterestingName");
     }
     /**
      * Function to be called from all constructors.
@@ -92,5 +97,7 @@ public class Sb2 {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
     }
-
+    public String getName(){
+        return name;
+    }
 }
