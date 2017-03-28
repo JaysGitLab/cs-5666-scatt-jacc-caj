@@ -27,11 +27,14 @@ public class Sb2 {
      * @throws IOException passed from extractSb2(String, String)
      */
     public Sb2(String filePath) throws IOException {
-        // Path to dest where .sb2 should be extracted
-        String destPath = "";
+        // Path to dest where .sb2 should be extracted.
+        // Defaults to current working directory.
+        // Thanks to the following stackoverflow answer for the tip.
+	// http://stackoverflow.com/a/15954821/7106084
+        String destPath = Paths.get("").toAbsolutePath().toString();
         extractSb2(filePath, destPath);
 
-        String pathToPackageJson = destPath + File.separator + "package.json";
+        String pathToPackageJson = destPath + File.separator + "project.json";
         String jsonString = getFileContents(pathToPackageJson);
         configureWithJson(createJSONObject(jsonString));
     }
