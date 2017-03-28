@@ -27,14 +27,7 @@ public class Sb2 {
      * @throws IOException passed from extractSb2(String, String)
      */
     public Sb2(String filePath) throws IOException {
-        // Path to dest where .sb2 should be extracted.
-	// Uses operating system default temporary directory
-        String destPath = System.getProperty("java.io.tmpdir");
-        extractSb2(filePath, destPath);
-
-        String pathToPackageJson = destPath + File.separator + "project.json";
-        String jsonString = getFileContents(pathToPackageJson);
-        configureWithJson(createJSONObject(jsonString));
+        configureWithJson(createJSONObject(Extractor.getProjectJSON(filePath)));
     }
     /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
@@ -59,41 +52,7 @@ public class Sb2 {
     public JSONObject getJSONObject() {
         return stage;
     }
-    /**
-     * Unzip sb2 file.
-     * @param sb2Path Path to the sb2 file.
-     * @param destPath Path to directory where sb2 should be extracted
-     * @throws IOException if something goes wrong.
-     */
-    public static void extractSb2(String sb2Path, String destPath) throws IOException {
-        // Thanks to Oracle for code structure:
-        // http://www.oracle.com/technetwork/articles/java/compress-1565076.html
-        BufferedOutputStream dest;
-        BufferedInputStream input;
-        FileOutputStream fileOut;
-        ZipEntry entry;
-        ZipFile zipFile;
-	try {
-            zipFile = new ZipFile(sb2Path);
-            Enumeration e = zipFile.entries();
-            while (e.hasMoreElements()) {
-		entry = (ZipEntry) e.nextElement();
-		input = new BufferedInputStream(zipFile.getInputStream(entry));
-		int count;
-		byte data[] = new byte[UNZIP_BUFFER_SIZE];
-		fileOut = new FileOutputStream(destPath + File.separator + entry.getName());
-		dest = new BufferedOutputStream(fileOut, UNZIP_BUFFER_SIZE);
-		while ((count = input.read(data, 0, UNZIP_BUFFER_SIZE)) != -1) {
-		    dest.write(data, 0, count);
-		}
-		dest.flush();
-		dest.close();
-		input.close();
-            }
-	} catch (IOException e) {
-	    throw e;
-	}
-    }
+
     /**
      * Given a file path return a String of file contents.
      * @param pathStr Path to the file
