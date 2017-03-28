@@ -28,10 +28,8 @@ public class Sb2 {
      */
     public Sb2(String filePath) throws IOException {
         // Path to dest where .sb2 should be extracted.
-        // Defaults to current working directory.
-        // Thanks to the following stackoverflow answer for the tip.
-	// http://stackoverflow.com/a/15954821/7106084
-        String destPath = Paths.get("").toAbsolutePath().toString();
+	// Uses operating system default temporary directory
+        String destPath = System.getProperty("java.io.tmpdir");
         extractSb2(filePath, destPath);
 
         String pathToPackageJson = destPath + File.separator + "project.json";
