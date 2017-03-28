@@ -53,8 +53,8 @@ public class ScattTest {
      */
     @Test
     public void testExtractSb2() {
-        String filePath = Utils.getTestResourcePath("test.zip");
-        String destPath = Utils.getTestResourcePath("sb2extract");
+        String filePath = getTestResourcePath("test.zip");
+        String destPath = System.getProperty("java.io.tmpdir");
         try {
             Sb2.extractSb2(filePath, destPath);
         } catch (IOException e) {
