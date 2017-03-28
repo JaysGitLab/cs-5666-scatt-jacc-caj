@@ -33,27 +33,11 @@ public class ScattTest {
     }
 
     /**
-     * Test Sb2.countSprites.
-     */
-    @Test
-    public void testCountSprites() {
-        String filePath = getTestResourcePath("WizardSpells.sb2");
-        try {
-            Sb2 wizardSpells = new Sb2(filePath);
-            int spriteCount = wizardSpells.countSprites();
-            assertTrue(spriteCount == 3);
-        } catch (IOException e) {
-            e.printStackTrace();
-            assertTrue("Constructor threw an error", false);
-        }
-    }
-
-    /**
      * Test extractSb2 with valid path.
      */
     @Test
     public void testExtractSb2() {
-        String filePath = getTestResourcePath("test.zip");
+        String filePath = Utils.getTestResourcePath("test.zip");
         String destPath = System.getProperty("java.io.tmpdir");
         try {
             Sb2.extractSb2(filePath, destPath);
