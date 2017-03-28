@@ -5,12 +5,14 @@ import java.nio.file.Files;
 import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
+
 /**
  * @version 1.0
  * @author B. Clint Hall
  */
 public class Sb2 {
-    private JSONObject sb2Json;
+    private JSONObject stage;
+    private Sprites sprites;
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -23,24 +25,31 @@ public class Sb2 {
 
         String pathToPackageJson = destPath + File.separator + "package.json";
         String jsonString = getFileContents(pathToPackageJson);
-        sb2Json = createJSONObject(jsonString);
+        configureWithJson(createJSONObject(jsonString));
     }
+    /**
+     * Construct an Sb2 object from a JSONObject. Useful for testing.
+     * @param stage JSONObject from which to construct Sb2
+     */
+    public Sb2(JSONObject stage) {
+        configureWithJson(stage);
+    }
+    /**
+     * Function to be called from all constructors.
+     * @param stage JSONObject which is underlying data structure for Sb2.
+     */
+    public void configureWithJson(JSONObject stage) {
+        this.stage = stage;
+        this.sprites = new Sprites(stage);
+    }
+
     /**
      * Return underlying JSONObject.
      * @return The underlying JSONObject.
      */
     public JSONObject getJSONObject() {
-        return sb2Json;
+        return stage;
     }
-
-    /**
-     * Return the number of Sprites in Sb2 object.
-     * @return The number of sprites in project
-     */
-    public int countSprites() {
-        return 0;
-    }
-
     /**
      * Unzip sb2 file.
      * @param sb2Path Path to the sb2 file.
