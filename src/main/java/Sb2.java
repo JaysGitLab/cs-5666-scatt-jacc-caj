@@ -81,7 +81,7 @@ public class Sb2 {
 		input = new BufferedInputStream(zipFile.getInputStream(entry));
 		int count;
 		byte data[] = new byte[UNZIP_BUFFER_SIZE];
-		fileOut = new FileOutputStream(destPath + "/" + entry.getName());
+		fileOut = new FileOutputStream(destPath + File.separator + entry.getName());
 		dest = new BufferedOutputStream(fileOut, UNZIP_BUFFER_SIZE);
 		while ((count = input.read(data, 0, UNZIP_BUFFER_SIZE)) != -1) {
 		    dest.write(data, 0, count);
