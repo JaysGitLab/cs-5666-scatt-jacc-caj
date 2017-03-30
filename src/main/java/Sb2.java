@@ -3,13 +3,6 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipEntry;
-import java.util.Enumeration;
 import java.io.IOException;
 
 /**
@@ -19,7 +12,6 @@ import java.io.IOException;
 public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
-    private static final int UNZIP_BUFFER_SIZE = 2048;
 
     /**
      * Construct an Sb2 object from a filePath.

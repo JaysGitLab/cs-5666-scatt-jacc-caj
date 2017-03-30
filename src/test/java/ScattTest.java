@@ -2,8 +2,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import java.io.File;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import org.json.JSONObject;
@@ -51,8 +49,9 @@ public class ScattTest {
         String filePathStr = Utils.getTestResourcePath("project.json");
         try {
             String expectedContent = Files.readAllLines(Paths.get(filePathStr))
-        	.stream().collect(Collectors.joining("\n"));
-            assertEquals(new JSONObject(expectedContent).toString(), new JSONObject(content).toString());
+                	.stream().collect(Collectors.joining("\n"));
+            assertEquals(new JSONObject(expectedContent).toString(),
+                         new JSONObject(content).toString());
         } catch (IOException e) {
             fail("Exception reading test resource file");
         }
