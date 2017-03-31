@@ -8,7 +8,7 @@ public class Reporter{
     public Reporter(String destPath){
 
     }
-    public File WriteReport(Sb2 sb2){
+    public File writeReport(Sb2 sb2){
         /*File reportFile = new File(destPath, sb2.getName());
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(reportFile))){
             bw.write("Hi, I'm a file!");
