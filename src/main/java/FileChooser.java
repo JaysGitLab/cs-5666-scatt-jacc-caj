@@ -48,21 +48,17 @@ interface FileGet {
 }
 
 public class FileChooser extends JPanel
-        implements ActionListener,FileGet {
+        implements ActionListener {
     static private final String Newline = "\n";
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
     File file;
-    
-    public String RetFilePath(File f){
+    FileGet fileget;
 
-        return f.getPath();
-    }
-
-    public FileChooser() {
+    public FileChooser(FileGet fg) {
         super(new BorderLayout());
-
+        fileget = fg;
         //Create the log first, because the action listeners
         //need to refer to it.
         log = new JTextArea(5, 20);
@@ -115,8 +111,8 @@ public class FileChooser extends JPanel
                 file = fc.getSelectedFile();
                 //This is where a real application would open the file.
                 
-                System.out.println(file.getPath());
-                RetFilePath(file);
+                //System.out.println(file.getPath());
+                fileget.RetFilePath(file);
                 log.append("Opening: " + file.getName() + "." + Newline);
             } 
             else {
@@ -157,13 +153,13 @@ public class FileChooser extends JPanel
      * this method should be invoked from the
      * event dispatch thread.
      */
-    public static void createAndShowGUI() {
+    public static void createAndShowGUI(FileGet fg) {
         //Create and set up the window.
         JFrame frame = new JFrame("FileChooserDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new FileChooser());
+        frame.add(new FileChooser(fg));
 
         //Display the window.
         frame.pack();

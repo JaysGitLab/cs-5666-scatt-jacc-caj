@@ -25,10 +25,11 @@ public class ScattTest {
     @Test
     public void testGui() {
         Scatt s = new Scatt();
-        FileChooser fc = new FileChooser();
+        s.showUI();
         String testFile="src/test/java/TestUtils.java";
-        File f = new File(testFile);
+        File f = new File(testFile); 
+        FileChooser fc = new FileChooser();
         fc.setFile(f);
-        assertEquals(f.getPath(),testFile);
+        assertEquals(fc.getPath(),testFile);
     }
 }
