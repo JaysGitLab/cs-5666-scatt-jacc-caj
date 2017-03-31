@@ -3,7 +3,6 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -13,19 +12,14 @@ import java.io.IOException;
 public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
+
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
      * @throws IOException passed from extractSb2(String, String)
      */
     public Sb2(String filePath) throws IOException {
-        // Path to dest where .sb2 should be extracted
-        String destPath = "";
-        extractSb2(filePath, destPath);
-
-        String pathToPackageJson = destPath + File.separator + "package.json";
-        String jsonString = getFileContents(pathToPackageJson);
-        configureWithJson(createJSONObject(jsonString));
+        configureWithJson(createJSONObject(Extractor.getProjectJSON(filePath)));
     }
     /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
@@ -50,15 +44,7 @@ public class Sb2 {
     public JSONObject getJSONObject() {
         return stage;
     }
-    /**
-     * Unzip sb2 file.
-     * @param sb2Path Path to the sb2 file.
-     * @param destPath Path to directory where sb2 should be extracted
-     * @throws IOException if something goes wrong.
-     */
-    public static void extractSb2(String sb2Path, String destPath) throws IOException {
 
-    }
     /**
      * Given a file path return a String of file contents.
      * @param pathStr Path to the file
@@ -92,5 +78,4 @@ public class Sb2 {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
     }
-
 }
