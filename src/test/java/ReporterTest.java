@@ -9,11 +9,16 @@ import java.nio.file.Paths;
  * file.
  * 
  * The current output I'm expecting (VERY subject to change)  will be
+ * 
+ * '
  * Sprites: #
- *  - SpriteName
- *     - Length: #
- *  - SpriteName
- *     - Length: #
+ * 
+ * SpriteName
+ * Length: #
+ * SpriteName
+ * Length: #
+ * '
+ *
  * This is important to note to be able to better understand the tests below.
  *
  * NOTE: If we could extract a student's name from the file name it would be
@@ -38,10 +43,10 @@ class ReporterTest{
         Sb2 sb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         Reporter reporter = new Reporter("");
         File report = reporter.writeReport(sb2);
-        /*
-        String spritesOutput = Files.readAllLines(Paths.get(report)).get(1);
-        assertEquals(report.getNumSprites()
-        */
+        String spritesOutput = Files.readAllLines(Paths.get(report)).get(0);
+        String expected = "Sprites: " + sb2.getSpriteNames().length;
+        assertEquals(expected, spritesOutput);
+        
     }
 
     //We need the sb2 to test for number of scripts for a given sprite
