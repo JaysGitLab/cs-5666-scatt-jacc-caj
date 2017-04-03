@@ -8,14 +8,23 @@ import java.io.File;
  */
 public class Scatt {
     String sb2dir;
-//Sb2 sb2;
+    FileChooser fileChooser;
+
+    /*
+     * Constructor for production use.  Uses a GuiFileChooser for
+     * user to select path.
+     */
+    public Scatt(){
+        this(new GuiFileChooser());
+    }
+    public Scatt(FileChooser fileChooser){
+        this.fileChooser = fileChooser;
+    }
     /**
      * Just a dummy main method for now.
      * @param args command line arguments
      */
     public static void main(String... args) {
-        //JSONObject obj = new JSONObject();
-        //JSONArray ary = new JSONArray();
         Scatt sc = new Scatt();
         sc.showUI();
     }
@@ -24,7 +33,7 @@ public class Scatt {
     */
 
     public void showUI() {   
-        File file = FileChooser.getDirectoryFromUser();
+        File file = fileChooser.getDirectoryFromUser();
         System.out.println(file.getPath());
     }
 }

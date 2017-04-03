@@ -1,35 +1,10 @@
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-/**
- * FileChooserDemo.java uses these files.
- *   images/Open16.gif
- *   images/Save16.gif
- *   @author Oracle
- *   @version 1.0
- */
-public class FileChooser {
+public interface FileChooser {
 
     /**
      * Gets a file from the file chooser.
      * @return The file chosen
      */
-    static File getDirectoryFromUser() {
-        //Create and set up the window.
-        JFrame jFrame = new JFrame("FileChooserDemo");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnVal = fc.showOpenDialog(jFrame);
-        File file = null;
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = fc.getSelectedFile();
-        } else {
-            System.out.println("User clicked cancel");
-        }
-        jFrame.setVisible(false);
-        jFrame.dispose();
-        return file;
-    }
+    public File getDirectoryFromUser();
 }
 
