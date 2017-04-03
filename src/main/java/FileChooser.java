@@ -95,6 +95,8 @@ public class FileChooser extends JPanel
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         //fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
+
+/*
         //Create the open button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
         openButton = new JButton("Open a File...",
@@ -115,13 +117,34 @@ public class FileChooser extends JPanel
 
         //Add the buttons and the log to this panel.
         add(buttonPanel, BorderLayout.PAGE_START);
-        add(logScrollPane, BorderLayout.CENTER);
+        add(logScrollPane, BorderLayout.CENTER);*/
+    }
+
+    /**
+     * Gets a file from the file chooser
+     * @returns The file chosen
+     */
+    void getFileFromUserInput(){
+        int returnVal = fc.showOpenDialog(FileChooser.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            file = fc.getSelectedFile();
+            //This is where a real application would open the file.
+            
+            //System.out.println(file.getPath());
+            fileget.retFile(file);
+            log.append("Opening: " + file.getName() + "." + NL);
+        } 
+        else {
+            log.append("Open command cancelled by user." + NL);
+        }
+        log.setCaretPosition(log.getDocument().getLength());
     }
 
     /**
      * Responds to Gui button press.
      * @param e actionevent listener
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         //Handle open button action.
@@ -184,8 +207,10 @@ public class FileChooser extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new FileChooser(fg));
-
+        FileChooser fc = new FileChooser(fg);
+        frame.add(fc);
+        fc.getFileFromUserInput();
+        
         //Display the window.
         frame.pack();
         frame.setVisible(true);
