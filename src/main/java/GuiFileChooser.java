@@ -1,7 +1,15 @@
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-public class GuiFileChooser implements FileChooser{
+
+/**
+ * Opens a GUI file chooser and allows user to select a directory.
+ * @version 1
+ * @author Erik Cole
+ * @author Clint Hall
+ * @author Chris Waldon
+ */
+public class GuiFileChooser implements FileChooser {
 
     /**
      * Gets a file from the file chooser.

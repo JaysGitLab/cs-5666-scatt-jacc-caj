@@ -10,14 +10,19 @@ public class Scatt {
     String sb2dir;
     FileChooser fileChooser;
 
-    /*
+    /**
      * Constructor for production use.  Uses a GuiFileChooser for
      * user to select path.
      */
-    public Scatt(){
+    public Scatt() {
         this(new GuiFileChooser());
     }
-    public Scatt(FileChooser fileChooser){
+    /**
+     * Constructor for test methods.  Allows us to use a dummy FileChooser that
+     * doesn't actually use a GUI.
+     * @param fileChooser An implementation of FileChooser
+     */
+    public Scatt(FileChooser fileChooser) {
         this.fileChooser = fileChooser;
     }
     /**
