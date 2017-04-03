@@ -2,7 +2,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import java.io.File;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import org.json.JSONObject;

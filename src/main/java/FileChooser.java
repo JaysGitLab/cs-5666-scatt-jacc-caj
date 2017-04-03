@@ -31,27 +31,9 @@
 
 //package components;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.SwingUtilities;
-import javax.swing.filechooser.*;
-/**
- * interface to retrieve filepath of directory.
- * @author Erik Cole(modifications and additions to base code)
- * @version 2.0
- */
-@FunctionalInterface
-interface FileGet {
-    /**
-     * method to return the file.
-     * @return File object selected
-     * @param f the file that is selected
-     *
-     */
-    public void retFile(File f);
-}
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 /**
  * FileChooserDemo.java uses these files.
  *   images/Open16.gif
@@ -62,10 +44,10 @@ interface FileGet {
 public class FileChooser {
 
     /**
-     * Gets a file from the file chooser
-     * @returns The file chosen
+     * Gets a file from the file chooser.
+     * @return The file chosen
      */
-    static File getDirectoryFromUser(){
+    static File getDirectoryFromUser() {
         //Create and set up the window.
         JFrame jFrame = new JFrame("FileChooserDemo");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,8 +57,7 @@ public class FileChooser {
         File file = null;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             file = fc.getSelectedFile();
-       } 
-        else {
+        } else {
             System.out.println("User clicked cancel");
         }
         jFrame.setVisible(false);
