@@ -59,59 +59,29 @@ interface FileGet {
  *   @author Oracle
  *   @version 1.0
  */
-public class FileChooser extends JPanel {
-    File file;
-    FileGet fileget;
-    JFrame jFrame;
-    /**
-     * Gui class.
-     * @param fg interface to get the file directory
-     */
-    private FileChooser(FileGet fg, JFrame jFrame) {
-        super(new BorderLayout());
-        fileget = fg;
-        this.jFrame = jFrame;
-
-        //Create a file chooser
-    }
+public class FileChooser {
 
     /**
      * Gets a file from the file chooser
      * @returns The file chosen
      */
-    void getFileFromUserInput(){
+    static File getDirectoryFromUser(){
+        //Create and set up the window.
+        JFrame jFrame = new JFrame("FileChooserDemo");
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnVal = fc.showOpenDialog(FileChooser.this);
+        int returnVal = fc.showOpenDialog(jFrame);
+        File file = null;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             file = fc.getSelectedFile();
-            fileget.retFile(file);
-        } 
+       } 
         else {
             System.out.println("User clicked cancel");
         }
         jFrame.setVisible(false);
         jFrame.dispose();
-    }
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
-     * @param fg is the interface 
-     */
-    public static void createAndShowGUI(FileGet fg) {
-        //Create and set up the window.
-        JFrame frame = new JFrame("FileChooserDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Add content to the window.
-        FileChooser fc = new FileChooser(fg, frame);
-        frame.add(fc);
-        fc.getFileFromUserInput();
-        
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+        return file;
     }
 }
 

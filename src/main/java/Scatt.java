@@ -16,7 +16,6 @@ public class Scatt {
      * @param args command line arguments
      */
     public static void main(String... args) {
-        System.out.print("Hello from Scatt");
         //JSONObject obj = new JSONObject();
         //JSONArray ary = new JSONArray();
         Scatt sc = new Scatt();
@@ -27,7 +26,8 @@ public class Scatt {
     */
 
     public void showUI() {   
-        FileChooser.createAndShowGUI(f -> receiveFile(f));
+        File file = FileChooser.getDirectoryFromUser();
+        System.out.println(file.getPath());
     }
     private void receiveFile(File f){
         sb2dir = f.getPath();
