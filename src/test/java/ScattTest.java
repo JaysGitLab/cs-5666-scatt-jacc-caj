@@ -22,14 +22,14 @@ public class ScattTest {
     /**
      * Early Method for testing GUI
      */
-    @Test
+    /*@Test
     public void testGui() {
-        Scatt s = new Scatt();
-        s.showUI();
-        String testFile="src/test/java/TestUtils.java";
-        File f = new File(testFile); 
-        FileChooser fc = new FileChooser();
-        fc.setFile(f);
-        assertEquals(fc.getPath(),testFile);
-    }
+       // Scatt s = new Scatt();
+       // s.showUI();
+       // String testFile="src/test/java/TestUtils.java";
+       // File f = new File(testFile); 
+       // FileChooser fc = new FileChooser();
+       // fc.setFile(f);
+       // assertEquals(fc.getPath(),testFile);
+    }*/
 }

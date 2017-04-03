@@ -27,17 +27,15 @@ public class Scatt {
     */
 
     public void showUI() {   
-       /* FileChooser.createAndShowGUI(
-        (File f) -> {
-            sb2dir = f.getPath();
-            System.out.print("File Path Chosen:"+sb2dir);
-           // sb2 = new Sb2(f.getPath());
-        }
-    );
-    */
-
-
+        FileChooser.createAndShowGUI(f -> receiveFile(f));
     }
+    private void receiveFile(File f){
+        sb2dir = f.getPath();
+        System.out.print("File Path Chosen: " + sb2dir);
+    }
+
+
+    
     /**
      * Just a method to make sure test, compile and style work.
      * Get rid of it when we have a real method.

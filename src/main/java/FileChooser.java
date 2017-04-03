@@ -42,6 +42,7 @@ import javax.swing.filechooser.*;
  * @author Erik Cole(modifications and additions to base code)
  * @version 2.0
  */
+@FunctionalInterface
 interface FileGet {
     /**
      * method to return the file.
@@ -49,7 +50,7 @@ interface FileGet {
      * @param f the file that is selected
      *
      */
-    public File retFile(File f);
+    public void retFile(File f);
 }
 /**
  * FileChooserDemo.java uses these files.
