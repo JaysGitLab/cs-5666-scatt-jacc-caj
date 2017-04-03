@@ -37,25 +37,40 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.*;
-
-/*
- * FileChooserDemo.java uses these files:
- *   images/Open16.gif
- *   images/Save16.gif
+/**
+ * interface to retrieve filepath of directory.
+ * @author Erik Cole(modifications and additions to base code)
+ * @version 2.0
  */
 interface FileGet {
-    public String RetFilePath(File F);
+    /**
+     * method to return the file.
+     * @return File object selected
+     * @param f the file that is selected
+     *
+     */
+    public File retFile(File f);
 }
-
+/**
+ * FileChooserDemo.java uses these files.
+ *   images/Open16.gif
+ *   images/Save16.gif
+ *   @author Oracle
+ *   @version 1.0
+ */
 public class FileChooser extends JPanel
         implements ActionListener {
-    static private final String Newline = "\n";
-    JButton openButton, saveButton;
+    static private final String NL = "\n";
+    JButton openButton; 
+    JButton saveButton;
     JTextArea log;
     JFileChooser fc;
     File file;
     FileGet fileget;
-
+    /**
+     * Gui class.
+     * @param fg interface to get the file directory
+     */
     public FileChooser(FileGet fg) {
         super(new BorderLayout());
         fileget = fg;
@@ -102,6 +117,10 @@ public class FileChooser extends JPanel
         add(logScrollPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Responds to Gui button press.
+     * @param e actionevent listener
+     */
     public void actionPerformed(ActionEvent e) {
 
         //Handle open button action.
@@ -112,11 +131,11 @@ public class FileChooser extends JPanel
                 //This is where a real application would open the file.
                 
                 //System.out.println(file.getPath());
-                fileget.RetFilePath(file);
-                log.append("Opening: " + file.getName() + "." + Newline);
+                fileget.retFile(file);
+                log.append("Opening: " + file.getName() + "." + NL);
             } 
             else {
-                log.append("Open command cancelled by user." + Newline);
+                log.append("Open command cancelled by user." + NL);
             }
             log.setCaretPosition(log.getDocument().getLength());
 
@@ -127,16 +146,20 @@ public class FileChooser extends JPanel
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would save the file.
-                log.append("Saving: " + file.getName() + "." + Newline);
+               // log.append("Saving: " + file.getName() + "." + Newline);
             } 
             else {
-                log.append("Save command cancelled by user." + Newline);
+                log.append("save");
+               // log.append("Save command cancelled by user." + Newline);
             }
             log.setCaretPosition(log.getDocument().getLength());
         }
     }
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
+    /** Returns an ImageIcon, or null if the path was invalid. 
+     * @param path file path for image location
+     * @return returns the image icon object
+     * */
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = FileChooser.class.getResource(path);
         if (imgURL != null) {
@@ -152,6 +175,7 @@ public class FileChooser extends JPanel
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
+     * @param fg is the interface 
      */
     public static void createAndShowGUI(FileGet fg) {
         //Create and set up the window.
@@ -165,12 +189,19 @@ public class FileChooser extends JPanel
         frame.pack();
         frame.setVisible(true);
     }
+    /**
+     * Method to get the file path.
+     * @return string version of the file path
+     */
     public String getFilePath() {
         return file.getPath();
     }
-
+    /** 
+     * Method to set the file.
+     * @param f is a file to set as if it was picked by the gui
+     */
     public void setFile(File f) {
-        file=f;
+        file = f;
     }
 
 //    public static void main(String[] args) {

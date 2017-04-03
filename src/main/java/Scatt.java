@@ -9,8 +9,8 @@ import java.io.File;
  * @author Erik Cole
  */
 public class Scatt {
-String sb2dir;
-Sb2 sb2;
+    String sb2dir;
+//Sb2 sb2;
     /**
      * Just a dummy main method for now.
      * @param args command line arguments
@@ -22,16 +22,19 @@ Sb2 sb2;
         Scatt sc = new Scatt();
         sc.showUI();
     }
-    
-    public void showUI(){   
-        FileChooser.createAndShowGUI(
+   /**
+    * Creating UI and getting filepath for directory.
+    */
+
+    public void showUI() {   
+       /* FileChooser.createAndShowGUI(
         (File f) -> {
             sb2dir = f.getPath();
             System.out.print("File Path Chosen:"+sb2dir);
-            sb2 = new Sb2(f.getPath()
+           // sb2 = new Sb2(f.getPath());
         }
     );
-    
+    */
 
 
     }
