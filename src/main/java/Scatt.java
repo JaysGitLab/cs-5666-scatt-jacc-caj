@@ -29,19 +29,4 @@ public class Scatt {
         File file = FileChooser.getDirectoryFromUser();
         System.out.println(file.getPath());
     }
-    private void receiveFile(File f){
-        sb2dir = f.getPath();
-        System.out.print("File Path Chosen: " + sb2dir);
-    }
-
-
-    
-    /**
-     * Just a method to make sure test, compile and style work.
-     * Get rid of it when we have a real method.
-     * @return Just a "Hello" string
-     */
-    public String hello() {
-        return "Hello from Scatt";
-    }
 }
