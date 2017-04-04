@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.File;
 import java.io.IOException;
@@ -32,47 +33,16 @@ import java.io.StringWriter;
  */
 
 public class ReporterTest{
-/*    
-    //We need the sb2 to store it's name
-    @Test
-    public void testFileName(){
-        Sb2 sb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
-        Reporter reporter = new Reporter("");
-        File report = reporter.writeReport(sb2);
-        assertEquals(report.getName(), sb2.getName() + ".txt");
-    }
 
-    //We need the sb2 to test for numbers of sprites
-    @Test
-    public void testNumSprites(){
-        Sb2 sb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
-        Reporter reporter = new Reporter("");
-        File report = reporter.writeReport(sb2);
-        try {
-        String spritesOutput = Files.readAllLines(report.toPath()).get(0);
-        String expected = "Sprites: " + sb2.getSpriteNames().length;
-        assertEquals(expected, spritesOutput);
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-
-    //We need the sb2 to test for number of scripts for a given sprite
-    @Test
-    public void testNumScripts(){
-    }
-
-    //We need the sb2 to test for script length for a given sprite
-    @Test
-    public void testScriptLength(){
-    }
-*/
     /**
-     *
+     * Test the Reporter with one straightforward Sb2. Note well: the
+     * actual output will end with a new line character. So, be sure
+     * the expected output also ends with a new line character.
      */
     @Test
     public void testWizardReport(){
+        //The last asserion in this method fails.
+        
         List<Sb2> sb2List = new ArrayList<Sb2>();
         Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         sb2List.add(wizardSb2);
@@ -80,7 +50,30 @@ public class ReporterTest{
         StringWriter sw = new StringWriter();
         Reporter reporter = new Reporter();
         new Reporter().writeReport(sw, sb2List);
-        System.out.print(sw.toString());
-        assertEquals(sw.toString(), Utils.getResourceContent("WizardReport.txt"));
+        String output = sw.toString();
+
+        // Over the next few lines I write the output to a file so you can run
+        // diff on it if you want.
+        byte[] bytes = output.getBytes();
+        try {
+            Path path = Paths.get("testReportOutput.txt");
+            Files.write(path,bytes);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        String expectedOutput = Utils.getResourceContent("WizardReport.txt");
+        //Now I split expected and actual into lines and compare each line.
+        //Each line by line comparison passes.
+        String[] expectedLines = expectedOutput.split("\n");
+        String[] actualLines = output.split("\n");
+        for(int i=0; i<actualLines.length; i++){
+            assertEquals("Line " + i, expectedLines[i], actualLines[i]);
+        }
+        // Let's see if they are equal length.
+        logLast("expected", expectedOutput);
+        logLast("actual", output);
+        assertEquals(expectedOutput.length(), output.length());
+        // As promised, this still fails.
+        assertEquals(expectedOutput, output);
     }
 }

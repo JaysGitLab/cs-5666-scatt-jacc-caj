@@ -4,10 +4,12 @@ import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.Writer;
 import java.io.FileNotFoundException;
 
 public class Reporter{
+    String TAB = "    ";
     public Reporter(){
     }
     public void writeReport(Writer writer, List<Sb2> sb2List){
@@ -31,16 +33,38 @@ public class Reporter{
         }
         return reportFile();*/
     }
-    private void writeProject(PrintWriter pw, Sb2 sb2) {
-        
-    }
+
     public void writeReport(PrintWriter pw, List<Sb2> sb2List) {
         pw.write("Scratch Report\n\n");
-        pw.printf("Number of projects: %d\n\n", sb2List.size());
+        pw.write("Number of projects: " + sb2List.size() + "\n\n");
         for (int i = 0; i < sb2List.size(); i++) {
             Sb2 sb2 = sb2List.get(i);
-            pw.printf("Project %d: " + sb2.getName() + "\n", (i+1));
-            writeProject(pw, sb2List.get(i));
+            reportProject(i + 1, pw, sb2List.get(i));
         }
     }
+    private void reportProject(int projectNo, PrintWriter pw, Sb2 sb2) {
+        pw.write("Project " + projectNo + ": " + sb2.getName() + "\n");
+        String[] spriteNames = sb2.getSpriteNames();
+        Arrays.sort(spriteNames);
+        pw.write(spriteNames.length + " sprites\n");
+        for(int i=0; i<spriteNames.length; i++){
+            reportSprite(i+1, spriteNames[i], pw, sb2);
+        }
+    }
+    private void reportSprite(int spriteNo, String spriteName, PrintWriter pw, Sb2 sb2) {
+        String tab = TAB;
+        pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
+        int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
+        pw.write(tab + scriptLengths.length + " scripts\n");
+        for(int i=0; i<scriptLengths.length; i++){
+            reportScript(i+1, scriptLengths[i], pw);
+        }
+    }
+    private void reportScript(int scriptNo, int scriptLength, PrintWriter pw) {
+        String tab = TAB + TAB;
+        pw.write(tab + "Script " + scriptNo+ "\n");
+        tab = tab + TAB;
+        pw.write(tab + "length = " + scriptLength + "\n");
+    }
+
 }

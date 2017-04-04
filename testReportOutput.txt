@@ -27,4 +27,3 @@ Project 1: WizardProject
             length = 4
         Script 3
             length = 4
-
