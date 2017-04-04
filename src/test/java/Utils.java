@@ -24,6 +24,8 @@ public class Utils {
 
     /**
      * Get the contents of a resource file as a string.
+     * @param resourceName The name of the resource file.
+     * @return The contents of the file as a String.
      */
     static String getResourceContent(String resourceName) {
         String filePath = getTestResourcePath(resourceName);

@@ -28,7 +28,12 @@ public class Sb2 {
         String jsonString = getFileContents(pathToPackageJson);
         configureWithJson(createJSONObject(jsonString));
     }
-    public Sb2(JSONObject stage, String name){
+    /**
+     * Construct an Sb2 using a JSONObject and a name.  Used in testing.
+     * @param stage The JSONObject.
+     * @param name The name for the Scratch project. Normally the name of the .sb2 file.
+     */
+    public Sb2(JSONObject stage, String name) {
         this.name = name;
         configureWithJson(stage);
     }
@@ -97,7 +102,11 @@ public class Sb2 {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
     }
-    public String getName(){
+    /**
+     * Return the name.
+     * @return The name.
+     */
+    public String getName() {
         return name;
     }
 
