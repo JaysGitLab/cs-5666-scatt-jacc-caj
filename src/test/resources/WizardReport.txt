@@ -1,0 +1,29 @@
+Scratch report
+
+Number of projects: 1
+
+Project 1: WizardProject
+    3 sprites
+
+    Sprite 1: Wizard Girl
+    3 scripts
+        Script 1
+            length = 4
+        Script 2
+            length = 4
+        Script 3
+            length = 4
+
+    Sprite 2: Creature
+    4 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+        Script 4
+            length = 2
+
+    Sprite 3: Instructions
+    0 scripts

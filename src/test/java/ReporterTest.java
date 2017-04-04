@@ -1,8 +1,13 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.StringWriter;
 /*
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
@@ -26,8 +31,8 @@ import java.nio.file.Paths;
  * review purposes.    
  */
 
-class ReporterTest{
-    
+public class ReporterTest{
+/*    
     //We need the sb2 to store it's name
     @Test
     public void testFileName(){
@@ -36,17 +41,21 @@ class ReporterTest{
         File report = reporter.writeReport(sb2);
         assertEquals(report.getName(), sb2.getName() + ".txt");
     }
-    
+
     //We need the sb2 to test for numbers of sprites
     @Test
     public void testNumSprites(){
         Sb2 sb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         Reporter reporter = new Reporter("");
         File report = reporter.writeReport(sb2);
-        String spritesOutput = Files.readAllLines(Paths.get(report)).get(0);
+        try {
+        String spritesOutput = Files.readAllLines(report.toPath()).get(0);
         String expected = "Sprites: " + sb2.getSpriteNames().length;
         assertEquals(expected, spritesOutput);
-        
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     //We need the sb2 to test for number of scripts for a given sprite
@@ -57,5 +66,21 @@ class ReporterTest{
     //We need the sb2 to test for script length for a given sprite
     @Test
     public void testScriptLength(){
+    }
+*/
+    /**
+     *
+     */
+    @Test
+    public void testWizardReport(){
+        List<Sb2> sb2List = new ArrayList<Sb2>();
+        Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
+        sb2List.add(wizardSb2);
+
+        StringWriter sw = new StringWriter();
+        Reporter reporter = new Reporter();
+        new Reporter().writeReport(sw, sb2List);
+        System.out.print(sw.toString());
+        assertEquals(sw.toString(), Utils.getResourceContent("WizardReport.txt"));
     }
 }

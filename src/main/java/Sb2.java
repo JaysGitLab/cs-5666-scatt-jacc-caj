@@ -116,7 +116,7 @@ public class Sb2 {
      * @return The number of Scripts associated with the Sprite.
      */
     public int getScriptCountForSprite(String spriteName) {
-        sprites.getScriptCountForSprite(spriteName);
+        return sprites.getScriptCountForSprite(spriteName);
     }
     /**
      * Count the number of blocks in each script for the given Sprite.
