@@ -23,8 +23,6 @@ public class ReporterTest {
      */
     @Test
     public void testWizardReport() {
-        //The last asserion in this method fails.
-        
         List<Sb2> sb2List = new ArrayList<Sb2>();
         Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         sb2List.add(wizardSb2);
@@ -52,7 +50,8 @@ public class ReporterTest {
             assertEquals("Line " + i, expectedLines[i], actualLines[i]);
         }
         assertEquals(expectedOutput.length(), output.length());
-        // As promised, this still fails.
+        // If the above all pass, this should pass too.  But just
+        // to be certain...
         assertEquals(expectedOutput, output);
     }
 }

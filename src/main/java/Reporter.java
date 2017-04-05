@@ -34,14 +34,6 @@ public class Reporter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        /*File reportFile = new File(destPath, sb2.getName());
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(reportFile))) {
-            bw.write("Hi, I'm a file!");
-            bw.newLine();
-        } catch (IOException e) {
-
-        }
-        return reportFile();*/
     }
     /**
      * Write report to a PrintWriter.
@@ -53,7 +45,7 @@ public class Reporter {
         pw.write("Number of projects: " + sb2List.size() + "\n\n");
         for (int i = 0; i < sb2List.size(); i++) {
             Sb2 sb2 = sb2List.get(i);
-            reportProject(i + 1, pw, sb2List.get(i));
+            reportProject(i + 1, pw, sb2);
         }
     }
     /**

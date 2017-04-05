@@ -36,7 +36,7 @@ public class Sb2 {
      * @param stage JSONObject from which to construct Sb2
      */
     public Sb2(JSONObject stage) {
-        this(stage, "UninterestingName");
+        this(stage, "ScratchProject");
     }
     /**
      * Function to be called from all constructors.
