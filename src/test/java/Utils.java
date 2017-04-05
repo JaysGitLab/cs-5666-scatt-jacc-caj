@@ -21,14 +21,24 @@ public class Utils {
         String filePath = url.getFile();
         return filePath;
     }
+
+    /**
+     * Get the contents of a resource file as a string.
+     * @param resourceName The name of the resource file.
+     * @return The contents of the file as a String.
+     */
+    static String getResourceContent(String resourceName) {
+        String filePath = getTestResourcePath(resourceName);
+        String str = Sb2.getFileContents(filePath);
+        return str;
+    }        
+    
     /**
      * Get the JSONObject for the Wizard project.
      * @return the JSONObject for the Wizard project.
      */
     static JSONObject getWizardJSONObject() {
-        String filePath = getTestResourcePath("project.json");
-        String jsonString = Sb2.getFileContents(filePath);
-        return Sb2.createJSONObject(jsonString);
+        return Sb2.createJSONObject(getResourceContent("project.json"));
     }
     /**
      * Test whether arrays have same contents regardless of order.

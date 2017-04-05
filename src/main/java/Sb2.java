@@ -12,6 +12,7 @@ import java.io.IOException;
 public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
+    private String name;
 
     /**
      * Construct an Sb2 object from a filePath.
@@ -22,11 +23,20 @@ public class Sb2 {
         configureWithJson(createJSONObject(Extractor.getProjectJSON(filePath)));
     }
     /**
+     * Construct an Sb2 using a JSONObject and a name.  Used in testing.
+     * @param stage The JSONObject.
+     * @param name The name for the Scratch project. Normally the name of the .sb2 file.
+     */
+    public Sb2(JSONObject stage, String name) {
+        this.name = name;
+        configureWithJson(stage);
+    }
+    /**
      * Construct an Sb2 object from a JSONObject. Useful for testing.
      * @param stage JSONObject from which to construct Sb2
      */
     public Sb2(JSONObject stage) {
-        configureWithJson(stage);
+        this(stage, "ScratchProject");
     }
     /**
      * Function to be called from all constructors.
@@ -78,4 +88,39 @@ public class Sb2 {
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current relative path is: " + s);
     }
+    /**
+     * Return the name.
+     * @return The name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    //Sb2 has a Sprites. These are the sprite methods
+    /**
+     * Each sprite has a unique name.
+     * This method returns these names in a array of strings.
+     * @return Array of sprite names.
+     */
+    public String[] getSpriteNames() {
+        return sprites.getSpriteNames();
+    }
+    /**
+     * Return the number of Scripts associated with a particular Sprite.
+     * @param spriteName The name of the Sprite.
+     * @return The number of Scripts associated with the Sprite.
+     */
+    public int getScriptCountForSprite(String spriteName) {
+        return sprites.getScriptCountForSprite(spriteName);
+    }
+    /**
+     * Count the number of blocks in each script for the given Sprite.
+     * @param spriteName The name of the sprite in question.
+     * @return An array with the lengths of each script
+     *         associated with the Sprite.
+     */
+    public int[] getScriptLengthsForSprite(String spriteName) {
+        return sprites.getScriptLengthsForSprite(spriteName);
+    }
 }
+
