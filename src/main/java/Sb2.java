@@ -18,11 +18,17 @@ public class Sb2 {
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
-     * @throws IOException passed from extractSb2(String, String)
      */
-    public Sb2(String filePath) throws IOException {
+    public Sb2(String filePath) {
         name = new File(filePath).getName();
-        configureWithJson(createJSONObject(Extractor.getProjectJSON(filePath)));
+        try {
+            String jsonString = Extractor.getProjectJSON(filePath);
+            JSONObject jsonObject = createJSONObject(jsonString);
+            configureWithJson(jsonObject);
+        } catch (IOException e) {
+            stage = null;
+            sprites = null;
+        }
     }
     /**
      * Construct an Sb2 using a JSONObject and a name.  Used in testing.
@@ -40,6 +46,7 @@ public class Sb2 {
     public Sb2(JSONObject stage) {
         this(stage, "ScratchProject");
     }
+    
     /**
      * Function to be called from all constructors.
      * @param stage JSONObject which is underlying data structure for Sb2.

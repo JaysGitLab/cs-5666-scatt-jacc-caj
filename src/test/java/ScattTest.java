@@ -25,13 +25,8 @@ public class ScattTest {
     @Test
     public void testSb2Constructor1() {
         String filePath = Utils.getTestResourcePath("WizardSpells.sb2");
-        try {
-            Sb2 wizardSpells = new Sb2(filePath);
-            assertTrue(wizardSpells.getJSONObject() instanceof org.json.JSONObject);
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("Constructor threw an error");
-        }
+        Sb2 wizardSpells = new Sb2(filePath);
+        assertTrue(wizardSpells.getJSONObject() instanceof org.json.JSONObject);
     }
 
     /**

@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @version 1.0
  * @author Clint Hall
@@ -7,8 +10,7 @@ import java.io.File;
  * @author Erik Cole
  */
 public class Scatt {
-    String sb2dir;
-    FileChooser fileChooser;
+    File sb2Dir;
 
     /**
      * Constructor for production use.  Uses a GuiFileChooser for
@@ -23,7 +25,7 @@ public class Scatt {
      * @param fileChooser An implementation of FileChooser
      */
     public Scatt(FileChooser fileChooser) {
-        this.fileChooser = fileChooser;
+        sb2Dir = fileChooser.getDirectoryFromUser();
     }
     /**
      * Just a dummy main method for now.
@@ -31,21 +33,26 @@ public class Scatt {
      */
     public static void main(String... args) {
         Scatt sc = new Scatt();
-        sc.showUI();
-    }
-   /**
-    * Creating UI and getting filepath for directory.
-    */
-
-    public void showUI() {   
-        File file = fileChooser.getDirectoryFromUser();
-        System.out.println(file.getPath());
+        sc.generateReport();
     }
 
     /**
      * Generate report for Sb2's in targetDirectory.
      */
     public void generateReport() {
-
+        File[] sb2Files = sb2Dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.matches(".*\\.sb2");
+            }
+        });
+        List<Sb2> sb2s = new ArrayList<>();
+        for (int i = 0; i < sb2Files.length; i++) {
+            String sb2path = sb2Files[i].getAbsolutePath();
+            sb2s.add(new Sb2(sb2path));
+        }
+        String reportPath = new File(sb2Dir, "scattReport.txt").getAbsolutePath();
+        Reporter reporter = new Reporter();
+        reporter.writeReport(reportPath, sb2s);
     }
 }

@@ -21,17 +21,17 @@ public class Extractor {
         // http://www.oracle.com/technetwork/articles/java/compress-1565076.html
         ZipFile zipFile = new ZipFile(sb2Path);
         ZipEntry entry = zipFile.getEntry("project.json");
-	try (BufferedReader input = new BufferedReader(
-    		new InputStreamReader(
-        		zipFile.getInputStream(entry)));) {
+        try (BufferedReader input = new BufferedReader(
+            new InputStreamReader(
+                zipFile.getInputStream(entry)));) {
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = input.readLine()) != null) {
-		sb.append(line).append("\n");
+                sb.append(line).append("\n");
             }
             return sb.toString();
-	} catch (IOException e) {
-	    throw e;
-	}
+        } catch (IOException e) {
+            throw e;
+        }
     }
 }
