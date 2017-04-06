@@ -2,6 +2,7 @@ import org.json.JSONObject;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.io.File;
 import java.util.stream.Collectors;
 import java.io.IOException;
 
@@ -20,6 +21,7 @@ public class Sb2 {
      * @throws IOException passed from extractSb2(String, String)
      */
     public Sb2(String filePath) throws IOException {
+        name = new File(filePath).getName();
         configureWithJson(createJSONObject(Extractor.getProjectJSON(filePath)));
     }
     /**

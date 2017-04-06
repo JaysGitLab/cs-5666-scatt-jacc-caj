@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.io.File;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -74,5 +75,31 @@ public class ScattTest {
     public void testGetJSONObject() {
         JSONObject jsonObj = Utils.getWizardJSONObject();
         assertTrue(jsonObj instanceof org.json.JSONObject);
+    }
+
+    /**
+     * Test behavior when file path is null.
+     */
+   /* @Test
+    public void testBehaviorWhenFilePathIsNull(){
+        
+    }*/
+
+    /**
+     * Test behavior in best case. File path to directory full of Sb2s.
+     */
+    @Test
+    public void testFilePathGoodCase() {
+        File targetDirectory = new File(Utils.getTestResourcePath("GoodSb2Dir"));
+        File reportFile = new File(targetDirectory, "scattReport.txt");
+        reportFile.delete();
+        Scatt scatt = new Scatt(new FileChooser() {
+            @Override
+            public File getDirectoryFromUser() {
+                return targetDirectory;
+            }
+        });
+        scatt.generateReport();
+        assertTrue(reportFile.exists());
     }
 }

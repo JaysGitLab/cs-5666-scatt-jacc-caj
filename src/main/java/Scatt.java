@@ -41,4 +41,11 @@ public class Scatt {
         File file = fileChooser.getDirectoryFromUser();
         System.out.println(file.getPath());
     }
+
+    /**
+     * Generate report for Sb2's in targetDirectory.
+     */
+    public void generateReport() {
+
+    }
 }
