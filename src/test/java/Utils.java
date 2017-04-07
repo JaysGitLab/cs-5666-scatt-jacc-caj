@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 
 /**
- * @version 1.0
+ * @version 1.1
  * @author B. Clint Hall
+ * @author James Ward
  */
 public class Utils {
     /**
@@ -52,4 +53,11 @@ public class Utils {
         return Arrays.equals(a, b);
     }
 
+    /**
+     * Get the JSONObject for the Scratcharia project.
+     * @return the JSONObject for the Scratcharia project.
+     */
+    static JSONObject getScratchariaJSONObject() {
+        return Sb2.createJSONObject(getResourceContent("scratcharia.json");
+    }
 }
