@@ -14,7 +14,7 @@ import java.io.StringWriter;
  * @author James Ward
  */
 
-public class VariableTest {
+public class VariablesTest {
     /*
      * Test that the Sb2 can accurately count the number of global variables.
      */
