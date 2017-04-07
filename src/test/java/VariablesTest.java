@@ -25,3 +25,4 @@ public class VariableTest {
         int actual = 23;
         assertEquals(expectedGlobVar, actual); 
     }
+}
