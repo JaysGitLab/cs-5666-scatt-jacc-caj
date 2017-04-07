@@ -58,6 +58,6 @@ public class Utils {
      * @return the JSONObject for the Scratcharia project.
      */
     static JSONObject getScratchariaJSONObject() {
-        return Sb2.createJSONObject(getResourceContent("scratcharia.json");
+        return Sb2.createJSONObject(getResourceContent("scratcharia.json"));
     }
 }
