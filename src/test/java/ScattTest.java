@@ -105,7 +105,7 @@ public class ScattTest {
                 return testDir;
             }
         });
-        File reportFile = new File(testDir, testDir.getName() + ".txt");
+        File reportFile = new File(testDir, testDir.getName() + Reporter.REPORT_SUFFIX);
         reportFile.delete();
 
         scatt.generateReport();

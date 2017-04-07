@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Scatt {
     File sb2Dir;
-
+    
     /**
      * Constructor for production use.  Uses a GuiFileChooser for
      * user to select path.
@@ -51,7 +51,7 @@ public class Scatt {
             String sb2path = sb2Files[i].getAbsolutePath();
             sb2s.add(new Sb2(sb2path));
         }
-        String reportPath = new File(sb2Dir, sb2Dir.getName() + ".txt").getAbsolutePath();
+        String reportPath = new File(sb2Dir, sb2Dir.getName() + Reporter.REPORT_SUFFIX).getAbsolutePath();
         Reporter reporter = new Reporter();
         reporter.writeReport(reportPath, sb2s);
     }

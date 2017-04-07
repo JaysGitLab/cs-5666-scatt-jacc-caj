@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
  */
 public class Reporter {
     private static final String TAB = "    ";
-
+    public static final String REPORT_SUFFIX = "_Report.txt";
     /**
      * Write report to a writer.
      * @param writer The writer.
