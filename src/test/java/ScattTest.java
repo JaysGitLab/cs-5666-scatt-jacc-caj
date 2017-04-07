@@ -95,6 +95,8 @@ public class ScattTest {
             }
         });
         scatt.generateReport();
-        assertTrue(reportFile.exists());
+        String expected = Utils.getResourceContent("GoodSb2Dir/scattReport.txt");
+        String actual = Utils.getResourceContent("GoodSb2Dir.txt");
+        assertEquals(expected, actual);
     }
 }

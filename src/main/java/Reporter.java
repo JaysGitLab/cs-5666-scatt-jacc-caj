@@ -42,7 +42,7 @@ public class Reporter {
      */
     public void writeReport(PrintWriter pw, List<Sb2> sb2List) {
         pw.write("Scratch Report\n\n");
-        pw.write("Number of projects: " + sb2List.size() + "\n\n");
+        pw.write("Number of projects: " + sb2List.size() + "\n");
         for (int i = 0; i < sb2List.size(); i++) {
             Sb2 sb2 = sb2List.get(i);
             reportProject(i + 1, pw, sb2);
@@ -55,6 +55,7 @@ public class Reporter {
      * @param sb2 The sb2.
      */
     private void reportProject(int projectNo, PrintWriter pw, Sb2 sb2) {
+        pw.write("\n\n");
         pw.write("Project " + projectNo + ": " + sb2.getName() + "\n");
         String[] spriteNames = sb2.getSpriteNames();
         Arrays.sort(spriteNames);

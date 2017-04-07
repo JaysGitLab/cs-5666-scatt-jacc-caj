@@ -2,6 +2,7 @@ Scratch Report
 
 Number of projects: 1
 
+
 Project 1: WizardProject
 3 sprites
 
