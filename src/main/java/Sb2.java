@@ -136,19 +136,18 @@ public class Sb2 {
      * Gets the number of global variables within the stage object.
      * @return numVariables The number of global variables
      */
-    public int getGlobalVariableCount(){
+    public int getGlobalVariableCount() {
         countGlobalVariables();       
         return globalVariables;
     }
     /**
      * Counts the number of global variables within the stage object. 
      */
-    public void countGlobalVariables(){
+    private void countGlobalVariables() {
         JSONArray variables = stage.optJSONArray("variables");
         if (variables == null) {
             globalVariables = 0;
-        }
-        else {
+        } else {
             globalVariables = variables.length();
         }
     }
