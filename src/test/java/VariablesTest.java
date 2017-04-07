@@ -20,7 +20,8 @@ public class VariableTest {
      */
     @Test
     public void testGlobalVariablesCount(){
-        List<Sb2> sb2s = new ArrayList<Sb2>();
-        Sb2 scattariaSb2 = new Sb2(Utils.get
+        Sb2 scattariaSb2 = new Sb2(Utils.getScattariaJSONObject());
+        int expectedGlobVar = scattariaSb2.countGlobalVariables();
+        int actual = 23;
+        assertEquals(expectedGlobVar, actual); 
     }
-}
