@@ -85,18 +85,44 @@ public class ScattTest {
      */
     @Test
     public void testFilePathGoodCase() {
-        File targetDirectory = new File(Utils.getTestResourcePath("GoodSb2Dir"));
-        File reportFile = new File(targetDirectory, "scattReport.txt");
-        reportFile.delete();
+        testEndToEnd("GoodSb2Dir");
+    }
+
+    /**
+     * A method to make end to end tests easy.  Make a directory containing
+     * the test material in the src/test/resources.  Say you name it TestCaseDir.
+     * Then put a file called TestCaseDir.txt containing the expected report text
+     * src/test/resources.  Then call testEndToEnd("TestCaseDir") and this method
+     * will make sure that the actual output matches the expected output.
+     * @param testDirName The name of the directory in src/test/resources/ from which
+     *    to generate a report.
+     */
+    private void testEndToEnd(String testDirName) {
+        File testDir = new File(Utils.getTestResourcePath(testDirName));
         Scatt scatt = new Scatt(new FileChooser() {
             @Override
             public File getDirectoryFromUser() {
-                return targetDirectory;
+                return testDir;
             }
         });
+        File reportFile = new File(testDir, testDir.getName() + ".txt");
+        reportFile.delete();
+
         scatt.generateReport();
-        String expected = Utils.getResourceContent("GoodSb2Dir/scattReport.txt");
-        String actual = Utils.getResourceContent("GoodSb2Dir.txt");
+        String expected = "";
+        String actual = "";
+        try {
+            actual = Utils.getFileContents(reportFile.getAbsolutePath());
+        } catch (IOException e) {
+            fail("The test failed to generate a report.");
+        }
+        try {
+            String expectedFilePath = Utils.getTestResourcePath(testDir.getName() + ".txt");
+            expected = Utils.getFileContents(expectedFilePath);
+        } catch (IOException e) {
+            fail("You need to put a file called " + testDir.getName() + ".txt containing the "
+                 + "expected report contents in the test resources directory");
+        }
         assertEquals(expected, actual);
     }
 }

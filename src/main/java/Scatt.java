@@ -51,7 +51,7 @@ public class Scatt {
             String sb2path = sb2Files[i].getAbsolutePath();
             sb2s.add(new Sb2(sb2path));
         }
-        String reportPath = new File(sb2Dir, "scattReport.txt").getAbsolutePath();
+        String reportPath = new File(sb2Dir, sb2Dir.getName() + ".txt").getAbsolutePath();
         Reporter reporter = new Reporter();
         reporter.writeReport(reportPath, sb2s);
     }

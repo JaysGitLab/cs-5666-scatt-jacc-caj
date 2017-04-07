@@ -1,7 +1,11 @@
 import java.net.URL;
 import org.json.JSONObject;
 import java.util.Arrays;
-
+import java.nio.file.Files;
+import java.util.stream.Collectors;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.io.IOException;
 
 /**
  * @version 1.0
@@ -22,6 +26,16 @@ public class Utils {
         return filePath;
     }
 
+    /**
+     * Given a file path return a String of file contents.
+     * @param pathStr Path to the file
+     * @return contents of file
+     * @throws IOException If there is a problem reading the file.
+     */
+    public static String getFileContents(String pathStr) throws IOException {
+        Path path = Paths.get(pathStr);
+        return Files.lines(path).collect(Collectors.joining("\n"));
+    }
     /**
      * Get the contents of a resource file as a string.
      * @param resourceName The name of the resource file.
