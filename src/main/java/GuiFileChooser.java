@@ -21,7 +21,7 @@ public class GuiFileChooser implements FileChooser {
         JFrame jFrame = new JFrame("FileChooserDemo");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int returnVal = fc.showOpenDialog(jFrame);
         File file = null;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -31,6 +31,9 @@ public class GuiFileChooser implements FileChooser {
         }
         jFrame.setVisible(false);
         jFrame.dispose();
+        if (file.isFile()) {
+	    file = file.getParentFile();
+        }
         return file;
     }
 }
