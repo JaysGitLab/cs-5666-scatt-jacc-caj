@@ -24,7 +24,7 @@ public class VariablesTest {
      */
     @Test
     public void testSpriteVariableCount(){
-        Sprites scratchariaSprites = new Sprite(Utils.getScratchariaJSONObject());
+        Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
         int expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
         int actual = 2;
         assertEquals(actual, expectedSpriteVar);
