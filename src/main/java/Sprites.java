@@ -143,6 +143,12 @@ public class Sprites {
         return lengths;
     }
     
+    /**
+     * Public accessor method for getting the number of variables 
+     * associated with a particular sprite.
+     * @param sprite the name of the sprite whose info you desire
+     * @return the number of variables associated with a sprite 
+     */ 
     public int getSpriteVariableCount(String sprite) throws IOException {
         if (spriteMap.containsKey(sprite)) {
            countSpriteVariables(spriteMap.get(sprite));
@@ -152,9 +158,14 @@ public class Sprites {
             throw new IOException("You should not be searching for sprites"
                 + " that don't exist.");
         }
-        return 0;
     }
-
+    /**
+     * Private method that attempts to find the number variables 
+     * associated with a sprite and store it as a field variable 
+     * associated with the sprite.
+     * @param sprite the json representation of the sprite object
+     *      from an sb2 object
+     */
     private void countSpriteVariables(JSONObject sprite) {
         JSONArray spriteVars = sprite.optJSONArray("variables");
         if (spriteVars == null) {
