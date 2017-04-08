@@ -21,14 +21,15 @@ public class VariablesTest {
         assertEquals(expectedGlobVar, actual); 
     }
     /**
-     * Test that the Sb2 can accurately count variables in sprites
+     * Test that the Sb2 can accurately count variables in sprites.
+     * @throws IOException if looking for sprite that doesnt exist
      */
     @Test
     public void testSpriteVariableCount() throws IOException {
         Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
         int expectedSpriteVar;
         try {
-        expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
+            expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
         } catch (IOException e) {
             throw new IOException("Wrong sprite name");
         }
