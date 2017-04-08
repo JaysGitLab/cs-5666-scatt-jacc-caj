@@ -23,9 +23,13 @@ public class VariablesTest {
      * Test that the Sb2 can accurately count variables in sprites
      */
     @Test
-    public void testSpriteVariableCount(){
+    public void testSpriteVariableCount() throws IOException {
         Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
+        try {
         int expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
+        } catch (IOException) {
+            throw new IOException("Wrong sprite name");
+        }
         int actual = 2;
         assertEquals(actual, expectedSpriteVar);
     }
