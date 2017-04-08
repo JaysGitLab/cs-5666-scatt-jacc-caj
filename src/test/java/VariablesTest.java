@@ -19,4 +19,14 @@ public class VariablesTest {
         int actual = 23;
         assertEquals(expectedGlobVar, actual); 
     }
+    /**
+     * Test that the Sb2 can accurately count variables in sprites
+     */
+    @Test
+    public void testSpriteVariableCount(){
+        Sprites scratchariaSprites = new Sprite(Utils.getScratchariaJSONObject());
+        int expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
+        int actual = 2;
+        assertEquals(actual, expectedSpriteVar);
+    }
 }
