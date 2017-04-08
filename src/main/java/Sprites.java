@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class Sprites {
     private final static int BLOCK_TUPLE_INDEX = 2;
     private Map<String, JSONObject> spriteMap;
+    private int variables;
     /**
      * The root of the sb2 json object is a Stage object.
      * This constructs a Sprites object from a Stage JSONObject.
@@ -140,5 +141,26 @@ public class Sprites {
             lengths[i] = scripts[i].length();
         }
         return lengths;
+    }
+    
+    public int getSpriteVariableCount(String sprite) {
+        if (spriteMap.containsKey(sprite) {
+           countSpriteVariables(spriteMap.get(sprite));
+           return variables;
+        }
+        else {
+            throw new IOException("You should not be searching for sprites"
+                + " that don't exist.");
+        }
+        return 0;
+    }
+
+    private void countSpriteVariables(JSONObject sprite) {
+        JSONArray spriteVars = sprite.optJSONArray("variables");
+        if (spriteVars == null) {
+            variables = 0;
+        } else {
+            variables = spriteVars.length();
+        }
     }
 }

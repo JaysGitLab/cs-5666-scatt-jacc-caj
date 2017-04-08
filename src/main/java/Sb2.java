@@ -59,7 +59,7 @@ public class Sb2 {
 
     /**
      * Return underlying JSONObject.
-     * @return The underlying JSONObject.
+     * s@return The underlying JSONObject.
      */
     public JSONObject getJSONObject() {
         return stage;
