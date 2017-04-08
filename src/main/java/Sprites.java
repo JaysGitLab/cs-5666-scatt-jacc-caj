@@ -144,7 +144,7 @@ public class Sprites {
     }
     
     public int getSpriteVariableCount(String sprite) {
-        if (spriteMap.containsKey(sprite) {
+        if (spriteMap.containsKey(sprite)) {
            countSpriteVariables(spriteMap.get(sprite));
            return variables;
         }
