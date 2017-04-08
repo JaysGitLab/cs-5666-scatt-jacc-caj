@@ -148,16 +148,16 @@ public class Sprites {
      * associated with a particular sprite.
      * @param sprite the name of the sprite whose info you desire
      * @return the number of variables associated with a sprite 
-     * @throws an IOException if the sprite sought does not exist 
+     * @throws IOException if the sprite sought does not exist 
      */ 
     public int getSpriteVariableCount(String sprite) throws IOException {
-       if (spriteMap.containsKey(sprite)) {
-           countSpriteVariables(spriteMap.get(sprite));
-           return variables;
-       } else {
-           throw new IOException("You should not be searching for sprites"
-               + " that don't exist.");
-       }
+        if (spriteMap.containsKey(sprite)) {
+            countSpriteVariables(spriteMap.get(sprite));
+            return variables;
+        } else {
+            throw new IOException("You should not be searching for sprites"
+                + " that don't exist.");
+        }
     }
     /**
      * Private method that attempts to find the number variables 
