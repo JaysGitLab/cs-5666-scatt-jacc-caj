@@ -2,7 +2,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.io.IOException;
 /**
  * @version 1.0
  * @author B. Clint Hall
@@ -143,7 +143,7 @@ public class Sprites {
         return lengths;
     }
     
-    public int getSpriteVariableCount(String sprite) {
+    public int getSpriteVariableCount(String sprite) throws IOException {
         if (spriteMap.containsKey(sprite)) {
            countSpriteVariables(spriteMap.get(sprite));
            return variables;
