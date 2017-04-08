@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import java.io.IOException;
 
 /**
  * This test class is meant to test that our Sb2 program can correctly count
@@ -25,8 +26,9 @@ public class VariablesTest {
     @Test
     public void testSpriteVariableCount() throws IOException {
         Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
+        int expectedSpriteVar;
         try {
-        int expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
+        expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
         } catch (IOException e) {
             throw new IOException("Wrong sprite name");
         }
