@@ -27,7 +27,7 @@ public class VariablesTest {
         Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
         try {
         int expectedSpriteVar = scratchariaSprites.getSpriteVariableCount("Sun2");
-        } catch (IOException) {
+        } catch (IOException e) {
             throw new IOException("Wrong sprite name");
         }
         int actual = 2;
