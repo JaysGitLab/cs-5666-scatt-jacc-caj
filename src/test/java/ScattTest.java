@@ -97,6 +97,7 @@ public class ScattTest {
      * @param testDirName The name of the directory in src/test/resources/ from which
      *    to generate a report.
      */
+    @Test
     private void testEndToEnd(String testDirName) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
         Scatt scatt = new Scatt(new FileChooser() {
