@@ -11,8 +11,9 @@ import java.io.FileNotFoundException;
  * @author Clint Hall
  */
 public class Reporter {
-    private static final String TAB = "    ";
     public static final String REPORT_SUFFIX = "_Report.txt";
+    private static final String TAB = "    ";
+    
     /**
      * Write report to a writer.
      * @param writer The writer.
