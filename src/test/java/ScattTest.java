@@ -120,8 +120,8 @@ public class ScattTest {
             String expectedFilePath = Utils.getTestResourcePath(testDir.getName() + "_Report.txt");
             expected = Utils.getFileContents(expectedFilePath);
         } catch (IOException e) {
-            fail("You need to put a file called " + testDir.getName() + "_Report.txt containing the "
-                 + "expected report contents in the test resources directory");
+            fail("You need to put a file called " + testDir.getName() + "_Report.txt containing" 
+                 + " the expected report contents in the test resources directory");
         }
         assertEquals(expected, actual);
     }
