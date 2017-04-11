@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 
+
 /**
  * @version 1.0
  * @author Clint Hall
@@ -75,10 +76,16 @@ public class ScattTest {
     /**
      * Test behavior when file path is null.
      */
-   /* @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testBehaviorWhenFilePathIsNull(){
-
-    }*/
+        Scatt scatt = new Scatt(new FileChooser() {
+            @Override
+            public File getDirectoryFromUser() {
+                return null;
+            }
+        });
+        scatt.generateReport();
+    }
 
     /**
      * Test behavior in best case. File path to directory full of Sb2s.
