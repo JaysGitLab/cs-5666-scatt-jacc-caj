@@ -123,6 +123,28 @@ public class ScattTest {
             fail("You need to put a file called " + testDir.getName() + "_Report.txt containing" 
                  + " the expected report contents in the test resources directory");
         }
+        if (!actual.equals(expected)) {
+            boolean divergenceFound = false;
+            int i = 0;
+            while (!divergenceFound && i < 1000000) {
+                if (expected.charAt(i) != actual.charAt(i)) {
+                    divergenceFound = true;
+                }
+            }
+            for (int j = 0; j < 5; j++) {
+                System.out.print("actual:   ");
+                for (int k = 0; k < 60; k++) {
+                    System.out.print(actual.charAt(i + j * 60 + k));
+                }
+                System.out.println();
+                System.out.print("expected: ");
+                for (int k = 0; k < 60; k++) {
+                    System.out.print(actual.charAt(i + j * 60 + k));
+                }
+                System.out.println();
+                System.out.println();
+            }
+        }
         assertEquals(expected, actual);
     }
 }
