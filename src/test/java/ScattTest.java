@@ -132,18 +132,28 @@ public class ScattTest {
                 }
                 i++;
             }
+            i-=10;
+            int ia = i;
+            int ie = i;
             for (int j = 0; j < 5; j++) {
-                System.out.print("actual:   ");
-                for (int k = 0; k < 60; k++) {
-                    System.out.print(actual.charAt(i + j * 60 + k));
+                System.out.print("\n\nactual:   ");
+                char actualChar = actual.charAt(ia);
+                while (actualChar != '\n'){
+                    System.out.print(actualChar);
+                    ia++;
+                    actualChar = actual.charAt(ia);
                 }
-                System.out.println();
-                System.out.print("expected: ");
-                for (int k = 0; k < 60; k++) {
-                    System.out.print(actual.charAt(i + j * 60 + k));
+                System.out.print("\nexpected: ");
+                char expectedChar = expected.charAt(ie);
+                while (expectedChar != '\n'){
+                    System.out.print(expectedChar);
+                    ie++;
+                    expectedChar = expected.charAt(ie);
                 }
-                System.out.println();
-                System.out.println();
+                ia++;
+                actualChar = actual.charAt(ia);
+                ie++;
+                expectedChar = expected.charAt(ie);
             }
         }
         assertEquals(expected, actual);
