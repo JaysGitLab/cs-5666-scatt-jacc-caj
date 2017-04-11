@@ -22,7 +22,7 @@ public class Extractor {
         ZipFile zipFile = new ZipFile(sb2Path);
         ZipEntry entry = zipFile.getEntry("project.json");
         if(entry == null){
-            System.err.println(sb2Path);
+            return null;
         }
         try (BufferedReader input = new BufferedReader(
             new InputStreamReader(
