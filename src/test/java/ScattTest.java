@@ -96,6 +96,14 @@ public class ScattTest {
     }
 
     /**
+     * Test behavior when a .sb2 does not contain a project.json.
+     */
+    @Test
+    public void testBehaviorWithMissingJson(){
+        testEndToEnd("MissingJson");
+    }
+
+    /**
      * A method to make end to end tests easy.  Make a directory containing
      * the test material in the src/test/resources.  Say you name it TestCaseDir.
      * Then put a file called TestCaseDir.txt containing the expected report text
