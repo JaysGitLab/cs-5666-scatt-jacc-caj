@@ -2,6 +2,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 
 /**
  * @version 1.0
@@ -76,7 +77,9 @@ public class Sprites {
      */
     public String[] getSpriteNames() {
         String[] spriteNames = new String[spriteMap.size()];
-        return spriteMap.keySet().toArray(spriteNames);
+        spriteNames = spriteMap.keySet().toArray(spriteNames);
+        Arrays.sort(spriteNames);
+        return spriteNames;
     }
 
 

@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * @version 1.0
  * @author Clint Hall
@@ -11,7 +14,7 @@ import java.util.List;
  */
 public class Scatt {
     File sb2Dir;
-
+    
     /**
      * Constructor for production use.  Uses a GuiFileChooser for
      * user to select path.
@@ -46,13 +49,28 @@ public class Scatt {
                 return name.matches(".*\\.sb2");
             }
         });
+        Arrays.sort(sb2Files, new FileComparator());
         List<Sb2> sb2s = new ArrayList<>();
         for (int i = 0; i < sb2Files.length; i++) {
             String sb2path = sb2Files[i].getAbsolutePath();
             sb2s.add(new Sb2(sb2path));
         }
-        String reportPath = new File(sb2Dir, "scattReport.txt").getAbsolutePath();
+        String reportPath = new File(sb2Dir, sb2Dir.getName() 
+            + Reporter.REPORT_SUFFIX).getAbsolutePath();
         Reporter reporter = new Reporter();
         reporter.writeReport(reportPath, sb2s);
+    }
+    /**
+     * We need an OS neutral way to sort files for testing purposes.
+     **/
+    class FileComparator implements Comparator<File> {
+        @Override
+        public int compare(File f1, File f2) {
+            return f1.getName().compareToIgnoreCase(f2.getName());
+        }
+        @Override
+        public boolean equals(Object other) {
+            return this == other;
+        }
     }
 }
