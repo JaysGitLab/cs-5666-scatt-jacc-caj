@@ -126,7 +126,7 @@ public class ScattTest {
         if (!actual.equals(expected)) {
             boolean divergenceFound = false;
             int i = 0;
-            while (!divergenceFound && i < 1000000) {
+            while (!divergenceFound && i < expected.length()) {
                 if (expected.charAt(i) != actual.charAt(i)) {
                     divergenceFound = true;
                 }
