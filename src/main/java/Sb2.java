@@ -11,12 +11,12 @@ import java.io.IOException;
  * @author B. Clint Hall
  */
 public class Sb2 {
+    private static final String NO_JSON = "This project contains no "
+        + "data.\nThe .sb2 archive contains no project.json file.";
     private JSONObject stage;
     private Sprites sprites;
     private String name;
     private String errorMessage = null;
-    private static final String NO_JSON = "This project contains no "
-        + "data.\nThe .sb2 archive contains no project.json file.";
     //private static final String CORRUPT_JSON = "This projects data "
     //    + "is corrupt.  The project.json file in the .sb2 archive "
     //    + "is not parcable json text."
@@ -147,10 +147,10 @@ public class Sb2 {
     /**
      * If an error has occurred, return the error message to be printed in
      * the report.  Otherwise, return null.
-     * @returns Error message if any, otherwise null.
+     * @return Error message if any, otherwise null.
      */
-     public String getErrorMessage() {
-         return errorMessage;
-     }
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }
 

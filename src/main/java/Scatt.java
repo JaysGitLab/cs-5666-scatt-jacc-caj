@@ -43,7 +43,7 @@ public class Scatt {
      * Generate report for Sb2's in targetDirectory.
      */
     public void generateReport() {
-        if(sb2Dir == null){
+        if (sb2Dir == null) {
             throw new IllegalArgumentException("User clicked cancel or for "
                 + "some other reason file chosen is null.");
         }

@@ -21,7 +21,7 @@ public class Extractor {
         // http://www.oracle.com/technetwork/articles/java/compress-1565076.html
         ZipFile zipFile = new ZipFile(sb2Path);
         ZipEntry entry = zipFile.getEntry("project.json");
-        if(entry == null){
+        if (entry == null) {
             return null;
         }
         try (BufferedReader input = new BufferedReader(

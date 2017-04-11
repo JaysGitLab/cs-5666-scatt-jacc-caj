@@ -77,7 +77,7 @@ public class ScattTest {
      * Test behavior when file path is null.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testBehaviorWhenFilePathIsNull(){
+    public void testBehaviorWhenFilePathIsNull() {
         Scatt scatt = new Scatt(new FileChooser() {
             @Override
             public File getDirectoryFromUser() {
@@ -99,7 +99,7 @@ public class ScattTest {
      * Test behavior when a .sb2 does not contain a project.json.
      */
     @Test
-    public void testBehaviorWithMissingJson(){
+    public void testBehaviorWithMissingJson() {
         testEndToEnd("MissingJson");
     }
 
