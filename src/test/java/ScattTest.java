@@ -77,7 +77,7 @@ public class ScattTest {
      */
    /* @Test
     public void testBehaviorWhenFilePathIsNull(){
-        
+
     }*/
 
     /**
@@ -120,41 +120,11 @@ public class ScattTest {
             String expectedFilePath = Utils.getTestResourcePath(testDir.getName() + "_Report.txt");
             expected = Utils.getFileContents(expectedFilePath);
         } catch (IOException e) {
-            fail("You need to put a file called " + testDir.getName() + "_Report.txt containing" 
+            fail("You need to put a file called " + testDir.getName() + "_Report.txt containing"
                  + " the expected report contents in the test resources directory");
         }
         if (!actual.equals(expected)) {
-            boolean divergenceFound = false;
-            int i = 0;
-            while (!divergenceFound && i < expected.length()) {
-                if (expected.charAt(i) != actual.charAt(i)) {
-                    divergenceFound = true;
-                }
-                i++;
-            }
-            i -= 10;
-            int ia = i;
-            int ie = i;
-            for (int j = 0; j < 5; j++) {
-                System.out.print("\n\nactual:   ");
-                char actualChar = actual.charAt(ia);
-                while (actualChar != '\n') {
-                    System.out.print(actualChar);
-                    ia++;
-                    actualChar = actual.charAt(ia);
-                }
-                System.out.print("\nexpected: ");
-                char expectedChar = expected.charAt(ie);
-                while (expectedChar != '\n') {
-                    System.out.print(expectedChar);
-                    ie++;
-                    expectedChar = expected.charAt(ie);
-                }
-                ia++;
-                actualChar = actual.charAt(ia);
-                ie++;
-                expectedChar = expected.charAt(ie);
-            }
+            Utils.diffStrings(actual, expected);
         }
         assertEquals(expected, actual);
     }
