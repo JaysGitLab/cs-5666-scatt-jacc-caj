@@ -130,6 +130,7 @@ public class ScattTest {
                 if (expected.charAt(i) != actual.charAt(i)) {
                     divergenceFound = true;
                 }
+                i++;
             }
             for (int j = 0; j < 5; j++) {
                 System.out.print("actual:   ");
