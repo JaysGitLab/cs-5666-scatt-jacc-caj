@@ -1,5 +1,6 @@
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFrame;
 
 /**
@@ -21,6 +22,7 @@ public class GuiFileChooser implements FileChooser {
         JFrame jFrame = new JFrame("FileChooserDemo");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter("SB2 Files", "sb2"));
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int returnVal = fc.showOpenDialog(jFrame);
         File file = null;
