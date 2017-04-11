@@ -132,20 +132,20 @@ public class ScattTest {
                 }
                 i++;
             }
-            i-=10;
+            i -= 10;
             int ia = i;
             int ie = i;
             for (int j = 0; j < 5; j++) {
                 System.out.print("\n\nactual:   ");
                 char actualChar = actual.charAt(ia);
-                while (actualChar != '\n'){
+                while (actualChar != '\n') {
                     System.out.print(actualChar);
                     ia++;
                     actualChar = actual.charAt(ia);
                 }
                 System.out.print("\nexpected: ");
                 char expectedChar = expected.charAt(ie);
-                while (expectedChar != '\n'){
+                while (expectedChar != '\n') {
                     System.out.print(expectedChar);
                     ie++;
                     expectedChar = expected.charAt(ie);
