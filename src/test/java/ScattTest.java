@@ -102,7 +102,12 @@ public class ScattTest {
     public void testBehaviorWithMissingJson() {
         testEndToEnd("MissingJson");
     }
-
+    /**
+     * Test behavior when a .sb2 contains an unparceable project.json.
+     */
+    @Test public void testBehaviorWithCorruptJson() {
+        testEndToEnd("CorruptJson");
+    }
     /**
      * A method to make end to end tests easy.  Make a directory containing
      * the test material in the src/test/resources.  Say you name it TestCaseDir.
