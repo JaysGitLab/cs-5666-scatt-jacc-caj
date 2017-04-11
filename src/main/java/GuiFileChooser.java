@@ -31,7 +31,7 @@ public class GuiFileChooser implements FileChooser {
         }
         jFrame.setVisible(false);
         jFrame.dispose();
-        if (file.isFile()) {
+        if (file != null && file.isFile()) {
 	    file = file.getParentFile();
         }
         return file;
