@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Arrays;
 import java.io.Writer;
 import java.io.FileNotFoundException;
 
@@ -59,7 +58,6 @@ public class Reporter {
         pw.write("\n\n");
         pw.write("Project " + projectNo + ": " + sb2.getName() + "\n");
         String[] spriteNames = sb2.getSpriteNames();
-        Arrays.sort(spriteNames);
         pw.write(spriteNames.length + " sprites\n");
         for (int i = 0; i < spriteNames.length; i++) {
             reportSprite(i + 1, spriteNames[i], pw, sb2);
