@@ -29,27 +29,22 @@ public class Sb2 {
      */
     public Sb2(String filePath) {
         name = new File(filePath).getName();
+        String jsonString = "";
         try {
-            String jsonString = Extractor.getProjectJSON(filePath);
-            JSONObject jsonObject;
-            if (jsonString == null) {
-                jsonObject = new JSONObject();
-                errorMessage = NO_JSON;
-            } else {
-                try {
-                    jsonObject = createJSONObject(jsonString);
-                } catch (org.json.JSONException e) {
-                    jsonObject = new JSONObject();
-                    errorMessage = CORRUPT_JSON;
-                }
-            }
-            if (errorMessage == null) {
-                configureWithJson(jsonObject);
-            }
+            jsonString = Extractor.getProjectJSON(filePath);
         } catch (IOException e) {
             errorMessage = IO_PROBLEM;
-            stage = null;
-            sprites = null;
+            return;
+        }
+        if (jsonString == null) {
+            errorMessage = NO_JSON;
+            return;
+        } 
+        try {
+            JSONObject jsonObject = createJSONObject(jsonString);
+            configureWithJson(jsonObject);
+        } catch (org.json.JSONException e) {
+            errorMessage = CORRUPT_JSON;
         }
     }
     /**
