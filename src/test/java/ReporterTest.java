@@ -25,9 +25,29 @@ public class ReporterTest {
 
         StringWriter sw = new StringWriter();
         Reporter reporter = new Reporter();
-        new Reporter().writeReport(sw, sb2List);
+        reporter.writeReport(sw, sb2List);
         String actualOutput = sw.toString();
         String expectedOutput = Utils.getResourceContent("WizardReport.txt");
+        if (!actualOutput.equals(expectedOutput)) {
+            Utils.diffStrings(expectedOutput, actualOutput);
+        }
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    /**
+     * Test minimal report.  Tell reporter to only print number of projects.
+     */
+    @Test
+    public void testMinimalReport(){
+        List<Sb2> sb2List = new ArrayList<Sb2>();
+        Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
+        sb2List.add(wizardSb2);
+
+        StringWriter sw = new StringWriter();
+        Reporter reporter = new Reporter(Reporter.NUM_PROJECTS);
+        reporter.writeReport(sw, sb2List);
+        String actualOutput = sw.toString();
+        String expectedOutput = "Scratch Report\n\nNumber of projects: 1\n";
         if (!actualOutput.equals(expectedOutput)) {
             Utils.diffStrings(expectedOutput, actualOutput);
         }
