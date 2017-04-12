@@ -20,7 +20,7 @@ public class Reporter {
     public static final int SCRIPT_HEADERS      = 0b10_0000;
     public static final int SCRIPT_LENGTHS      = 0b100_0000;
     private static final String TAB = "    ";
-    private static int whatToReport;
+    private int whatToReport;
     /**
      * Constructor to configure what gets reported and what doesn't.
      * @param bitVector an int representing a bit vector indicating which
