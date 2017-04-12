@@ -13,22 +13,27 @@ import java.util.Comparator;
  * @author Erik Cole
  */
 public class Scatt {
-    File sb2Dir;
-    
+    private final File sb2Dir;
+    private int reporterFlags;
+
     /**
      * Constructor for production use.  Uses a GuiFileChooser for
      * user to select path.
      */
     public Scatt() {
-        this(new GuiFileChooser());
+        this(new GuiFileChooser(), Reporter.REPORT_ALL);
     }
     /**
      * Constructor for test methods.  Allows us to use a dummy FileChooser that
      * doesn't actually use a GUI.
      * @param fileChooser An implementation of FileChooser
+     * @param reporterFlags An int representing a bit vector
+     *    of flags to pass to the reporter, letting it know what
+     *    you want it to print.  See the public constants in the Reporter class.
      */
-    public Scatt(FileChooser fileChooser) {
+    public Scatt(FileChooser fileChooser, int reporterFlags) {
         sb2Dir = fileChooser.getDirectoryFromUser();
+        this.reporterFlags = reporterFlags;
     }
     /**
      * Just a dummy main method for now.
@@ -57,7 +62,7 @@ public class Scatt {
         }
         String reportPath = new File(sb2Dir, sb2Dir.getName() 
             + Reporter.REPORT_SUFFIX).getAbsolutePath();
-        Reporter reporter = new Reporter();
+        Reporter reporter = new Reporter(reporterFlags);
         reporter.writeReport(reportPath, sb2s);
     }
     /**

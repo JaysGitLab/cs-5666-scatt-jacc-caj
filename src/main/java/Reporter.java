@@ -16,9 +16,9 @@ public class Reporter {
     public static final int PROJECT_HEADERS     = 0b10;
     public static final int SPRITES_PER_PROJECT = 0b100;
     public static final int SPRITE_HEADERS      = 0b1000;
-    public static final int SCRIPTS_PER_SPRITE  = 0b10000;
-    public static final int SCRIPT_HEADERS      = 0b100000;
-    public static final int SCRIPT_LENGTHS      = 0b1000000;
+    public static final int SCRIPTS_PER_SPRITE  = 0b1_0000;
+    public static final int SCRIPT_HEADERS      = 0b10_0000;
+    public static final int SCRIPT_LENGTHS      = 0b100_0000;
     private static final String TAB = "    ";
     private static int whatToReport;
     /**

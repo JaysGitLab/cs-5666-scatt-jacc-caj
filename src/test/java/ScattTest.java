@@ -85,7 +85,7 @@ public class ScattTest {
      */
     @Test
     public void testFilePathGoodCase() {
-        testEndToEnd("GoodSb2Dir");
+        testEndToEnd("GoodSb2Dir", 0b111_1111);
     }
 
     /**
@@ -96,15 +96,18 @@ public class ScattTest {
      * will make sure that the actual output matches the expected output.
      * @param testDirName The name of the directory in src/test/resources/ from which
      *    to generate a report.
+     * @param reporterFlags An int representing a bit vector
+     *    of flags to pass to the reporter, letting it know what
+     *    you want it to print.  See the public constants in the Reporter class.
      */
-    private void testEndToEnd(String testDirName) {
+    private void testEndToEnd(String testDirName, int reporterFlags) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
         Scatt scatt = new Scatt(new FileChooser() {
             @Override
             public File getDirectoryFromUser() {
                 return testDir;
             }
-        });
+        }, reporterFlags);
         File reportFile = new File(testDir, testDir.getName() + Reporter.REPORT_SUFFIX);
         reportFile.delete();
 
