@@ -1,0 +1,258 @@
+Scratch Report
+
+Number of projects: 3
+
+
+Project 1: Calamity Jane (Horse) Polyart.sb2
+2 sprites
+
+    Sprite 1: Calamity Jane
+    1 scripts
+        Script 1
+            length = 2
+
+    Sprite 2: Sprite2
+    2 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 10
+
+
+Project 2: My Mascot! (Gobia!) -D.sb2
+This project contains no data.
+The .sb2 archive contains no project.json file.
+
+
+Project 3: Roshambo Beta 0.6.sb2
+20 sprites
+
+    Sprite 1: Game UI
+    3 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 6
+        Script 3
+            length = 2
+
+    Sprite 2: Gameload export
+    6 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 5
+        Script 3
+            length = 8
+        Script 4
+            length = 2
+        Script 5
+            length = 2
+        Script 6
+            length = 1
+
+    Sprite 3: Home
+    4 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 7
+        Script 4
+            length = 2
+
+    Sprite 4: Operator
+    3 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+
+    Sprite 5: Sprite1
+    3 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 6
+
+    Sprite 6: Thumbnail
+    2 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 3
+
+    Sprite 7: cLanguages
+    6 scripts
+        Script 1
+            length = 8
+        Script 2
+            length = 4
+        Script 3
+            length = 2
+        Script 4
+            length = 3
+        Script 5
+            length = 2
+        Script 6
+            length = 2
+
+    Sprite 8: gDeath
+    2 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 7
+
+    Sprite 9: gEnemy
+    4 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+        Script 4
+            length = 8
+
+    Sprite 10: iBack
+    4 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 7
+        Script 4
+            length = 2
+
+    Sprite 11: mButtons
+    8 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+        Script 4
+            length = 2
+        Script 5
+            length = 9
+        Script 6
+            length = 10
+        Script 7
+            length = 2
+        Script 8
+            length = 2
+
+    Sprite 12: mDeco
+    3 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 2
+        Script 3
+            length = 9
+
+    Sprite 13: mTitle
+    3 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+
+    Sprite 14: op
+    2 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 2
+
+    Sprite 15: sLanguage
+    5 scripts
+        Script 1
+            length = 7
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+        Script 4
+            length = 1
+        Script 5
+            length = 2
+
+    Sprite 16: sSave
+    4 scripts
+        Script 1
+            length = 2
+        Script 2
+            length = 2
+        Script 3
+            length = 8
+        Script 4
+            length = 2
+
+    Sprite 17: sVolume
+    4 scripts
+        Script 1
+            length = 4
+        Script 2
+            length = 6
+        Script 3
+            length = 2
+        Script 4
+            length = 8
+
+    Sprite 18: score
+    6 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 2
+        Script 3
+            length = 2
+        Script 4
+            length = 1
+        Script 5
+            length = 4
+        Script 6
+            length = 4
+
+    Sprite 19: 로샴보
+    8 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 3
+        Script 3
+            length = 3
+        Script 4
+            length = 3
+        Script 5
+            length = 3
+        Script 6
+            length = 5
+        Script 7
+            length = 4
+        Script 8
+            length = 2
+
+    Sprite 20: 파티클
+    5 scripts
+        Script 1
+            length = 3
+        Script 2
+            length = 3
+        Script 3
+            length = 5
+        Script 4
+            length = 3
+        Script 5
+            length = 2

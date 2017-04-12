@@ -11,9 +11,17 @@ import java.io.IOException;
  * @author B. Clint Hall
  */
 public class Sb2 {
+    private static final String NO_JSON = "This project contains no "
+        + "data.\nThe .sb2 archive contains no project.json file.";
+    private static final String CORRUPT_JSON = "This project's data "
+        + "is corrupt.\nThe project.json file in the .sb2 archive "
+        + "is not parcable json text.";
+    private static final String IO_PROBLEM = "We failed to read this "
+        + "project from disk.\nPlease try again.";
     private JSONObject stage;
     private Sprites sprites;
     private String name;
+    private String errorMessage = null;
 
     /**
      * Construct an Sb2 object from a filePath.
@@ -21,13 +29,22 @@ public class Sb2 {
      */
     public Sb2(String filePath) {
         name = new File(filePath).getName();
+        String jsonString = "";
         try {
-            String jsonString = Extractor.getProjectJSON(filePath);
+            jsonString = Extractor.getProjectJSON(filePath);
+        } catch (IOException e) {
+            errorMessage = IO_PROBLEM;
+            return;
+        }
+        if (jsonString == null) {
+            errorMessage = NO_JSON;
+            return;
+        } 
+        try {
             JSONObject jsonObject = createJSONObject(jsonString);
             configureWithJson(jsonObject);
-        } catch (IOException e) {
-            stage = null;
-            sprites = null;
+        } catch (org.json.JSONException e) {
+            errorMessage = CORRUPT_JSON;
         }
     }
     /**
@@ -130,6 +147,15 @@ public class Sb2 {
      */
     public int[] getScriptLengthsForSprite(String spriteName) {
         return sprites.getScriptLengthsForSprite(spriteName);
+    }
+
+    /**
+     * If an error has occurred, return the error message to be printed in
+     * the report.  Otherwise, return null.
+     * @return Error message if any, otherwise null.
+     */
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }
 

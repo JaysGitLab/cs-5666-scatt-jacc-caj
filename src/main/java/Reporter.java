@@ -57,10 +57,15 @@ public class Reporter {
     private void reportProject(int projectNo, PrintWriter pw, Sb2 sb2) {
         pw.write("\n\n");
         pw.write("Project " + projectNo + ": " + sb2.getName() + "\n");
-        String[] spriteNames = sb2.getSpriteNames();
-        pw.write(spriteNames.length + " sprites\n");
-        for (int i = 0; i < spriteNames.length; i++) {
-            reportSprite(i + 1, spriteNames[i], pw, sb2);
+        String errorMessage = sb2.getErrorMessage();
+        if (errorMessage != null) {
+            pw.write(errorMessage + "\n");
+        } else {
+            String[] spriteNames = sb2.getSpriteNames();
+            pw.write(spriteNames.length + " sprites\n");
+            for (int i = 0; i < spriteNames.length; i++) {
+                reportSprite(i + 1, spriteNames[i], pw, sb2);
+            }
         }
     }
     /**

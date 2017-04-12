@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 
+
 /**
  * @version 1.0
  * @author Clint Hall
@@ -75,10 +76,16 @@ public class ScattTest {
     /**
      * Test behavior when file path is null.
      */
-   /* @Test
-    public void testBehaviorWhenFilePathIsNull(){
-
-    }*/
+    @Test(expected = IllegalArgumentException.class)
+    public void testBehaviorWhenFilePathIsNull() {
+        Scatt scatt = new Scatt(new FileChooser() {
+            @Override
+            public File getDirectoryFromUser() {
+                return null;
+            }
+        });
+        scatt.generateReport();
+    }
 
     /**
      * Test behavior in best case. File path to directory full of Sb2s.
@@ -88,6 +95,19 @@ public class ScattTest {
         testEndToEnd("GoodSb2Dir");
     }
 
+    /**
+     * Test behavior when a .sb2 does not contain a project.json.
+     */
+    @Test
+    public void testBehaviorWithMissingJson() {
+        testEndToEnd("MissingJson");
+    }
+    /**
+     * Test behavior when a .sb2 contains an unparceable project.json.
+     */
+    @Test public void testBehaviorWithCorruptJson() {
+        testEndToEnd("CorruptJson");
+    }
     /**
      * A method to make end to end tests easy.  Make a directory containing
      * the test material in the src/test/resources.  Say you name it TestCaseDir.
