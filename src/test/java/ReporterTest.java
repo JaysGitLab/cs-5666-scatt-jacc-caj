@@ -19,7 +19,8 @@ public class ReporterTest {
      */
     @Test
     public void testWizardReport() {
-        List<Sb2> sb2List = new ArrayList<Sb2>();
+        testReporterConfig(Reporter.REPORT_ALL, "WizardReport.txt");
+/*        List<Sb2> sb2List = new ArrayList<Sb2>();
         Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         sb2List.add(wizardSb2);
 
@@ -31,14 +32,14 @@ public class ReporterTest {
         if (!actualOutput.equals(expectedOutput)) {
             Utils.diffStrings(expectedOutput, actualOutput);
         }
-        assertEquals(expectedOutput, actualOutput);
+        assertEquals(expectedOutput, actualOutput);*/
     }
 
     /**
      * Test minimal report.  Tell reporter to only print number of projects.
      */
     @Test
-    public void testMinimalReport(){
+    public void testMinimalReport() {
         List<Sb2> sb2List = new ArrayList<Sb2>();
         Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         sb2List.add(wizardSb2);
@@ -48,6 +49,29 @@ public class ReporterTest {
         reporter.writeReport(sw, sb2List);
         String actualOutput = sw.toString();
         String expectedOutput = "Scratch Report\n\nNumber of projects: 1\n";
+        if (!actualOutput.equals(expectedOutput)) {
+            Utils.diffStrings(expectedOutput, actualOutput);
+        }
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    /**
+     * Test the reporter configuration flags.
+     * @param bitVector the bit vector specifying what to report.
+     * @param expectedOutputFileName The name of the file in
+     *          src/test/resources/ReportTestFiles in which the
+     *          expected output can be found.
+     */
+    private void testReporterConfig(int bitVector, String expectedOutputFileName) {
+        List<Sb2> sb2List = new ArrayList<Sb2>();
+        Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
+        sb2List.add(wizardSb2);
+        StringWriter sw = new StringWriter();
+        Reporter reporter = new Reporter(bitVector);
+        reporter.writeReport(sw, sb2List);
+        String actualOutput = sw.toString();
+        String expectedOutput = Utils.getResourceContent(
+            "ReportTestFiles/" + expectedOutputFileName);
         if (!actualOutput.equals(expectedOutput)) {
             Utils.diffStrings(expectedOutput, actualOutput);
         }

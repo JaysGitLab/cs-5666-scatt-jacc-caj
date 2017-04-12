@@ -11,14 +11,14 @@ import java.io.FileNotFoundException;
  */
 public class Reporter {
     public static final String REPORT_SUFFIX = "_Report.txt";
-    public static final int REPORT_ALL         = 0xFFFFFFFF;
-    public static final int NUM_PROJECTS       = 0b1;
-    public static final int PROJECT_HEADERS    = 0b10;
-    public static final int SPRITES_PER_PROJECT= 0b100;
-    public static final int SPRITE_HEADERS     = 0b1000;
-    public static final int SCRIPTS_PER_SPRITE = 0b10000;
-    public static final int SCRIPT_HEADERS     = 0b100000;
-    public static final int SCRIPT_LENGTHS     = 0b1000000;
+    public static final int REPORT_ALL          = 0xFFFFFFFF;
+    public static final int NUM_PROJECTS        = 0b1;
+    public static final int PROJECT_HEADERS     = 0b10;
+    public static final int SPRITES_PER_PROJECT = 0b100;
+    public static final int SPRITE_HEADERS      = 0b1000;
+    public static final int SCRIPTS_PER_SPRITE  = 0b10000;
+    public static final int SCRIPT_HEADERS      = 0b100000;
+    public static final int SCRIPT_LENGTHS      = 0b1000000;
     private static final String TAB = "    ";
     private static int whatToReport;
     /**
@@ -39,8 +39,9 @@ public class Reporter {
      * Determine whether a flag is set in the what to report bit vector.
      * @param flag One of the public static final int's
      *   indicating what should be reported.
+     * @return whether to report the thing indicated by the flag
      */
-    private boolean yes(int flag){
+    private boolean yes(int flag) {
         return (whatToReport & flag) != 0;
     }
     
@@ -73,7 +74,9 @@ public class Reporter {
      */
     public void writeReport(PrintWriter pw, List<Sb2> sb2List) {
         pw.write("Scratch Report\n\n");
-        if (yes(NUM_PROJECTS)) pw.write("Number of projects: " + sb2List.size() + "\n");
+        if (yes(NUM_PROJECTS)) {
+            pw.write("Number of projects: " + sb2List.size() + "\n");
+        }
         for (int i = 0; i < sb2List.size(); i++) {
             Sb2 sb2 = sb2List.get(i);
             reportProject(i + 1, pw, sb2);
@@ -86,9 +89,13 @@ public class Reporter {
      * @param sb2 The sb2.
      */
     private void reportProject(int projectNo, PrintWriter pw, Sb2 sb2) {
-        if (yes(PROJECT_HEADERS)) pw.write("\n\nProject " + projectNo + ": " + sb2.getName() + "\n");
+        if (yes(PROJECT_HEADERS)) {
+            pw.write("\n\nProject " + projectNo + ": " + sb2.getName() + "\n");
+        }
         String[] spriteNames = sb2.getSpriteNames();
-        if (yes(SPRITES_PER_PROJECT)) pw.write(spriteNames.length + " sprites\n");
+        if (yes(SPRITES_PER_PROJECT)) {
+            pw.write(spriteNames.length + " sprites\n");
+        }
         for (int i = 0; i < spriteNames.length; i++) {
             reportSprite(i + 1, spriteNames[i], pw, sb2);
         }
@@ -102,9 +109,13 @@ public class Reporter {
      */
     private void reportSprite(int spriteNo, String spriteName, PrintWriter pw, Sb2 sb2) {
         String tab = TAB;
-        if (yes(SPRITE_HEADERS)) pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
+        if (yes(SPRITE_HEADERS)) {
+            pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
+        }
         int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
-        if (yes(SCRIPTS_PER_SPRITE)) pw.write(tab + scriptLengths.length + " scripts\n");
+        if (yes(SCRIPTS_PER_SPRITE)) {
+            pw.write(tab + scriptLengths.length + " scripts\n");
+        }
         for (int i = 0; i < scriptLengths.length; i++) {
             reportScript(i + 1, scriptLengths[i], pw);
         }
@@ -117,9 +128,13 @@ public class Reporter {
      */
     private void reportScript(int scriptNo, int scriptLength, PrintWriter pw) {
         String tab = TAB + TAB;
-        if (yes(SCRIPT_HEADERS)) pw.write(tab + "Script " + scriptNo + "\n");
+        if (yes(SCRIPT_HEADERS)) {
+            pw.write(tab + "Script " + scriptNo + "\n");
+        }
         tab = tab + TAB;
-        if (yes(SCRIPT_LENGTHS)) pw.write(tab + "length = " + scriptLength + "\n");
+        if (yes(SCRIPT_LENGTHS)) {
+            pw.write(tab + "length = " + scriptLength + "\n");
+        }
     }
 
 }
