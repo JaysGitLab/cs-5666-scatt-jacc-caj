@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Sb2 {
     private static final String NO_JSON = "This project contains no "
         + "data.\nThe .sb2 archive contains no project.json file.";
-    private static final String CORRUPT_JSON = "This projects data "
+    private static final String CORRUPT_JSON = "This project's data "
         + "is corrupt.\nThe project.json file in the .sb2 archive "
         + "is not parcable json text.";
     private static final String IO_PROBLEM = "We failed to read this "

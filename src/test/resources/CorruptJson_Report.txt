@@ -20,7 +20,7 @@ Project 1: Calamity Jane (Horse) Polyart.sb2
 
 
 Project 2: My Mascot! (Gobia!) -D.sb2
-This projects data is corrupt.
+This project's data is corrupt.
 The project.json file in the .sb2 archive is not parcable json text.
 
 
