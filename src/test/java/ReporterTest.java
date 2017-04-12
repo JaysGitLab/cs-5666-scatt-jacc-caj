@@ -3,6 +3,10 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
+/*import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.io.IOException;*/
 /**
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
@@ -31,6 +35,29 @@ public class ReporterTest {
     }
 
     /**
+     * Test NUM_PROJECTS and PROJECT_HEADERS.
+     */
+    @Test
+    public void testThroughProjectHeaders() {
+        testReporterConfig(
+            Reporter.NUM_PROJECTS | Reporter.PROJECT_HEADERS,
+            "WithProjectHeaders");
+    }
+
+    /**
+     * Test odd combo.
+     */
+    @Test
+    public void testOddCombo() {
+        testReporterConfig(
+            Reporter.NUM_PROJECTS 
+            | Reporter.PROJECT_HEADERS
+            | Reporter.SPRITE_HEADERS
+            | Reporter.SCRIPT_LENGTHS,
+            "OddCombo");
+    }
+
+    /**
      * Test the reporter configuration flags.
      * @param bitVector the bit vector specifying what to report.
      * @param expectedOutputFileName The name of the file in
@@ -45,6 +72,15 @@ public class ReporterTest {
         Reporter reporter = new Reporter(bitVector);
         reporter.writeReport(sw, sb2List);
         String actualOutput = sw.toString();
+/*        
+        byte[] bytes = actualOutput.getBytes();
+        try {
+            Path path = Paths.get("Actual_" + expectedOutputFileName);
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+*/        
         String expectedOutput = Utils.getResourceContent(
             "ReportTestFiles/" + expectedOutputFileName);
         if (!actualOutput.equals(expectedOutput)) {

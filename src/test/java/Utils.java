@@ -91,6 +91,9 @@ public class Utils {
             while (actualChar != '\n') {
                 System.out.print(actualChar);
                 ia++;
+                if (ia >= actual.length()) {
+                    return;
+                }
                 actualChar = actual.charAt(ia);
             }
             System.out.print("\nexpected: ");
@@ -98,6 +101,9 @@ public class Utils {
             while (expectedChar != '\n') {
                 System.out.print(expectedChar);
                 ie++;
+                if (ie >= expected.length()) {
+                    return;
+                }
                 expectedChar = expected.charAt(ie);
             }
             ia++;
