@@ -13,13 +13,15 @@ import java.io.IOException;
 public class Sb2 {
     private static final String NO_JSON = "This project contains no "
         + "data.\nThe .sb2 archive contains no project.json file.";
+    private static final String CORRUPT_JSON = "This projects data "
+        + "is corrupt.\nThe project.json file in the .sb2 archive "
+        + "is not parcable json text.";
+    private static final String IO_PROBLEM = "We failed to read this "
+        + "project from disk.\nPlease try again.";
     private JSONObject stage;
     private Sprites sprites;
     private String name;
     private String errorMessage = null;
-    //private static final String CORRUPT_JSON = "This projects data "
-    //    + "is corrupt.  The project.json file in the .sb2 archive "
-    //    + "is not parcable json text."
 
     /**
      * Construct an Sb2 object from a filePath.
@@ -34,10 +36,18 @@ public class Sb2 {
                 jsonObject = new JSONObject();
                 errorMessage = NO_JSON;
             } else {
-                jsonObject = createJSONObject(jsonString);
+                try {
+                    jsonObject = createJSONObject(jsonString);
+                } catch (org.json.JSONException e) {
+                    jsonObject = new JSONObject();
+                    errorMessage = CORRUPT_JSON;
+                }
             }
-            configureWithJson(jsonObject);
+            if (errorMessage == null) {
+                configureWithJson(jsonObject);
+            }
         } catch (IOException e) {
+            errorMessage = IO_PROBLEM;
             stage = null;
             sprites = null;
         }
