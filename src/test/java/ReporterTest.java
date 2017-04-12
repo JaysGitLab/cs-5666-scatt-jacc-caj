@@ -1,9 +1,5 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
@@ -30,28 +26,11 @@ public class ReporterTest {
         StringWriter sw = new StringWriter();
         Reporter reporter = new Reporter();
         new Reporter().writeReport(sw, sb2List);
-        String output = sw.toString();
-
-        // Over the next few lines I write the output to a file so you can run
-        // diff on it if you want.
-        byte[] bytes = output.getBytes();
-        try {
-            Path path = Paths.get("testReportOutput.txt");
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String actualOutput = sw.toString();
         String expectedOutput = Utils.getResourceContent("WizardReport.txt");
-        //Now I split expected and actual into lines and compare each line.
-        //Each line by line comparison passes.
-        String[] expectedLines = expectedOutput.split("\n");
-        String[] actualLines = output.split("\n");
-        for (int i = 0; i < actualLines.length; i++) {
-            assertEquals("Line " + i, expectedLines[i], actualLines[i]);
+        if (!actualOutput.equals(expectedOutput)) {
+            Utils.diffStrings(expectedOutput, actualOutput);
         }
-        assertEquals(expectedOutput.length(), output.length());
-        // If the above all pass, this should pass too.  But just
-        // to be certain...
-        assertEquals(expectedOutput, output);
+        assertEquals(expectedOutput, actualOutput);
     }
 }
