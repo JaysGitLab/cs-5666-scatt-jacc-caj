@@ -48,6 +48,10 @@ public class Scatt {
      * Generate report for Sb2's in targetDirectory.
      */
     public void generateReport() {
+        if (sb2Dir == null) {
+            throw new IllegalArgumentException("User clicked cancel or for "
+                + "some other reason file chosen is null.");
+        }
         File[] sb2Files = sb2Dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -60,7 +64,7 @@ public class Scatt {
             String sb2path = sb2Files[i].getAbsolutePath();
             sb2s.add(new Sb2(sb2path));
         }
-        String reportPath = new File(sb2Dir, sb2Dir.getName() 
+        String reportPath = new File(sb2Dir, sb2Dir.getName()
             + Reporter.REPORT_SUFFIX).getAbsolutePath();
         Reporter reporter = new Reporter(reporterFlags);
         reporter.writeReport(reportPath, sb2s);

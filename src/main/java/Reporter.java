@@ -92,12 +92,17 @@ public class Reporter {
         if (shouldReport(PROJECT_HEADERS)) {
             pw.write("\n\nProject " + projectNo + ": " + sb2.getName() + "\n");
         }
-        String[] spriteNames = sb2.getSpriteNames();
-        if (shouldReport(SPRITES_PER_PROJECT)) {
-            pw.write(spriteNames.length + " sprites\n");
-        }
-        for (int i = 0; i < spriteNames.length; i++) {
-            reportSprite(i + 1, spriteNames[i], pw, sb2);
+        String errorMessage = sb2.getErrorMessage();
+        if (errorMessage != null) {
+            pw.write(errorMessage + "\n");
+        } else {
+            String[] spriteNames = sb2.getSpriteNames();
+            if (shouldReport(SPRITES_PER_PROJECT)) {
+                pw.write(spriteNames.length + " sprites\n");
+            }
+            for (int i = 0; i < spriteNames.length; i++) {
+                reportSprite(i + 1, spriteNames[i], pw, sb2);
+            }
         }
     }
     /**
