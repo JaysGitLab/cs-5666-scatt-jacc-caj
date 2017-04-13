@@ -91,6 +91,9 @@ public class Utils {
             while (actualChar != '\n') {
                 System.out.print(actualChar);
                 ia++;
+                if (ia >= actual.length()) {
+                    return;
+                }
                 actualChar = actual.charAt(ia);
             }
             System.out.print("\nexpected: ");
@@ -98,6 +101,9 @@ public class Utils {
             while (expectedChar != '\n') {
                 System.out.print(expectedChar);
                 ie++;
+                if (ie >= expected.length()) {
+                    return;
+                }
                 expectedChar = expected.charAt(ie);
             }
             ia++;
@@ -110,6 +116,21 @@ public class Utils {
                 return;
             }
             expectedChar = expected.charAt(ie);
+        }
+    }
+    /**
+     * A method to write data to a file.  Useful for manually checking
+     * the output of tests.
+     * @param pathStr Path relative to the project root.
+     * @param text Text to write to file.
+     */
+    public void writeToFile(String pathStr, String text) {
+        byte[] bytes = text.getBytes();
+        try {
+            Path path = Paths.get(pathStr);
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

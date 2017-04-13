@@ -1,9 +1,5 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
@@ -23,35 +19,62 @@ public class ReporterTest {
      */
     @Test
     public void testWizardReport() {
+        testReporterConfig(Reporter.REPORT_ALL, "WizardReport.txt");
+    }
+
+    /**
+     * Test minimal report.  Tell reporter to only print number of projects.
+     */
+    @Test
+    public void testMinimalReport() {
+        testReporterConfig(Reporter.NUM_PROJECTS, "MinimalReport");
+    }
+
+    /**
+     * Test NUM_PROJECTS and PROJECT_HEADERS.
+     */
+    @Test
+    public void testThroughProjectHeaders() {
+        testReporterConfig(
+            Reporter.NUM_PROJECTS | Reporter.PROJECT_HEADERS,
+            "WithProjectHeaders");
+    }
+
+    /**
+     * Test odd combo.
+     */
+    @Test
+    public void testOddCombo() {
+        testReporterConfig(
+            Reporter.NUM_PROJECTS 
+            | Reporter.PROJECT_HEADERS
+            | Reporter.SPRITE_HEADERS
+            | Reporter.SCRIPT_LENGTHS,
+            "OddCombo");
+    }
+
+    /**
+     * Test the reporter configuration flags.
+     * @param bitVector the bit vector specifying what to report.
+     * @param expectedOutputFileName The name of the file in
+     *          src/test/resources/ReportTestFiles in which the
+     *          expected output can be found.
+     */
+    private void testReporterConfig(int bitVector, String expectedOutputFileName) {
         List<Sb2> sb2List = new ArrayList<Sb2>();
         Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
         sb2List.add(wizardSb2);
-
         StringWriter sw = new StringWriter();
-        Reporter reporter = new Reporter();
-        new Reporter().writeReport(sw, sb2List);
-        String output = sw.toString();
-
-        // Over the next few lines I write the output to a file so you can run
-        // diff on it if you want.
-        byte[] bytes = output.getBytes();
-        try {
-            Path path = Paths.get("testReportOutput.txt");
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Reporter reporter = new Reporter(bitVector);
+        reporter.writeReport(sw, sb2List);
+        String actualOutput = sw.toString();
+        //Uncomment the following line when you want actual output printed to file.
+        //Utils.writeToFile("Actual_" + expectedOutputFileName, actualOutput);
+        String expectedOutput = Utils.getResourceContent(
+            "ReportTestFiles/" + expectedOutputFileName);
+        if (!actualOutput.equals(expectedOutput)) {
+            Utils.diffStrings(expectedOutput, actualOutput);
         }
-        String expectedOutput = Utils.getResourceContent("WizardReport.txt");
-        //Now I split expected and actual into lines and compare each line.
-        //Each line by line comparison passes.
-        String[] expectedLines = expectedOutput.split("\n");
-        String[] actualLines = output.split("\n");
-        for (int i = 0; i < actualLines.length; i++) {
-            assertEquals("Line " + i, expectedLines[i], actualLines[i]);
-        }
-        assertEquals(expectedOutput.length(), output.length());
-        // If the above all pass, this should pass too.  But just
-        // to be certain...
-        assertEquals(expectedOutput, output);
+        assertEquals(expectedOutput, actualOutput);
     }
 }
