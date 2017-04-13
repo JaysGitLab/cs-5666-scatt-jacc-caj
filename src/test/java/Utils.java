@@ -118,10 +118,16 @@ public class Utils {
             expectedChar = expected.charAt(ie);
         }
     }
-    public void writeToFile(String path, String text){
+    /**
+     * A method to write data to a file.  Useful for manually checking
+     * the output of tests.
+     * @param pathStr Path relative to the project root.
+     * @param text Text to write to file.
+     */
+    public void writeToFile(String pathStr, String text) {
         byte[] bytes = text.getBytes();
         try {
-            Path path = Paths.get(path;
+            Path path = Paths.get(pathStr);
             Files.write(path, bytes);
         } catch (IOException e) {
             e.printStackTrace();

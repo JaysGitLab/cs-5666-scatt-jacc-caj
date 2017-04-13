@@ -3,10 +3,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.io.IOException;
 /**
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
