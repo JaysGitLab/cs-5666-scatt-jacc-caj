@@ -83,7 +83,7 @@ public class ScattTest {
             public File getDirectoryFromUser() {
                 return null;
             }
-        });
+        }, 0b111_1111);
         scatt.generateReport();
     }
 
@@ -100,13 +100,13 @@ public class ScattTest {
      */
     @Test
     public void testBehaviorWithMissingJson() {
-        testEndToEnd("MissingJson");
+        testEndToEnd("MissingJson", 0b111_1111);
     }
     /**
      * Test behavior when a .sb2 contains an unparceable project.json.
      */
     @Test public void testBehaviorWithCorruptJson() {
-        testEndToEnd("CorruptJson");
+        testEndToEnd("CorruptJson", 0b111_1111);
     }
     /**
      * A method to make end to end tests easy.  Make a directory containing
