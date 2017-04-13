@@ -3,10 +3,10 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
-/*import java.nio.file.Files;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
-import java.io.IOException;*/
+import java.io.IOException;
 /**
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
@@ -72,15 +72,8 @@ public class ReporterTest {
         Reporter reporter = new Reporter(bitVector);
         reporter.writeReport(sw, sb2List);
         String actualOutput = sw.toString();
-/*        
-        byte[] bytes = actualOutput.getBytes();
-        try {
-            Path path = Paths.get("Actual_" + expectedOutputFileName);
-            Files.write(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/        
+        //Uncomment the following line when you want actual output printed to file.
+        //Utils.writeToFile("Actual_" + expectedOutputFileName, actualOutput);
         String expectedOutput = Utils.getResourceContent(
             "ReportTestFiles/" + expectedOutputFileName);
         if (!actualOutput.equals(expectedOutput)) {

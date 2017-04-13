@@ -118,4 +118,13 @@ public class Utils {
             expectedChar = expected.charAt(ie);
         }
     }
+    public void writeToFile(String path, String text){
+        byte[] bytes = text.getBytes();
+        try {
+            Path path = Paths.get(path;
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -12,13 +12,13 @@ import java.io.FileNotFoundException;
 public class Reporter {
     public static final String REPORT_SUFFIX = "_Report.txt";
     public static final int REPORT_ALL          = 0xFFFFFFFF;
-    public static final int NUM_PROJECTS        = 0b1;
-    public static final int PROJECT_HEADERS     = 0b10;
-    public static final int SPRITES_PER_PROJECT = 0b100;
+    public static final int NUM_PROJECTS        = 0b0001;
+    public static final int PROJECT_HEADERS     = 0b0010;
+    public static final int SPRITES_PER_PROJECT = 0b0100;
     public static final int SPRITE_HEADERS      = 0b1000;
-    public static final int SCRIPTS_PER_SPRITE  = 0b1_0000;
-    public static final int SCRIPT_HEADERS      = 0b10_0000;
-    public static final int SCRIPT_LENGTHS      = 0b100_0000;
+    public static final int SCRIPTS_PER_SPRITE  = 0b0001_0000;
+    public static final int SCRIPT_HEADERS      = 0b0010_0000;
+    public static final int SCRIPT_LENGTHS      = 0b0100_0000;
     private static final String TAB = "    ";
     private int whatToReport;
     /**
@@ -41,7 +41,7 @@ public class Reporter {
      *   indicating what should be reported.
      * @return whether to report the thing indicated by the flag
      */
-    private boolean yes(int flag) {
+    private boolean shouldReport(int flag) {
         return (whatToReport & flag) != 0;
     }
     
@@ -74,7 +74,7 @@ public class Reporter {
      */
     public void writeReport(PrintWriter pw, List<Sb2> sb2List) {
         pw.write("Scratch Report\n\n");
-        if (yes(NUM_PROJECTS)) {
+        if (shouldReport(NUM_PROJECTS)) {
             pw.write("Number of projects: " + sb2List.size() + "\n");
         }
         for (int i = 0; i < sb2List.size(); i++) {
@@ -89,11 +89,11 @@ public class Reporter {
      * @param sb2 The sb2.
      */
     private void reportProject(int projectNo, PrintWriter pw, Sb2 sb2) {
-        if (yes(PROJECT_HEADERS)) {
+        if (shouldReport(PROJECT_HEADERS)) {
             pw.write("\n\nProject " + projectNo + ": " + sb2.getName() + "\n");
         }
         String[] spriteNames = sb2.getSpriteNames();
-        if (yes(SPRITES_PER_PROJECT)) {
+        if (shouldReport(SPRITES_PER_PROJECT)) {
             pw.write(spriteNames.length + " sprites\n");
         }
         for (int i = 0; i < spriteNames.length; i++) {
@@ -109,11 +109,11 @@ public class Reporter {
      */
     private void reportSprite(int spriteNo, String spriteName, PrintWriter pw, Sb2 sb2) {
         String tab = TAB;
-        if (yes(SPRITE_HEADERS)) {
+        if (shouldReport(SPRITE_HEADERS)) {
             pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
         }
         int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
-        if (yes(SCRIPTS_PER_SPRITE)) {
+        if (shouldReport(SCRIPTS_PER_SPRITE)) {
             pw.write(tab + scriptLengths.length + " scripts\n");
         }
         for (int i = 0; i < scriptLengths.length; i++) {
@@ -128,11 +128,11 @@ public class Reporter {
      */
     private void reportScript(int scriptNo, int scriptLength, PrintWriter pw) {
         String tab = TAB + TAB;
-        if (yes(SCRIPT_HEADERS)) {
+        if (shouldReport(SCRIPT_HEADERS)) {
             pw.write(tab + "Script " + scriptNo + "\n");
         }
         tab = tab + TAB;
-        if (yes(SCRIPT_LENGTHS)) {
+        if (shouldReport(SCRIPT_LENGTHS)) {
             pw.write(tab + "length = " + scriptLength + "\n");
         }
     }
