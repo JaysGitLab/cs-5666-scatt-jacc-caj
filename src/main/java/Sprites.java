@@ -158,7 +158,7 @@ public class Sprites {
         if (spriteMap.containsKey(sprite)) {
             JSONObject spriteObj = spriteMap.get(sprite);
             JSONArray spriteVars = spriteObj.optJSONArray("variables");
-            if (spriteVars == null){
+            if (spriteVars == null) {
                 return 0;
             }
             return spriteVars.length();
