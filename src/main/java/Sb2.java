@@ -161,7 +161,6 @@ public class Sb2 {
         }
         return variables.length();
     }
-}   
 
     /**
      * If an error has occurred, return the error message to be printed in

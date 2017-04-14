@@ -156,8 +156,8 @@ public class Sprites {
      */ 
     public int getSpriteVariableCount(String sprite) throws IOException {
         if (spriteMap.containsKey(sprite)) {
-            JSONObject sprite = spriteMap.get(sprite);
-            JSONArray spriteVars = sprite.optJSONArray("variables");
+            JSONObject spriteObj = spriteMap.get(sprite);
+            JSONArray spriteVars = spriteObj.optJSONArray("variables");
             if (spriteVars == null){
                 return 0;
             }
