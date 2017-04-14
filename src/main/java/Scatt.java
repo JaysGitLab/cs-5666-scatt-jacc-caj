@@ -14,6 +14,7 @@ import java.util.Comparator;
  */
 public class Scatt {
     private final File sb2Dir;
+    private final Notifier notifier;
     private int reporterFlags;
 
     /**
@@ -21,7 +22,7 @@ public class Scatt {
      * user to select path.
      */
     public Scatt() {
-        this(new GuiFileChooser(), Reporter.REPORT_ALL);
+        this(new GuiFileChooser(), new ConsoleNotifier(), Reporter.REPORT_ALL);
     }
     /**
      * Constructor for test methods.  Allows us to use a dummy FileChooser that
@@ -32,8 +33,20 @@ public class Scatt {
      *    you want it to print.  See the public constants in the Reporter class.
      */
     public Scatt(FileChooser fileChooser, int reporterFlags) {
+        this(fileChooser, new ConsoleNotifier(), reporterFlags);
+    }
+
+    /**
+     * Constructor with maximal flexibility.
+     * @param fileChooser An implementation of FileChooser
+     * @param notifier Am implementation of Notifier
+     * @param reporterFlags An int representing a bit vector of flags that
+     *	  you want to pass to the reporter.
+     */
+    public Scatt(FileChooser fileChooser, Notifier notifier, int reporterFlags) {
         sb2Dir = fileChooser.getDirectoryFromUser();
         this.reporterFlags = reporterFlags;
+        this.notifier = new ConsoleNotifier();
     }
     /**
      * Just a dummy main method for now.
@@ -68,6 +81,7 @@ public class Scatt {
             + Reporter.REPORT_SUFFIX).getAbsolutePath();
         Reporter reporter = new Reporter(reporterFlags);
         reporter.writeReport(reportPath, sb2s);
+        notifier.notify("Report generated at " + reportPath);
     }
     /**
      * We need an OS neutral way to sort files for testing purposes.
