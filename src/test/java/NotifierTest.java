@@ -8,9 +8,11 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 /**
 NotifierTest ensures that we notify the user of generated reports.
+@author Erik Cole
+@author Chris Waldon
+@version 0.1
 */
-public class NotifierTest
-{
+public class NotifierTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     /**
