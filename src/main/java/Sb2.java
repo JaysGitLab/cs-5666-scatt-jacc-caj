@@ -1,4 +1,5 @@
 import org.json.JSONObject;
+import org.json.JSONArray;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -75,7 +76,7 @@ public class Sb2 {
 
     /**
      * Return underlying JSONObject.
-     * @return The underlying JSONObject.
+     * s@return The underlying JSONObject.
      */
     public JSONObject getJSONObject() {
         return stage;
@@ -147,6 +148,17 @@ public class Sb2 {
      */
     public int[] getScriptLengthsForSprite(String spriteName) {
         return sprites.getScriptLengthsForSprite(spriteName);
+    }
+    /**
+     * Gets the number of global variables within the stage object.
+     * @return The number of global variables
+     */
+    public int getGlobalVariableCount() {
+        JSONArray variables = stage.optJSONArray("variables");
+        if (variables == null) {
+            return 0;
+        }
+        return variables.length();
     }
 
     /**

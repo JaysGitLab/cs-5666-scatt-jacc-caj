@@ -2,6 +2,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -143,5 +144,26 @@ public class Sprites {
             lengths[i] = scripts[i].length();
         }
         return lengths;
+    }
+    
+    /**
+     * Public accessor method for getting the number of variables 
+     * associated with a particular sprite.
+     * @param sprite the name of the sprite whose info you desire
+     * @return the number of variables associated with a sprite 
+     * @throws IOException if the sprite sought does not exist 
+     */ 
+    public int getSpriteVariableCount(String sprite) throws IOException {
+        if (spriteMap.containsKey(sprite)) {
+            JSONObject spriteObj = spriteMap.get(sprite);
+            JSONArray spriteVars = spriteObj.optJSONArray("variables");
+            if (spriteVars == null) {
+                return 0;
+            }
+            return spriteVars.length();
+        } else {
+            throw new IOException("You should not be searching for sprites"
+                + " that don't exist.");
+        }
     }
 }
