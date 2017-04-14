@@ -73,6 +73,7 @@ public class Utils {
      */
     static JSONObject getScratchariaJSONObject() {
         return Sb2.createJSONObject(getResourceContent("scratcharia.json"));
+    }
      
      /*
      * Given two strings, find the difference, print from 10 characters before
