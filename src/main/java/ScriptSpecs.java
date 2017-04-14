@@ -152,7 +152,7 @@ public class ScriptSpecs {
         "More Blocks",
         "Parameter",
         "List",
-        "Extension",
+        "Extension"
     };
     private static Map<String, Integer> commandsByType = null;
     /**

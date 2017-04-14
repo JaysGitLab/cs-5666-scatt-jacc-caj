@@ -166,4 +166,14 @@ public class Sprites {
                 + " that don't exist.");
         }
     }
+    /**
+     * Given a sprite name, return an array of ints representing the number of script
+     * blocks in each category of script blocks in all the sprite's scripts combined.
+     * @param spriteName The name of the Sprite
+     * @return The array of ints.  The indexes in the array correspond to the categories
+     *         of script block from ScriptSpecs.getCategories()
+     */
+    public int[] getBlocksByCategoryForSprite(String spriteName) {
+        return new int[ScriptSpecs.getCategories().length];
+    }
 }

@@ -37,5 +37,23 @@ public class BlockTypeTests {
 //        System.out.println("expected : " + expectedCategory + ", actual: " + actualCategory);
         assertEquals(expectedCategory, actualCategory);
     }
+    /**
+     * Test getBlocksByCategoryForSprite with an easy case
+     */
+    @Test
+    public void testGetBlocksByCategoryForSprite1() {
+        Sprites sprites = new Sprites(Utils.getResourceJSONObject("SimpleBlockTypes.json"));
+        String[] spriteNames = sprites.getSpriteNames();
+        String[] categories = ScriptSpecs.getCategories();
+        int[][] blocksByCategoryPerSprite = new int[spriteNames.length][];
+        for (int i = 0; i < spriteNames.length; i++) {
+            String spriteName = spriteNames[i];
+            blocksByCategoryPerSprite[i] = sprites.getBlocksByCategoryForSprite(spriteName);
+        }
+        int[][] expected = {
+            {0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        assertEquals(expected, blocksByCategoryPerSprite);
 
+    }
 }
