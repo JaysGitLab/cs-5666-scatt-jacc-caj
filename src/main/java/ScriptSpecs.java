@@ -175,7 +175,7 @@ public class ScriptSpecs {
      * Integers in the commandsByType map.
      * @return Array of category names.
      */
-    public static String[] getCategories(){
+    public static String[] getCategories() {
         return CATEGORIES;
     }
 }

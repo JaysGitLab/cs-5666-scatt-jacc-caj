@@ -32,14 +32,14 @@ public class BlockTypeTests {
         String[] categories = ScriptSpecs.getCategories();
         Integer actualCategoryInteger = commandsByType.get(opcode);
         String actualCategory = null;
-        if(actualCategoryInteger != null) {
+        if (actualCategoryInteger != null) {
             actualCategory = categories[actualCategoryInteger];
         }
 //        System.out.println("expected : " + expectedCategory + ", actual: " + actualCategory);
         assertEquals(expectedCategory, actualCategory);
     }
     /**
-     * Test getBlocksByCategoryForSprite with an easy case
+     * Test getBlocksByCategoryForSprite with an easy case.
      */
     @Test
     public void testGetBlocksByCategoryForSprite1() {
