@@ -22,7 +22,7 @@ public class Scatt {
      * user to select path.
      */
     public Scatt() {
-        this(new GuiFileChooser(), new ConsoleNotifier(), Reporter.REPORT_ALL);
+        this(new GuiFileChooser(), new GuiNotifier(), Reporter.REPORT_ALL);
     }
     /**
      * Constructor for test methods.  Allows us to use a dummy FileChooser that
