@@ -22,7 +22,6 @@ public class Sb2 {
     private JSONObject stage;
     private Sprites sprites;
     private String name;
-    private int globalVariables;
     private String errorMessage = null;
 
     /**
