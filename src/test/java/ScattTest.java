@@ -69,7 +69,7 @@ public class ScattTest {
      */
     @Test
     public void testGetJSONObject() {
-        JSONObject jsonObj = Utils.getWizardJSONObject();
+        JSONObject jsonObj = Utils.getResourceJSONObject("WizardSpells.json");
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
 

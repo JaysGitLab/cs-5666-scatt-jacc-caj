@@ -47,12 +47,12 @@ public class Utils {
         String str = Sb2.getFileContents(filePath);
         return str;
     }
-
+    
     /**
      * Get the JSONObject for the Wizard project.
      * @return the JSONObject for the Wizard project.
      */
-    static JSONObject getWizardJSONObject() {
+    static JSONObject getWizardJSONObjTect() {
         return Sb2.createJSONObject(getResourceContent("project.json"));
     }
     /**
@@ -71,8 +71,11 @@ public class Utils {
      * Get the JSONObject for the Scratcharia project.
      * @return the JSONObject for the Scratcharia project.
      */
-    static JSONObject getScratchariaJSONObject() {
+    static JSONObject getScratchariaJSONObjTect() {
         return Sb2.createJSONObject(getResourceContent("scratcharia.json"));
+    }
+    static JSONObject getResourceJSONObject(String jsonFileName) {
+        return Sb2.createJSONObject(getResourceContent("ScratchJsonFiles/" + jsonFileName));
     }
      
      /**

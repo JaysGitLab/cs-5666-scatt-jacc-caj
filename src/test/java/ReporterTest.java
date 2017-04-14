@@ -62,7 +62,7 @@ public class ReporterTest {
      */
     private void testReporterConfig(int bitVector, String expectedOutputFileName) {
         List<Sb2> sb2List = new ArrayList<Sb2>();
-        Sb2 wizardSb2 = new Sb2(Utils.getWizardJSONObject(), "WizardProject");
+        Sb2 wizardSb2 = new Sb2(Utils.getResourceJSONObject("WizardSpells.json"), "WizardProject");
         sb2List.add(wizardSb2);
         StringWriter sw = new StringWriter();
         Reporter reporter = new Reporter(bitVector);

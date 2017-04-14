@@ -15,7 +15,7 @@ public class VariablesTest {
      */
     @Test
     public void testGlobalVariablesCount() {
-        Sb2 scattariaSb2 = new Sb2(Utils.getScratchariaJSONObject());
+        Sb2 scattariaSb2 = new Sb2(Utils.getResourceJSONObject("scratcharia.json"));
         int actual = scattariaSb2.getGlobalVariableCount();
         int expected = 23;
         assertEquals(expected, actual); 
@@ -26,7 +26,7 @@ public class VariablesTest {
      */
     @Test
     public void testSpriteVariableCount() throws IOException {
-        Sprites scratchariaSprites = new Sprites(Utils.getScratchariaJSONObject());
+        Sprites scratchariaSprites = new Sprites(Utils.getResourceJSONObject("scratcharia.json"));
         int actual;
         try {
             actual = scratchariaSprites.getSpriteVariableCount("Sun2");

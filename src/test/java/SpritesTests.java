@@ -15,7 +15,7 @@ public class SpritesTests {
      */
     @Test
     public void testGetSpriteNames() {
-        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
+        Sprites sprites = new Sprites(Utils.getResourceJSONObject("WizardSpells.json"));
         String[] expected = {"Wizard Girl", "Creature", "Instructions"};
         String[] actual = sprites.getSpriteNames();
         assertTrue(Utils.sameContents(expected, sprites.getSpriteNames()));
@@ -25,7 +25,7 @@ public class SpritesTests {
      */
     @Test
     public void testGetScriptCountForSprite1() {
-        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
+        Sprites sprites = new Sprites(Utils.getResourceJSONObject("WizardSpells.json"));
         assertEquals(sprites.getScriptCountForSprite("Wizard Girl"), 3);
         assertEquals(sprites.getScriptCountForSprite("Creature"), 4);
         assertEquals(sprites.getScriptCountForSprite("Instructions"), 0);
@@ -35,7 +35,7 @@ public class SpritesTests {
      */
     @Test
     public void testGetScriptLengthsForSprite1() {
-        Sprites sprites = new Sprites(Utils.getWizardJSONObject());
+        Sprites sprites = new Sprites(Utils.getResourceJSONObject("WizardSpells.json"));
         assertTrue(Arrays.equals(
             sprites.getScriptLengthsForSprite("Wizard Girl"),
             new int[]{4, 4, 4}
