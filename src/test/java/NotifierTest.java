@@ -1,4 +1,8 @@
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -14,7 +18,7 @@ public class NotifierTest
     */
     @Before
     public void stealStdOut() {
-    Systen.setOut(outContent);
+        System.setOut(new PrintStream(outContent));
     }
 
     /**
@@ -22,7 +26,7 @@ public class NotifierTest
     */
     @After
     public void resetStdOut() {
-    		System.setOut(null);
+        System.setOut(null);
     }
 
     /**
@@ -31,8 +35,8 @@ public class NotifierTest
     */
     @Test
     public void checkForMessage() {
-        testEndToEnd("GoodSb2Dir", 0b111_1111);
-    	assertThat(outContent.toString(), containsString("Report generated at")):
+        ScattTest.testEndToEnd("GoodSb2Dir", 0b111_1111);
+    	assertThat(outContent.toString(), containsString("Report generated at"));
     }
 
     /**
