@@ -3,6 +3,8 @@ import org.json.JSONArray;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.IOException;
+import java.util.Arrays;
+
 /**
  * @version 1.0
  * @author B. Clint Hall
@@ -77,7 +79,9 @@ public class Sprites {
      */
     public String[] getSpriteNames() {
         String[] spriteNames = new String[spriteMap.size()];
-        return spriteMap.keySet().toArray(spriteNames);
+        spriteNames = spriteMap.keySet().toArray(spriteNames);
+        Arrays.sort(spriteNames);
+        return spriteNames;
     }
 
 
@@ -152,26 +156,15 @@ public class Sprites {
      */ 
     public int getSpriteVariableCount(String sprite) throws IOException {
         if (spriteMap.containsKey(sprite)) {
-            countSpriteVariables(spriteMap.get(sprite));
-            return variables;
+            JSONObject sprite = spriteMap.get(sprite);
+            JSONArray spriteVars = sprite.optJSONArray("variables");
+            if (spriteVars == null){
+                return 0;
+            }
+            return spriteVars.length();
         } else {
             throw new IOException("You should not be searching for sprites"
                 + " that don't exist.");
-        }
-    }
-    /**
-     * Private method that attempts to find the number variables 
-     * associated with a sprite and store it as a field variable 
-     * associated with the sprite.
-     * @param sprite the json representation of the sprite object
-     *      from an sb2 object
-     */
-    private void countSpriteVariables(JSONObject sprite) {
-        JSONArray spriteVars = sprite.optJSONArray("variables");
-        if (spriteVars == null) {
-            variables = 0;
-        } else {
-            variables = spriteVars.length();
         }
     }
 }

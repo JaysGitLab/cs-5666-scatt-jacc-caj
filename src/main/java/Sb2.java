@@ -12,23 +12,41 @@ import java.io.IOException;
  * @author B. Clint Hall
  */
 public class Sb2 {
+    private static final String NO_JSON = "This project contains no "
+        + "data.\nThe .sb2 archive contains no project.json file.";
+    private static final String CORRUPT_JSON = "This project's data "
+        + "is corrupt.\nThe project.json file in the .sb2 archive "
+        + "is not parcable json text.";
+    private static final String IO_PROBLEM = "We failed to read this "
+        + "project from disk.\nPlease try again.";
     private JSONObject stage;
     private Sprites sprites;
     private String name;
     private int globalVariables;
+    private String errorMessage = null;
+
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
      */
     public Sb2(String filePath) {
         name = new File(filePath).getName();
+        String jsonString = "";
         try {
-            String jsonString = Extractor.getProjectJSON(filePath);
+            jsonString = Extractor.getProjectJSON(filePath);
+        } catch (IOException e) {
+            errorMessage = IO_PROBLEM;
+            return;
+        }
+        if (jsonString == null) {
+            errorMessage = NO_JSON;
+            return;
+        } 
+        try {
             JSONObject jsonObject = createJSONObject(jsonString);
             configureWithJson(jsonObject);
-        } catch (IOException e) {
-            stage = null;
-            sprites = null;
+        } catch (org.json.JSONException e) {
+            errorMessage = CORRUPT_JSON;
         }
     }
     /**
@@ -134,22 +152,24 @@ public class Sb2 {
     }
     /**
      * Gets the number of global variables within the stage object.
-     * @return numVariables The number of global variables
+     * @return The number of global variables
      */
     public int getGlobalVariableCount() {
-        countGlobalVariables();       
-        return globalVariables;
-    }
-    /**
-     * Counts the number of global variables within the stage object. 
-     */
-    private void countGlobalVariables() {
         JSONArray variables = stage.optJSONArray("variables");
         if (variables == null) {
-            globalVariables = 0;
-        } else {
-            globalVariables = variables.length();
+            return 0;
         }
+        return variables.length();
     }
 }   
+
+    /**
+     * If an error has occurred, return the error message to be printed in
+     * the report.  Otherwise, return null.
+     * @return Error message if any, otherwise null.
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+}
 
