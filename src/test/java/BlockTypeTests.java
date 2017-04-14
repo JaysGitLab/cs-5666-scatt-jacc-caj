@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.util.Map;
+import java.util.Arrays;
 
 /**
  * @author Clint Hall
@@ -53,7 +54,8 @@ public class BlockTypeTests {
         int[][] expected = {
             {0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
+        System.out.println("expeced: " + Arrays.toString(expected[0]));
+        System.out.println("actual:  " + Arrays.toString(blocksByCategoryPerSprite[0]));
         assertEquals(expected, blocksByCategoryPerSprite);
-
     }
 }

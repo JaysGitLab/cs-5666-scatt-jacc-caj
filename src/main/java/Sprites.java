@@ -174,6 +174,21 @@ public class Sprites {
      *         of script block from ScriptSpecs.getCategories()
      */
     public int[] getBlocksByCategoryForSprite(String spriteName) {
-        return new int[ScriptSpecs.getCategories().length];
+        Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
+        JSONArray[] scripts = getScripts(spriteName);
+        int[] blocksByCategoryForSprite = new int[ScriptSpecs.getCategories().length];
+        for (int i = 0; i < scripts.length; i++) {
+            JSONArray script = scripts[i];
+            for (int j = 0; j < script.length(); j++) {
+                JSONArray blockTuple = script.optJSONArray(j);
+                String command = blockTuple.optString(0);
+                Integer commandTypeInt = commandsByType.get(command);
+                if (commandTypeInt == null) {
+                    commandTypeInt = 0;
+                }
+                blocksByCategoryForSprite[commandTypeInt]++;
+            }
+        }
+        return blocksByCategoryForSprite;
     }
 }
