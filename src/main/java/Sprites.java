@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class Sprites {
     private final static int BLOCK_TUPLE_INDEX = 2;
     private Map<String, JSONObject> spriteMap;
-    private int variables;
     /**
      * The root of the sb2 json object is a Stage object.
      * This constructs a Sprites object from a Stage JSONObject.
