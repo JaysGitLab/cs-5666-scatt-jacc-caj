@@ -46,7 +46,7 @@ public class Scatt {
     public Scatt(FileChooser fileChooser, Notifier notifier, int reporterFlags) {
         sb2Dir = fileChooser.getDirectoryFromUser();
         this.reporterFlags = reporterFlags;
-        this.notifier = new ConsoleNotifier();
+        this.notifier = notifier;
     }
     /**
      * Just a dummy main method for now.

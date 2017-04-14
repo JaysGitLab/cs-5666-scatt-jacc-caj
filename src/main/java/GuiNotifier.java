@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 /**
 GuiNotifier sends messages to the user via popups.
 @author Erik Cole
@@ -10,6 +12,7 @@ public class GuiNotifier implements Notifier {
     @param message - the message that you want to display 
     */
     public void notify(String message) {
-        System.out.println(message);
+        JOptionPane.showMessageDialog(null, message, "",
+                                      JOptionPane.INFORMATION_MESSAGE);
     }
 }
