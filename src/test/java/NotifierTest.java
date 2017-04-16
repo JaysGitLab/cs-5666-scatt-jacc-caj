@@ -14,6 +14,7 @@ NotifierTest ensures that we notify the user of generated reports.
 */
 public class NotifierTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream realStdOut = System.out;
 
     /**
     This redirects stdout into a stream that we can evaluate.
@@ -28,7 +29,7 @@ public class NotifierTest {
     */
     @After
     public void resetStdOut() {
-        System.setOut(null);
+        System.setOut(realStdOut);
     }
 
     /**
