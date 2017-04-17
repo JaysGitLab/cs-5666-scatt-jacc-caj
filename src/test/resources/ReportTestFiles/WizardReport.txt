@@ -4,9 +4,11 @@ Number of projects: 1
 
 
 Project 1: WizardProject
+0 variables
 3 sprites
 
     Sprite 1: Creature
+    0 variables
     4 scripts
         Script 1
             length = 2
@@ -18,9 +20,11 @@ Project 1: WizardProject
             length = 2
 
     Sprite 2: Instructions
+    0 variables
     0 scripts
 
     Sprite 3: Wizard Girl
+    0 variables
     3 scripts
         Script 1
             length = 4
@@ -28,4 +32,3 @@ Project 1: WizardProject
             length = 4
         Script 3
             length = 4
-
