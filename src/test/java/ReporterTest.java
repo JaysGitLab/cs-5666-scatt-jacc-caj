@@ -46,10 +46,11 @@ public class ReporterTest {
     @Test
     public void testOddCombo() {
         testReporterConfig(
-            Reporter.NUM_PROJECTS 
+            Reporter.NUM_PROJECTS
             | Reporter.PROJECT_HEADERS
             | Reporter.SPRITE_HEADERS
-            | Reporter.SCRIPT_LENGTHS,
+            | Reporter.SCRIPT_LENGTHS
+            | Reporter.SPRITE_VARIABLES,
             "OddCombo");
     }
 
