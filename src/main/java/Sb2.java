@@ -160,7 +160,11 @@ public class Sb2 {
         }
         return variables.length();
     }
-
+    /**
+     * Gets the number of variables for a particularly desired Sprite.
+     * @param spriteName the name of the aforementioned desired Sprite.
+     * @return The selected sprite's number of variables.
+     */
     public int getSpriteVariableCount(String spriteName) {
         int count = 0;
         try {
