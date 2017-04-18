@@ -162,7 +162,13 @@ public class Sb2 {
     }
 
     public int getSpriteVariableCount(String spriteName) {
-        reutrn sprites.getSpriteVariableCount(spriteName);
+        int count = 0;
+        try {
+            count = sprites.getSpriteVariableCount(spriteName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
     /**
