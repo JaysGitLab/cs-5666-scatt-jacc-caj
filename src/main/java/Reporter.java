@@ -19,6 +19,8 @@ public class Reporter {
     public static final int SCRIPTS_PER_SPRITE  = 0b0001_0000;
     public static final int SCRIPT_HEADERS      = 0b0010_0000;
     public static final int SCRIPT_LENGTHS      = 0b0100_0000;
+    public static final int SPRITE_VARIABLES    = 0b1000_0000;
+    public static final int GLOBAL_VARIABLS     = 0b0001_0000_0000;
     private static final String TAB = "    ";
     private int whatToReport;
     /**
@@ -44,7 +46,7 @@ public class Reporter {
     private boolean shouldReport(int flag) {
         return (whatToReport & flag) != 0;
     }
-    
+
     /**
      * Write report to a writer.
      * @param writer The writer.
@@ -96,6 +98,10 @@ public class Reporter {
         if (errorMessage != null) {
             pw.write(errorMessage + "\n");
         } else {
+            int globalVars = sb2.getGlobalVariableCount();
+            if (shouldReport(GLOBAL_VARIABLS)) {
+                pw.write(globalVars + " variables\n");
+            }
             String[] spriteNames = sb2.getSpriteNames();
             if (shouldReport(SPRITES_PER_PROJECT)) {
                 pw.write(spriteNames.length + " sprites\n");
@@ -116,6 +122,10 @@ public class Reporter {
         String tab = TAB;
         if (shouldReport(SPRITE_HEADERS)) {
             pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
+        }
+        int spriteVars = sb2.getSpriteVariableCount(spriteName);
+        if (shouldReport(SPRITE_VARIABLES)) {
+            pw.write(tab + spriteVars + " variables\n");
         }
         int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
         if (shouldReport(SCRIPTS_PER_SPRITE)) {
