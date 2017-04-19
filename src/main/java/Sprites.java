@@ -174,21 +174,34 @@ public class Sprites {
      *         of script block from ScriptSpecs.getCategories()
      */
     public int[] getBlocksByCategoryForSprite(String spriteName) {
-        Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
         JSONArray[] scripts = getScripts(spriteName);
         int[] blocksByCategoryForSprite = new int[ScriptSpecs.getCategories().length];
         for (int i = 0; i < scripts.length; i++) {
             JSONArray script = scripts[i];
-            for (int j = 0; j < script.length(); j++) {
-                JSONArray blockTuple = script.optJSONArray(j);
+            countInBlockTupleArray(script, blocksByCategoryForSprite);
+        }
+        return blocksByCategoryForSprite;
+    }
+    private void countInBlockTupleArray(JSONArray blockTupleArray, int[] blocksByCategoryForSprite){
+            Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
+            for (int j = 0; j < blockTupleArray.length(); j++) {
+                JSONArray blockTuple = blockTupleArray.optJSONArray(j);
                 String command = blockTuple.optString(0);
                 Integer commandTypeInt = commandsByType.get(command);
                 if (commandTypeInt == null) {
                     commandTypeInt = 0;
                 }
                 blocksByCategoryForSprite[commandTypeInt]++;
+                handleNesting(blockTuple, command, blocksByCategoryForSprite);
+            }
+    }
+    private void handleNesting(JSONArray blockTuple, String command, int[] blocksByCategoryForSprite){
+        int[] nestedBlockTupleArrayIndexes = ScriptSpecs.getNestedBlockTupleArrayIndexes(command);
+        for (int index : nestedBlockTupleArrayIndexes) {
+            JSONArray blockTupleArray = blockTuple.optJSONArray(index);
+            if(blockTupleArray != null) {
+                countInBlockTupleArray(blockTupleArray, blocksByCategoryForSprite);
             }
         }
-        return blocksByCategoryForSprite;
     }
 }

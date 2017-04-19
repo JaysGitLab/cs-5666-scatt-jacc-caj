@@ -178,4 +178,18 @@ public class ScriptSpecs {
     public static String[] getCategories() {
         return CATEGORIES;
     }
+
+    public static int[] getNestedBlockTupleArrayIndexes(String command) {
+        if ("doForever".equals(command)) {
+            return new int[]{1};
+        } else if ("doIfElse".equals(command)) {
+            return new int[]{2, 3};
+        } else if ("doRepeat".equals(command)
+                   || "doIf".equals(command)
+                   || "doUntil".equals(command)) {
+                       return new int[]{2};
+        }
+        return new int[0];
+    }
 }
+

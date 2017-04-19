@@ -42,7 +42,7 @@ public class BlockTypeTests {
      * Test getBlocksByCategoryForSprite with an easy case.
      */
     @Test
-    public void testGetBlocksByCategoryForSprite1(){
+    public void testGetBlocksByCategoryForSprite1() {
         testGetBlocksByCategoryForSprite(
             "SimpleBlockTypes.json",
             new int[][] {
@@ -50,42 +50,54 @@ public class BlockTypeTests {
             }
         );
     }
-    /*
+    /**
      * Test getBlocksByCategoryForSprite with nested blocks.
      */
     @Test
     public void testGetBlocksByCategoryForSprite2() {
-        /*
-        doRepeat
-        forward 2
-        bounceOffEdge
-        doIf
-        turnRight
-        doUntil
-        heading
-        turnLeft
-        */
+        // The following would be prettier with trailing comments.
+        // But checkstyle hates trailing comments.
         int[][] expected = {
             {
-                0,    // "undefined",
-                6,    // "Motion",
-                0,    // "Looks",
-                0,    // "Sound",
-                0,    // "Pen",
-                0,    // "Events",
-                3,    // "Control",
-                0,    // "Sensing",
-                0,    // "Operators",
-                0,    // "Data",
-                0,    // "More Blocks",
-                0,    // "Parameter",
-                0,    // "List",
-                0,    // "Extension"
+            // "undefined",
+                0,    
+            // "Motion",
+                6,    
+            // "Looks",
+                0,    
+            // "Sound",
+                0,    
+            // "Pen",
+                0,    
+            // "Events",
+                0,    
+            // "Control",
+                3,    
+            // "Sensing",
+                0,    
+            // "Operators",
+                0,    
+            // "Data",
+                0,    
+            // "More Blocks",
+                0,    
+            // "Parameter",
+                0,    
+            // "List",
+                0,    
+            // "Extension"
+                0,    
             }
         };
 
         testGetBlocksByCategoryForSprite("NestedBlocks.json", expected);
     }
+    /**
+     * Method to make testing Blocks by category easier.
+     * @param jsonFileName The name of the json file to use in the test.
+     *                     The file should be located in src/test/resources/ScratchJsonFiles/
+     * @param expected the expected counts
+     */
     public void testGetBlocksByCategoryForSprite(String jsonFileName, int[][] expected) {
         Sprites sprites = new Sprites(Utils.getResourceJSONObject(jsonFileName));
         String[] spriteNames = sprites.getSpriteNames();
