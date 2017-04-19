@@ -42,8 +42,52 @@ public class BlockTypeTests {
      * Test getBlocksByCategoryForSprite with an easy case.
      */
     @Test
-    public void testGetBlocksByCategoryForSprite1() {
-        Sprites sprites = new Sprites(Utils.getResourceJSONObject("SimpleBlockTypes.json"));
+    public void testGetBlocksByCategoryForSprite1(){
+        testGetBlocksByCategoryForSprite(
+            "SimpleBlockTypes.json",
+            new int[][] {
+                {0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+            }
+        );
+    }
+    /*
+     * Test getBlocksByCategoryForSprite with nested blocks.
+     */
+    @Test
+    public void testGetBlocksByCategoryForSprite2() {
+        /*
+        doRepeat
+        forward 2
+        bounceOffEdge
+        doIf
+        turnRight
+        doUntil
+        heading
+        turnLeft
+        */
+        int[][] expected = {
+            {
+                0,    // "undefined",
+                6,    // "Motion",
+                0,    // "Looks",
+                0,    // "Sound",
+                0,    // "Pen",
+                0,    // "Events",
+                3,    // "Control",
+                0,    // "Sensing",
+                0,    // "Operators",
+                0,    // "Data",
+                0,    // "More Blocks",
+                0,    // "Parameter",
+                0,    // "List",
+                0,    // "Extension"
+            }
+        };
+
+        testGetBlocksByCategoryForSprite("NestedBlocks.json", expected);
+    }
+    public void testGetBlocksByCategoryForSprite(String jsonFileName, int[][] expected) {
+        Sprites sprites = new Sprites(Utils.getResourceJSONObject(jsonFileName));
         String[] spriteNames = sprites.getSpriteNames();
         String[] categories = ScriptSpecs.getCategories();
         int[][] blocksByCategoryPerSprite = new int[spriteNames.length][];
@@ -51,9 +95,6 @@ public class BlockTypeTests {
             String spriteName = spriteNames[i];
             blocksByCategoryPerSprite[i] = sprites.getBlocksByCategoryForSprite(spriteName);
         }
-        int[][] expected = {
-            {0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        };
         System.out.println("expeced: " + Arrays.toString(expected[0]));
         System.out.println("actual:  " + Arrays.toString(blocksByCategoryPerSprite[0]));
         assertEquals(expected, blocksByCategoryPerSprite);
