@@ -120,7 +120,7 @@ public class ScattTest {
      *    of flags to pass to the reporter, letting it know what
      *    you want it to print.  See the public constants in the Reporter class.
      */
-    private void testEndToEnd(String testDirName, int reporterFlags) {
+    public static void testEndToEnd(String testDirName, int reporterFlags) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
         Scatt scatt = new Scatt(new FileChooser() {
             @Override
