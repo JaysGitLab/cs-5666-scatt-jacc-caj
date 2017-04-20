@@ -179,6 +179,16 @@ public class ScriptSpecs {
         return CATEGORIES;
     }
 
+    /**
+     * Some block types can contain other blocks.  When this happens, the block
+     * tuple will have one or two JSONArrays of block tuples inside it. Given
+     * a command name, this function returns an int array of the indexes of
+     * nested JSONArrays of block tuples inside the block tuple for commands
+     * of that type.
+     * @param command the command name.
+     * @return An int array of the indexes of nested JSONArrays of block
+     *         tuples
+     */
     public static int[] getNestedBlockTupleArrayIndexes(String command) {
         if ("doForever".equals(command)) {
             return new int[]{1};
@@ -187,7 +197,7 @@ public class ScriptSpecs {
         } else if ("doRepeat".equals(command)
                    || "doIf".equals(command)
                    || "doUntil".equals(command)) {
-                       return new int[]{2};
+            return new int[]{2};
         }
         return new int[0];
     }

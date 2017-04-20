@@ -182,24 +182,45 @@ public class Sprites {
         }
         return blocksByCategoryForSprite;
     }
-    private void countInBlockTupleArray(JSONArray blockTupleArray, int[] blocksByCategoryForSprite){
-            Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
-            for (int j = 0; j < blockTupleArray.length(); j++) {
-                JSONArray blockTuple = blockTupleArray.optJSONArray(j);
-                String command = blockTuple.optString(0);
-                Integer commandTypeInt = commandsByType.get(command);
-                if (commandTypeInt == null) {
-                    commandTypeInt = 0;
-                }
-                blocksByCategoryForSprite[commandTypeInt]++;
-                handleNesting(blockTuple, command, blocksByCategoryForSprite);
+    /**
+     * Counts the number of blocks of each type in a JSONArray
+     * of block tuples.
+     * @param blockTupleArray They JSONArray in which to count blocks by
+     * category.
+     * @param blocksByCategoryForSprite The array in which to incremenet block
+     * counts by type.
+     */
+    private void countInBlockTupleArray(
+            JSONArray blockTupleArray,
+            int[] blocksByCategoryForSprite) {
+        Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
+        for (int j = 0; j < blockTupleArray.length(); j++) {
+            JSONArray blockTuple = blockTupleArray.optJSONArray(j);
+            String command = blockTuple.optString(0);
+            Integer commandTypeInt = commandsByType.get(command);
+            if (commandTypeInt == null) {
+                commandTypeInt = 0;
             }
+            blocksByCategoryForSprite[commandTypeInt]++;
+            handleNesting(blockTuple, command, blocksByCategoryForSprite);
+        }
     }
-    private void handleNesting(JSONArray blockTuple, String command, int[] blocksByCategoryForSprite){
+    /**
+     * If there are nested JSONArrays of block tuples in blockTuple param, then
+     * they will be counted in getBlocksByCategoryForSprite.
+     * @param blockTuple see above
+     * @param command the command type of blockTuple
+     * @param blocksByCategoryForSprite The array in which to incremenet block
+     * counts by type
+     */
+    private void handleNesting(
+            JSONArray blockTuple,
+            String command,
+            int[] blocksByCategoryForSprite) {
         int[] nestedBlockTupleArrayIndexes = ScriptSpecs.getNestedBlockTupleArrayIndexes(command);
         for (int index : nestedBlockTupleArrayIndexes) {
             JSONArray blockTupleArray = blockTuple.optJSONArray(index);
-            if(blockTupleArray != null) {
+            if (blockTupleArray != null) {
                 countInBlockTupleArray(blockTupleArray, blocksByCategoryForSprite);
             }
         }
