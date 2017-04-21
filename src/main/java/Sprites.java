@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class Sprites {
     private final static int BLOCK_TUPLE_INDEX = 2;
     private Map<String, JSONObject> spriteMap;
+    private Map<String, JSONArray[]> scriptsMap = null;
     /**
      * The root of the sb2 json object is a Stage object.
      * This constructs a Sprites object from a Stage JSONObject.
@@ -83,6 +84,11 @@ public class Sprites {
         return spriteNames;
     }
 
+    /**
+     * Returns the block tuples for a script with index = {@code index} and
+     * sprite name = {@code spriteName}.
+     * @param
+     */
 
     /**
      * Each script is represented by an json array of block tuples,
@@ -94,6 +100,10 @@ public class Sprites {
      *         a JSONArray.
      */
     private JSONArray[] getScripts(String spriteName) {
+        JSONArray[] blockTuples = scriptsMap.get(spriteName);
+        if (blockTuples != null) {
+            return blockTuples;
+        }
         JSONObject sprite = spriteMap.get(spriteName);
         if (sprite == null) {
             throw new IllegalArgumentException(
@@ -101,14 +111,16 @@ public class Sprites {
         }
         JSONArray scriptTuples = sprite.optJSONArray("scripts");
         if (scriptTuples == null) {
-            return new JSONArray[0];
+            blockTuples = new JSONArray[0];
         } else {
-            JSONArray[] blockTuples = new JSONArray[scriptTuples.length()];
+            blockTuples = new JSONArray[scriptTuples.length()];
             for (int i = 0; i < blockTuples.length; i++) {
                 blockTuples[i] = getBlockTuple(scriptTuples.optJSONArray(i));
             }
-            return blockTuples;
+            blockTuples = blockTuples;
         }
+        scriptsMap.put(spriteName, blockTuples);
+        return blockTuples;
     }
     /**
      * Given a script tuple, return it's block tuple.
