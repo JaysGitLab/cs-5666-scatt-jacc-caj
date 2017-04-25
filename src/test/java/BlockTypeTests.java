@@ -105,7 +105,10 @@ public class BlockTypeTests {
         int[][] blocksByCategoryPerSprite = new int[spriteNames.length][];
         for (int i = 0; i < spriteNames.length; i++) {
             String spriteName = spriteNames[i];
-            blocksByCategoryPerSprite[i] = sprites.getBlocksByCategoryForSprite(spriteName);
+            Script[] scripts = sprites.getScriptsForSprite(spriteName);
+            blocksByCategoryPerSprite[i] = Script.sumBlocksByCategory(scripts);
+            //I don't like this loop here.  I want Scripts.sumBlocksByCategory(sprites);
+            //or maybe that method should total all in all the sprites.
         }
         System.out.println("expeced: " + Arrays.toString(expected[0]));
         System.out.println("actual:  " + Arrays.toString(blocksByCategoryPerSprite[0]));

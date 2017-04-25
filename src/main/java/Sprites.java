@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Sprites {
     private final static int BLOCK_TUPLE_INDEX = 2;
     private Map<String, JSONObject> spriteMap;
-    private Map<String, JSONArray[]> scriptsMap = null;
+    private Map<String, Script[]> scriptsMap = new HashMap<>();
     /**
      * The root of the sb2 json object is a Stage object.
      * This constructs a Sprites object from a Stage JSONObject.
@@ -99,10 +99,10 @@ public class Sprites {
      * @return An array block tuples.  Each block tuple is represented as
      *         a JSONArray.
      */
-    private JSONArray[] getScripts(String spriteName) {
-        JSONArray[] blockTuples = scriptsMap.get(spriteName);
-        if (blockTuples != null) {
-            return blockTuples;
+    public Script[] getScriptsForSprite(String spriteName) {
+        Script[] scripts = scriptsMap.get(spriteName);
+        if (scripts != null) {
+            return scripts;
         }
         JSONObject sprite = spriteMap.get(spriteName);
         if (sprite == null) {
@@ -111,29 +111,16 @@ public class Sprites {
         }
         JSONArray scriptTuples = sprite.optJSONArray("scripts");
         if (scriptTuples == null) {
-            blockTuples = new JSONArray[0];
+            scripts = new Script[0];
         } else {
-            blockTuples = new JSONArray[scriptTuples.length()];
-            for (int i = 0; i < blockTuples.length; i++) {
-                blockTuples[i] = getBlockTuple(scriptTuples.optJSONArray(i));
+            scripts = new Script[scriptTuples.length()];
+            for (int i = 0; i < scripts.length; i++) {
+                scripts[i] = new Script(scriptTuples.optJSONArray(i));
             }
-            blockTuples = blockTuples;
+            scripts = scripts;
         }
-        scriptsMap.put(spriteName, blockTuples);
-        return blockTuples;
-    }
-    /**
-     * Given a script tuple, return it's block tuple.
-     * @param scriptTuple A script tuple JSONArray
-     * @return a blockTuple JSONArray
-     */
-    private JSONArray getBlockTuple(JSONArray scriptTuple) {
-        if (scriptTuple == null) {
-            return new JSONArray();
-        } else {
-            JSONArray blockTuple = scriptTuple.getJSONArray(BLOCK_TUPLE_INDEX);
-            return blockTuple == null ? new JSONArray() : blockTuple;
-        }
+        scriptsMap.put(spriteName, scripts);
+        return scripts;
     }
     /**
      * Return the number of Scripts associated with a particular Sprite.
@@ -141,7 +128,7 @@ public class Sprites {
      * @return The number of Scripts associated with the Sprite.
      */
     public int getScriptCountForSprite(String spriteName) {
-        return getScripts(spriteName).length;
+        return getScriptsForSprite(spriteName).length;
     }
     /**
      * Count the number of blocks in each script for the given Sprite.
@@ -150,10 +137,10 @@ public class Sprites {
      *         associated with the Sprite.
      */
     public int[] getScriptLengthsForSprite(String spriteName) {
-        JSONArray[] scripts = getScripts(spriteName);
+        Script[] scripts = getScriptsForSprite(spriteName);
         int[] lengths = new int[scripts.length];
         for (int i = 0; i < scripts.length; i++) {
-            lengths[i] = scripts[i].length();
+            lengths[i] = scripts[i].getLength();
         }
         return lengths;
     }
@@ -176,65 +163,6 @@ public class Sprites {
         } else {
             throw new IOException("You should not be searching for sprites"
                 + " that don't exist.");
-        }
-    }
-    /**
-     * Given a sprite name, return an array of ints representing the number of script
-     * blocks in each category of script blocks in all the sprite's scripts combined.
-     * @param spriteName The name of the Sprite
-     * @return The array of ints.  The indexes in the array correspond to the categories
-     *         of script block from ScriptSpecs.getCategories()
-     */
-    public int[] getBlocksByCategoryForSprite(String spriteName) {
-        JSONArray[] scripts = getScripts(spriteName);
-        int[] blocksByCategoryForSprite = new int[ScriptSpecs.getCategories().length];
-        for (int i = 0; i < scripts.length; i++) {
-            JSONArray script = scripts[i];
-            countInBlockTupleArray(script, blocksByCategoryForSprite);
-        }
-        return blocksByCategoryForSprite;
-    }
-    /**
-     * Counts the number of blocks of each type in a JSONArray
-     * of block tuples.
-     * @param blockTupleArray They JSONArray in which to count blocks by
-     * category.
-     * @param blocksByCategoryForSprite The array in which to incremenet block
-     * counts by type.
-     */
-    private void countInBlockTupleArray(
-            JSONArray blockTupleArray,
-            int[] blocksByCategoryForSprite) {
-        Map<String, Integer> commandsByType = ScriptSpecs.getCommandsByType();
-        for (int j = 0; j < blockTupleArray.length(); j++) {
-            JSONArray blockTuple = blockTupleArray.optJSONArray(j);
-            String command = blockTuple.optString(0);
-            Integer commandTypeInt = commandsByType.get(command);
-            if (commandTypeInt == null) {
-                commandTypeInt = 0;
-            }
-            blocksByCategoryForSprite[commandTypeInt]++;
-            handleNesting(blockTuple, command, blocksByCategoryForSprite);
-        }
-    }
-    /**
-     * If there are nested JSONArrays of block tuples in blockTuple param, then
-     * they will be counted in getBlocksByCategoryForSprite.
-     * @param blockTuple see above
-     * @param command the command type of blockTuple
-     * @param blocksByCategoryForSprite The array in which to incremenet block
-     * counts by type
-     */
-    private void handleNesting(
-            JSONArray blockTuple,
-            String command,
-            int[] blocksByCategoryForSprite) {
-        int[] nestedBlockTupleArrayIndexes = ScriptSpecs.getNestedBlockTupleArrayIndexes(command);
-        for (int index : nestedBlockTupleArrayIndexes) {
-            JSONArray blockTupleArray = blockTuple.optJSONArray(index);
-            if (blockTupleArray != null) {
-                countInBlockTupleArray(blockTupleArray, blocksByCategoryForSprite);
-            }
         }
     }
 }
