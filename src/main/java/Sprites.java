@@ -91,13 +91,9 @@ public class Sprites {
      */
 
     /**
-     * Each script is represented by an json array of block tuples,
-     * where each block tuple is like a line of code. A Sprite may have
-     * multiple Scripts associated with it.  This function returns an array
-     * of json arrays of block tuples for the requested Sprite.
+     * Sprites may have scripts associated with them. 
      * @param spriteName The name of the sprite
-     * @return An array block tuples.  Each block tuple is represented as
-     *         a JSONArray.
+     * @return an array of the Script objects for the sprite. 
      */
     public Script[] getScriptsForSprite(String spriteName) {
         Script[] scripts = scriptsMap.get(spriteName);
