@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
+import java.io.File;
 /**
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
@@ -51,6 +52,24 @@ public class ReporterTest {
             | Reporter.SPRITE_HEADERS
             | Reporter.SCRIPT_LENGTHS,
             "OddCombo");
+    }
+
+    /**
+     * This makes the resource directory unwritable in order to
+     * generate an exception.
+     */
+    @Test(expected = Exception.class)
+    public void testUnwritableDir() {
+        // remove write permission from directory
+        String directory = Utils.getTestResourcePath("");
+        File resourceDir = new File(directory);
+        // remove write for all users
+        resourceDir.setWritable(false, false);
+
+        //call testReporterConfig
+        testReporterConfig(Reporter.REPORT_ALL, "WizardReport.txt");
+        //set write permission on directory
+        resourceDir.setWritable(true, false);
     }
 
     /**
