@@ -4,11 +4,17 @@ import java.util.Map;
  * @author B. Clint Hall
  * @version 1
  */
-public class Script{
+public class Script {
     private final static int INDEX_OF_BLOCK_TUPLE_ARRAY_IN_SCRIPT_TUPLE = 2;
     private JSONArray blocks = null;
-    
-    public Script(JSONArray scriptTuple){
+
+    /**
+     * Constructs a script from a script tuple.
+     * @param scriptTuple A JSONArray containing an X coordinate, a Y coordinate
+     *      and a JSONArray of blocks.
+     */
+    public Script(JSONArray scriptTuple) {
+
         if (scriptTuple != null) {
             blocks = scriptTuple.optJSONArray(INDEX_OF_BLOCK_TUPLE_ARRAY_IN_SCRIPT_TUPLE);
         }
@@ -22,7 +28,7 @@ public class Script{
      * @return an integer array in which each int is a category count.  Uses teh order
      * of {@code ScriptSpecs.getCommandsByType}.
      */
-    public int[] sumBlocksByCategory(){
+    public int[] sumBlocksByCategory() {
         int[] blocksByCategory = new int[ScriptSpecs.getCategories().length];
         sumBlocksByCategory(blocksByCategory);
         return blocksByCategory;
@@ -34,7 +40,7 @@ public class Script{
      * of {@code ScriptSpecs.getCommandsByType}. Integer at each index
      * will be incremented for each block of corresponding type.
      */
-    public void sumBlocksByCategory(int[] blocksByCategory){
+    public void sumBlocksByCategory(int[] blocksByCategory) {
         sumBlocksByCategory(blocks, blocksByCategory);
     }
     /**
@@ -46,7 +52,9 @@ public class Script{
     }
     /**
      * Counts the number of blocks of each type in a JSONArray
-     * of block tuples and adds them into {@code blocksByCategory}
+     * of block tuples and adds them into {@code blocksByCategory}.
+     * @param blocks A JSONArray of JSONArrays.  This is how scripts are
+     *          represented in the project.json files inside .sb2 files.
      * @param blocksByCategory The array in which to increment block
      * counts by type.
      */
@@ -66,7 +74,7 @@ public class Script{
     /**
      * If there are nested JSONArrays of block tuples in blockTuple param, then
      * they will be counted in getBlocksByCategory.
-     * @param blockTuple see above
+     * @param parentBlock see above
      * @param command the command type of blockTuple
      * @param blocksByCategory The array in which to incremenet block
      * counts by type
@@ -84,12 +92,12 @@ public class Script{
         }
     }
     /**
-     * Get the total blocks by category for an array of scripts
+     * Get the total blocks by category for an array of scripts.
      * @param scripts The array of scripts
      * @return the total blocks by category for the scripts.
      * Uses the order of {@code ScriptSpecs.getCommandsByType}.
      */
-    public static int[] sumBlocksByCategory(Script[] scripts){
+    public static int[] sumBlocksByCategory(Script[] scripts) {
         int[] blocksByCategory = new int[ScriptSpecs.getCategories().length];
         for (int i = 0; i < scripts.length; i++) {
             scripts[i].sumBlocksByCategory(blocksByCategory);
