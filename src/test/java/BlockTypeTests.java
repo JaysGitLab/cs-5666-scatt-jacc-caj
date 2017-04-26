@@ -86,14 +86,14 @@ public class BlockTypeTests {
             // "List",
                 0,    
             // "Extension"
-                0,    
+                0    
             }
         };
 
         testGetBlocksByCategoryForSprite("NestedBlocks.json", expected);
     }
     /**
-     * Method to make testing Blocks by category easier.
+     * Method to make testing blocks by category for sprites easier.
      * @param jsonFileName The name of the json file to use in the test.
      *                     The file should be located in src/test/resources/ScratchJsonFiles/
      * @param expected the expected counts
@@ -113,5 +113,60 @@ public class BlockTypeTests {
         System.out.println("expeced: " + Arrays.toString(expected[0]));
         System.out.println("actual:  " + Arrays.toString(blocksByCategoryPerSprite[0]));
         assertEquals(expected, blocksByCategoryPerSprite);
+    }
+    /**
+     * Make sure we get a good count of blocks by category for stage scripts
+     * when there are also sprite scripts present.
+     */
+    @Test
+    public void testGetBlocksByCategoryForStage1() {
+        int[] expected = {
+        // "undefined",
+            0,    
+        // "Motion",
+            0,    
+        // "Looks",
+            2,    
+        // "Sound",
+            2,    
+        // "Pen",
+            1,    
+        // "Events",
+            0,    
+        // "Control",
+            5,    
+        // "Sensing",
+            0,    
+        // "Operators",
+            0,    
+        // "Data",
+            0,    
+        // "More Blocks",
+            0,    
+        // "Parameter",
+            0,    
+        // "List",
+            0,    
+        // "Extension"
+            0
+        };
+        testGetBlocksByCategoryForStage("StageScripts.json", expected);
+    }
+     
+    /**
+     * Method to make testing blocks by category easier.
+     * @param jsonFileName The name of the json file to use in the test.
+     *                     The file should be located in src/test/resources/ScratchJsonFiles/
+     * @param expected the expected counts
+     */
+    public void testGetBlocksByCategoryForStage(String jsonFileName, int[] expected) {
+        Sb2 sb2 = new Sb2(Utils.getResourceJSONObject(jsonFileName), jsonFileName);
+        Script[] scripts = sb2.getScriptsForStage();
+        int[] blocksByCategoryForStage = Script.sumBlocksByCategory(scripts);
+        System.out.println("expeced: " + Arrays.toString(expected));
+        System.out.println("actual:  " + Arrays.toString(blocksByCategoryForStage));
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals("match failure at " + i, expected[i], blocksByCategoryForStage[i]);
+        }
     }
 }

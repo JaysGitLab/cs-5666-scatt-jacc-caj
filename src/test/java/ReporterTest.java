@@ -19,7 +19,7 @@ public class ReporterTest {
      */
     @Test
     public void testWizardReport() {
-        testReporterConfig(Reporter.REPORT_ALL, "WizardReport.txt");
+        testReporterConfig(Reporter.ALL_2017_4_24, "WizardReport.txt");
     }
 
     /**

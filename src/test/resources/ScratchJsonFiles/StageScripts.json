@@ -1,0 +1,99 @@
+{
+	"objName": "Stage",
+	"scripts": [[56,
+			98.95,
+			[["doForever",
+					[["doRepeat",
+							5,
+							[["changeGraphicEffect:by:", "color", 25], ["wait:elapsed:from:", 1], ["playDrum", 1, 0.25]]],
+						["nextScene"],
+						["playSound:", "pop"]]]]],
+		[131, 335.75, [["doForever", [["clearPenTrails"], ["wait:elapsed:from:", 10]]]]]],
+	"sounds": [{
+			"soundName": "pop",
+			"soundID": 1,
+			"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+			"sampleCount": 258,
+			"rate": 11025,
+			"format": ""
+		}],
+	"costumes": [{
+			"costumeName": "atom playground",
+			"baseLayerID": 3,
+			"baseLayerMD5": "e5f794c8756ca0cead5cb7e7fe354c41.png",
+			"bitmapResolution": 2,
+			"rotationCenterX": 480,
+			"rotationCenterY": 360
+		},
+		{
+			"costumeName": "baseball-field",
+			"baseLayerID": 4,
+			"baseLayerMD5": "6b3d87ba2a7f89be703163b6c1d4c964.png",
+			"bitmapResolution": 2,
+			"rotationCenterX": 480,
+			"rotationCenterY": 360
+		},
+		{
+			"costumeName": "bench with view",
+			"baseLayerID": 5,
+			"baseLayerMD5": "962201a2b712a302fb087f8f0dcb2076.png",
+			"bitmapResolution": 2,
+			"rotationCenterX": 480,
+			"rotationCenterY": 360
+		}],
+	"currentCostumeIndex": 1,
+	"penLayerMD5": "5c81a336fab8be57adc039a8a2b33ca9.png",
+	"penLayerID": 0,
+	"tempoBPM": 60,
+	"videoAlpha": 0.5,
+	"children": [{
+			"objName": "Sprite1",
+			"scripts": [[57.85,
+					205.3,
+					[["doForever", [["forward:", 15], ["turnRight:", 1], ["bounceOffEdge"]]]]]],
+			"sounds": [{
+					"soundName": "meow",
+					"soundID": 0,
+					"md5": "83c36d806dc92327b9e7049a565c6bff.wav",
+					"sampleCount": 18688,
+					"rate": 22050,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "costume1",
+					"baseLayerID": 1,
+					"baseLayerMD5": "09dc888b0b7df19f70d81588ae73420e.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "costume2",
+					"baseLayerID": 2,
+					"baseLayerMD5": "3696356a03a8d938318876a593572843.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": 126.27320511826449,
+			"scratchY": -86.34825874514011,
+			"scale": 1,
+			"direction": 137.9999999999999,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 1,
+			"visible": true,
+			"spriteInfo": {
+			}
+		}],
+	"info": {
+		"videoOn": false,
+		"userAgent": "Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/55.0.2883.87 Safari\/537.36",
+		"flashVersion": "LNX 25,0,0,148",
+		"hasCloudData": false,
+		"swfVersion": "v456",
+		"scriptCount": 0,
+		"spriteCount": 1
+	}
+}

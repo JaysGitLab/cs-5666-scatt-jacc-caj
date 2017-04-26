@@ -335,16 +335,25 @@
 
 ];
 
-var javaSource = "{";
+var commandsJava = "{";
 for (var i=0; i<commands.length; i++){
 	var command = commands[i];
 	var catInt = command[2];
 	var opcode = command[3];
+	if(catInt > 100) {
+    	catInt -= 100; // This accounts for special
+	}
 	if(opcode && catInt < categories.length){
-		catTuple = categories[catInt];
 		catName = catTuple[1];
-		javaSource += '\n\t{"' + opcode + '", "' + catName + '"},';
+		commandsJava += '\n\t{"' + opcode + '", "' + catInt + '"},';
 	}
 }
-javaSource += '\n};';
-console.log(javaSource);
+commandsJava += '\n};';
+console.log(commandsJava);
+var categoriesJava = "{";
+for (var i=0; i<categories.length; i++){
+    var catName = categories[i][1];
+    categoriesJava += '\n\t"' + catName + '",';
+}
+categoriesJava += '\n};';
+console.log(categoriesJava);

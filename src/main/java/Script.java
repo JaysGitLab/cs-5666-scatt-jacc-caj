@@ -48,7 +48,12 @@ public class Script {
      * @return the number of blocks in the script.
      */
     public int getLength() {
-        return blocks.length();
+        int[] blocksByCat = sumBlocksByCategory();
+        int length = 0;
+        for (int count : blocksByCat) {
+            length += count;
+        }
+        return length;
     }
     /**
      * Counts the number of blocks of each type in a JSONArray
@@ -103,5 +108,23 @@ public class Script {
             scripts[i].sumBlocksByCategory(blocksByCategory);
         }
         return blocksByCategory;
+    }
+    /**
+     * Takes a JSONArray of script tuples, which is how scratch
+     * packages scripts and makes it into an array of our Script objects.
+     * @param jsonArrayOfScriptTuples The JSONArray of script tuples.
+     * @return The array of Script objects.
+     */
+    public static Script[] getScriptArray(JSONArray jsonArrayOfScriptTuples) {
+        Script[] scripts;
+        if (jsonArrayOfScriptTuples == null) {
+            scripts = new Script[0];
+        } else {
+            scripts = new Script[jsonArrayOfScriptTuples.length()];
+            for (int i = 0; i < scripts.length; i++) {
+                scripts[i] = new Script(jsonArrayOfScriptTuples.optJSONArray(i));
+            }
+        }
+        return scripts;
     }
 }

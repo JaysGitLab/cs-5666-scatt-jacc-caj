@@ -109,16 +109,8 @@ public class Sprites {
             throw new IllegalArgumentException(
                 spriteName + " is not the name of a Sprite in this project");
         }
-        JSONArray scriptTuples = sprite.optJSONArray("scripts");
-        if (scriptTuples == null) {
-            scripts = new Script[0];
-        } else {
-            scripts = new Script[scriptTuples.length()];
-            for (int i = 0; i < scripts.length; i++) {
-                scripts[i] = new Script(scriptTuples.optJSONArray(i));
-            }
-            scripts = scripts;
-        }
+        JSONArray jsonArrayOfScriptTuples = sprite.optJSONArray("scripts");
+        scripts = Script.getScriptArray(jsonArrayOfScriptTuples);
         scriptsMap.put(spriteName, scripts);
         return scripts;
     }
@@ -146,8 +138,10 @@ public class Sprites {
     }
     
     /**
-     * Public accessor method for getting the number of variables 
-     * associated with a particular sprite.
+     * Public jsonArrayOfScriptTuples method for getting the number of variables
+        scripts = Script.getScriptArray(jsonArrayOfScriptTuples);
+
+        * associated with a particular sprite.
      * @param sprite the name of the sprite whose info you desire
      * @return the number of variables associated with a sprite 
      * @throws IOException if the sprite sought does not exist 
