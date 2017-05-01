@@ -108,6 +108,27 @@ public class ScattTest {
     @Test public void testBehaviorWithCorruptJson() {
         testEndToEnd("CorruptJson", 0b111_1111);
     }
+
+    /**
+     * Prepare an end-to-end test without checking the exceptions.
+     * @param testDir - The directory containing the sb2s
+     * @param reporterFlags - Flags to be passed through to the reporter
+     * @return The File object for the generated report
+     */
+    public static File prepEndToEnd(File testDir, int reporterFlags) {
+        Scatt scatt = new Scatt(new FileChooser() {
+            @Override
+            public File getDirectoryFromUser() {
+                return testDir;
+            }
+        }, reporterFlags);
+        File reportFile = new File(testDir, testDir.getName() + Reporter.REPORT_SUFFIX);
+        reportFile.delete();
+
+        scatt.generateReport();
+        return reportFile;
+    }
+
     /**
      * A method to make end to end tests easy.  Make a directory containing
      * the test material in the src/test/resources.  Say you name it TestCaseDir.
@@ -122,16 +143,7 @@ public class ScattTest {
      */
     public static void testEndToEnd(String testDirName, int reporterFlags) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
-        Scatt scatt = new Scatt(new FileChooser() {
-            @Override
-            public File getDirectoryFromUser() {
-                return testDir;
-            }
-        }, reporterFlags);
-        File reportFile = new File(testDir, testDir.getName() + Reporter.REPORT_SUFFIX);
-        reportFile.delete();
-
-        scatt.generateReport();
+	File reportFile = prepEndToEnd(testDir, reporterFlags);
         String expected = "";
         String actual = "";
         try {

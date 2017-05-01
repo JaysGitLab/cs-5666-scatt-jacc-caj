@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
+import java.io.IOException;
 import java.io.File;
 /**
  * This test class is meant to test that the reporter outputs the appropriate
@@ -58,18 +59,19 @@ public class ReporterTest {
      * This makes the resource directory unwritable in order to
      * generate an exception.
      */
-    @Test(expected = Exception.class)
+    @Test(expected = IOException.class)
     public void testUnwritableDir() {
         // remove write permission from directory
-        String directory = Utils.getTestResourcePath("");
+        String directory = Utils.getTestResourcePath("GoodSb2Dir_unwritable");
         File resourceDir = new File(directory);
         // remove write for all users
         resourceDir.setWritable(false, false);
+        System.out.println("Removing write from " + resourceDir);
 
         //call testReporterConfig
-        testReporterConfig(Reporter.REPORT_ALL, "WizardReport.txt");
+        ScattTest.prepEndToEnd(resourceDir, Reporter.REPORT_ALL);
         //set write permission on directory
-        resourceDir.setWritable(true, false);
+        resourceDir.setWritable(true, true);
     }
 
     /**
