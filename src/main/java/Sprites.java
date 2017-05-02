@@ -135,9 +135,7 @@ public class Sprites {
     
     /**
      * Public jsonArrayOfScriptTuples method for getting the number of variables
-        scripts = Script.getScriptArray(jsonArrayOfScriptTuples);
-
-        * associated with a particular sprite.
+     * associated with a particular sprite.
      * @param sprite the name of the sprite whose info you desire
      * @return the number of variables associated with a sprite 
      * @throws IOException if the sprite sought does not exist 
