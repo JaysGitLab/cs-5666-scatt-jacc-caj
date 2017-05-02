@@ -43,7 +43,7 @@ public class ScattTest {
             e.printStackTrace();
         }
 
-        String filePathStr = Utils.getTestResourcePath("project.json");
+        String filePathStr = Utils.getTestResourcePath("ScratchJsonFiles/WizardSpells.json");
         try {
             String expectedContent = Files.readAllLines(Paths.get(filePathStr))
                 	.stream().collect(Collectors.joining("\n"));
@@ -69,7 +69,7 @@ public class ScattTest {
      */
     @Test
     public void testGetJSONObject() {
-        JSONObject jsonObj = Utils.getWizardJSONObject();
+        JSONObject jsonObj = Utils.getResourceJSONObject("WizardSpells.json");
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
 
