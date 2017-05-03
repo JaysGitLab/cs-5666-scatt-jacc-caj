@@ -43,7 +43,7 @@ public class ScattTest {
             e.printStackTrace();
         }
 
-        String filePathStr = Utils.getTestResourcePath("project.json");
+        String filePathStr = Utils.getTestResourcePath("ScratchJsonFiles/WizardSpells.json");
         try {
             String expectedContent = Files.readAllLines(Paths.get(filePathStr))
                 	.stream().collect(Collectors.joining("\n"));
@@ -69,7 +69,7 @@ public class ScattTest {
      */
     @Test
     public void testGetJSONObject() {
-        JSONObject jsonObj = Utils.getWizardJSONObject();
+        JSONObject jsonObj = Utils.getResourceJSONObject("WizardSpells.json");
         assertTrue(jsonObj instanceof org.json.JSONObject);
     }
 
@@ -120,7 +120,7 @@ public class ScattTest {
      *    of flags to pass to the reporter, letting it know what
      *    you want it to print.  See the public constants in the Reporter class.
      */
-    private void testEndToEnd(String testDirName, int reporterFlags) {
+    public static void testEndToEnd(String testDirName, int reporterFlags) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
         Scatt scatt = new Scatt(new FileChooser() {
             @Override

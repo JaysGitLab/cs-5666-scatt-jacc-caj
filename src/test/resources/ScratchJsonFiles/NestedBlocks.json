@@ -1,0 +1,78 @@
+{
+	"objName": "Stage",
+	"sounds": [{
+			"soundName": "pop",
+			"soundID": 1,
+			"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+			"sampleCount": 258,
+			"rate": 11025,
+			"format": ""
+		}],
+	"costumes": [{
+			"costumeName": "backdrop1",
+			"baseLayerID": 4,
+			"baseLayerMD5": "739b5e2a2435f6e1ec2993791b423146.png",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		}],
+	"currentCostumeIndex": 0,
+	"penLayerMD5": "5c81a336fab8be57adc039a8a2b33ca9.png",
+	"penLayerID": 0,
+	"tempoBPM": 60,
+	"videoAlpha": 0.5,
+	"children": [
+		{
+			"objName": "Apple",
+			"scripts": [[22, 28,[
+				["doRepeat", 10, [
+					["forward:", 10],
+					["bounceOffEdge"],
+					["doIf", false, [
+						["turnRight:", 15],
+						["forward:", 10],
+						["doUntil", false, [
+							["heading:", 90], 
+							["turnLeft:", 15]
+						]]
+					]]
+				]]
+			]]],
+			"sounds": [{
+					"soundName": "pop",
+					"soundID": 1,
+					"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+					"sampleCount": 258,
+					"rate": 11025,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "apple",
+					"baseLayerID": 3,
+					"baseLayerMD5": "831ccd4741a7a56d85f6698a21f4ca69.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 31,
+					"rotationCenterY": 31
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": -128,
+			"scratchY": 56,
+			"scale": 1,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 2,
+			"visible": true,
+			"spriteInfo": {
+			}
+		}],
+	"info": {
+		"spriteCount": 1,
+		"swfVersion": "v456",
+		"videoOn": false,
+		"flashVersion": "MAC 25,0,0,148",
+		"hasCloudData": false,
+		"scriptCount": 0,
+		"userAgent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/58.0.3029.81 Safari\/537.36"
+	}
+}

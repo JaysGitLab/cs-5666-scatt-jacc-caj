@@ -1,0 +1,57 @@
+Scratch Report
+
+Number of projects: 2
+
+
+Project 1: StageScripts.sb2
+Stage scripts blocks by category totals:
+ Looks: 2; Sound: 2; Pen: 1; Control: 5
+        Script 1
+            length = 1
+            blocks by category: Looks: 2; Sound: 2; Control: 3
+        Script 2
+            length = 1
+            blocks by category: Pen: 1; Control: 2
+1 sprites
+
+    Sprite 1: Sprite1
+    1 scripts
+        Script 1
+            length = 1
+            blocks by category: Motion: 3; Control: 1
+
+
+Project 2: WizardSpells.sb2
+Stage scripts blocks by category totals:
+ 0
+3 sprites
+
+    Sprite 1: Creature
+    4 scripts
+        Script 1
+            length = 2
+            blocks by category: Looks: 1; Events: 1
+        Script 2
+            length = 2
+            blocks by category: Looks: 1; Events: 1
+        Script 3
+            length = 2
+            blocks by category: Looks: 1; Events: 1
+        Script 4
+            length = 2
+            blocks by category: Looks: 1; Events: 1
+
+    Sprite 2: Instructions
+    0 scripts
+
+    Sprite 3: Wizard Girl
+    3 scripts
+        Script 1
+            length = 4
+            blocks by category: Motion: 2; Sound: 1; Events: 1
+        Script 2
+            length = 4
+            blocks by category: Motion: 2; Sound: 1; Events: 1
+        Script 3
+            length = 4
+            blocks by category: Looks: 2; Sound: 1; Events: 1

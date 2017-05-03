@@ -23,7 +23,7 @@ public class Sb2 {
     private Sprites sprites;
     private String name;
     private String errorMessage = null;
-
+    private Script[] stageScripts;
     /**
      * Construct an Sb2 object from a filePath.
      * @param filePath Path to sb2 file.
@@ -72,16 +72,32 @@ public class Sb2 {
     public void configureWithJson(JSONObject stage) {
         this.stage = stage;
         this.sprites = new Sprites(stage);
+        extractStageScripts();
     }
 
     /**
      * Return underlying JSONObject.
-     * s@return The underlying JSONObject.
+     * @return The underlying JSONObject
      */
     public JSONObject getJSONObject() {
         return stage;
     }
 
+    /**
+     * The root object (the stage) can have scripts of it's own.
+     * @return the array of scripts of the stage of this sb2.
+     */
+    public Script[] getScriptsForStage() {
+        return stageScripts; 
+    }
+    /**
+     * Called by the constructor.  Sets the private field {@code stageScripts}
+     * from the {@code stage} field.
+     */
+    private void extractStageScripts() {
+        JSONArray jsonArrayOfScriptTuples = stage.optJSONArray("scripts");
+        stageScripts = Script.getScriptArray(jsonArrayOfScriptTuples);
+    }
     /**
      * Given a file path return a String of file contents.
      * @param pathStr Path to the file
@@ -148,6 +164,15 @@ public class Sb2 {
      */
     public int[] getScriptLengthsForSprite(String spriteName) {
         return sprites.getScriptLengthsForSprite(spriteName);
+    }
+
+    /**
+     * Returns scripts for named sprite.
+     * @param spriteName name of the sprite whose scripts you want.
+     * @return array of Script objects
+     */
+    public Script[] getScriptsForSprite(String spriteName) {
+        return sprites.getScriptsForSprite(spriteName);
     }
     /**
      * Gets the number of global variables within the stage object.

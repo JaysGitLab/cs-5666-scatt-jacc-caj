@@ -47,14 +47,7 @@ public class Utils {
         String str = Sb2.getFileContents(filePath);
         return str;
     }
-
-    /**
-     * Get the JSONObject for the Wizard project.
-     * @return the JSONObject for the Wizard project.
-     */
-    static JSONObject getWizardJSONObject() {
-        return Sb2.createJSONObject(getResourceContent("project.json"));
-    }
+    
     /**
      * Test whether arrays have same contents regardless of order.
      * @param a One array.
@@ -66,13 +59,13 @@ public class Utils {
         Arrays.sort(b);
         return Arrays.equals(a, b);
     }
-
     /**
-     * Get the JSONObject for the Scratcharia project.
-     * @return the JSONObject for the Scratcharia project.
+     * Get the JSONObject for any project in the resources/ScratchJsonFiles directory.
+     * @param jsonFileName The name of the .json file.
+     * @return The JSONObject
      */
-    static JSONObject getScratchariaJSONObject() {
-        return Sb2.createJSONObject(getResourceContent("scratcharia.json"));
+    static JSONObject getResourceJSONObject(String jsonFileName) {
+        return Sb2.createJSONObject(getResourceContent("ScratchJsonFiles/" + jsonFileName));
     }
 
      /**

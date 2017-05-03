@@ -3,7 +3,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.io.Writer;
 import java.io.FileNotFoundException;
-
 /**
  * @version 1
  * @author James Ward
@@ -11,16 +10,22 @@ import java.io.FileNotFoundException;
  */
 public class Reporter {
     public static final String REPORT_SUFFIX = "_Report.txt";
-    public static final int REPORT_ALL          = 0xFFFFFFFF;
-    public static final int NUM_PROJECTS        = 0b0001;
-    public static final int PROJECT_HEADERS     = 0b0010;
-    public static final int SPRITES_PER_PROJECT = 0b0100;
-    public static final int SPRITE_HEADERS      = 0b1000;
-    public static final int SCRIPTS_PER_SPRITE  = 0b0001_0000;
-    public static final int SCRIPT_HEADERS      = 0b0010_0000;
-    public static final int SCRIPT_LENGTHS      = 0b0100_0000;
-    public static final int SPRITE_VARIABLES    = 0b1000_0000;
-    public static final int GLOBAL_VARIABLS     = 0b0001_0000_0000;
+
+    public static final int REPORT_ALL               = 0xFFFFFFFF;
+    public static final int NUM_PROJECTS             = 0b0001;
+    public static final int PROJECT_HEADERS          = 0b0010;
+    public static final int SPRITES_PER_PROJECT      = 0b0100;
+    public static final int SPRITE_HEADERS           = 0b1000;
+    public static final int SCRIPTS_PER_SPRITE       = 0b0001_0000;
+    public static final int SCRIPT_HEADERS           = 0b0010_0000;
+    public static final int SCRIPT_LENGTHS           = 0b0100_0000;
+    public static final int ALL_2017_4_24            = 0b0111_1111;
+    public static final int STAGE_SCRIPTS            = 0b1000_0000;
+    public static final int STAGE_SCRIPTS_BYCATTOT   = 0b0001_0000_0000;
+    public static final int SCRIPT_BYCATTOT          = 0b0010_0000_0000;
+    public static final int SPRITE_VARIABLES         = 0_b0100_0000_0000;
+    public static final int GLOBAL_VARIABLS          = 0b1000_0000_0000;
+
     private static final String TAB = "    ";
     private int whatToReport;
     /**
@@ -98,9 +103,21 @@ public class Reporter {
         if (errorMessage != null) {
             pw.write(errorMessage + "\n");
         } else {
+
             int globalVars = sb2.getGlobalVariableCount();
             if (shouldReport(GLOBAL_VARIABLS)) {
                 pw.write(globalVars + " variables\n");
+
+            Script[] stageScripts = sb2.getScriptsForStage();
+            if (shouldReport(STAGE_SCRIPTS_BYCATTOT)) {
+                pw.write("Stage scripts blocks by category totals:\n "
+                         + blocksByCatString(Script.sumBlocksByCategory(stageScripts)) + "\n");
+            }
+            if (shouldReport(STAGE_SCRIPTS)) {
+                for (int i = 0; i < stageScripts.length; i++) {
+                    reportScript(i + 1, stageScripts[i], pw);
+                }
+
             }
             String[] spriteNames = sb2.getSpriteNames();
             if (shouldReport(SPRITES_PER_PROJECT)) {
@@ -128,28 +145,56 @@ public class Reporter {
             pw.write(tab + spriteVars + " variables\n");
         }
         int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
+        Script[] scripts = sb2.getScriptsForSprite(spriteName);
         if (shouldReport(SCRIPTS_PER_SPRITE)) {
-            pw.write(tab + scriptLengths.length + " scripts\n");
+            pw.write(tab + scripts.length + " scripts\n");
         }
-        for (int i = 0; i < scriptLengths.length; i++) {
-            reportScript(i + 1, scriptLengths[i], pw);
+        for (int i = 0; i < scripts.length; i++) {
+            reportScript(i + 1, scripts[i], pw);
         }
     }
     /**
      * Report one Script from a Sprite project.
      * @param scriptNo The index of the Script in the list.  Starting from 1.
-     * @param scriptLength The length of the script.
+     * @param script The script to report.
      * @param pw The PrintWriter.
      */
-    private void reportScript(int scriptNo, int scriptLength, PrintWriter pw) {
+    private void reportScript(int scriptNo, Script script, PrintWriter pw) {
         String tab = TAB + TAB;
         if (shouldReport(SCRIPT_HEADERS)) {
             pw.write(tab + "Script " + scriptNo + "\n");
         }
         tab = tab + TAB;
         if (shouldReport(SCRIPT_LENGTHS)) {
-            pw.write(tab + "length = " + scriptLength + "\n");
+            pw.write(tab + "length = " + script.getLength() + "\n");
+        }
+        if (shouldReport(SCRIPT_BYCATTOT)) {
+            pw.write(tab + "blocks by category: "
+                     + blocksByCatString(script.sumBlocksByCategory()) + "\n");
         }
     }
-
+    /**
+     * Produces a nice string representeing blocks by category.
+     * @param blocksByCat Array containing block counts by category
+     * @return The nice string
+     */
+    private String blocksByCatString(int[] blocksByCat) {
+        String[] cats = ScriptSpecs.getCategories();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < cats.length; i++) {
+            int sum = blocksByCat[i];
+            if (sum > 0) {
+                if (sb.length() > 0) {
+                    sb.append("; ");
+                }
+                sb.append(cats[i]);
+                sb.append(": ");
+                sb.append(sum);
+            }
+        }
+        if (sb.length() == 0) {
+            sb.append(0);
+        }
+        return sb.toString();
+    }
 }
