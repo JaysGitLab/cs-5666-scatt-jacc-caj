@@ -40,7 +40,7 @@ public class Sb2 {
         if (jsonString == null) {
             errorMessage = NO_JSON;
             return;
-        } 
+        }
         try {
             JSONObject jsonObject = createJSONObject(jsonString);
             configureWithJson(jsonObject);
@@ -64,7 +64,7 @@ public class Sb2 {
     public Sb2(JSONObject stage) {
         this(stage, "ScratchProject");
     }
-    
+
     /**
      * Function to be called from all constructors.
      * @param stage JSONObject which is underlying data structure for Sb2.
@@ -185,6 +185,20 @@ public class Sb2 {
         }
         return variables.length();
     }
+    /**
+     * Gets the number of variables for a particularly desired Sprite.
+     * @param spriteName the name of the aforementioned desired Sprite.
+     * @return The selected sprite's number of variables.
+     */
+    public int getSpriteVariableCount(String spriteName) {
+        int count = 0;
+        try {
+            count = sprites.getSpriteVariableCount(spriteName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
     /**
      * If an error has occurred, return the error message to be printed in
@@ -195,4 +209,3 @@ public class Sb2 {
         return errorMessage;
     }
 }
-

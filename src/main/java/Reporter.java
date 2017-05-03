@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
  */
 public class Reporter {
     public static final String REPORT_SUFFIX = "_Report.txt";
+
     public static final int REPORT_ALL               = 0xFFFFFFFF;
     public static final int NUM_PROJECTS             = 0b0001;
     public static final int PROJECT_HEADERS          = 0b0010;
@@ -22,7 +23,8 @@ public class Reporter {
     public static final int STAGE_SCRIPTS            = 0b1000_0000;
     public static final int STAGE_SCRIPTS_BYCATTOT   = 0b0001_0000_0000;
     public static final int SCRIPT_BYCATTOT          = 0b0010_0000_0000;
-    
+    public static final int SPRITE_VARIABLES         = 0_b0100_0000_0000;
+    public static final int GLOBAL_VARIABLS          = 0b1000_0000_0000;
 
     private static final String TAB = "    ";
     private int whatToReport;
@@ -49,7 +51,7 @@ public class Reporter {
     private boolean shouldReport(int flag) {
         return (whatToReport & flag) != 0;
     }
-    
+
     /**
      * Write report to a writer.
      * @param writer The writer.
@@ -101,6 +103,11 @@ public class Reporter {
         if (errorMessage != null) {
             pw.write(errorMessage + "\n");
         } else {
+
+            int globalVars = sb2.getGlobalVariableCount();
+            if (shouldReport(GLOBAL_VARIABLS)) {
+                pw.write(globalVars + " variables\n");
+
             Script[] stageScripts = sb2.getScriptsForStage();
             if (shouldReport(STAGE_SCRIPTS_BYCATTOT)) {
                 pw.write("Stage scripts blocks by category totals:\n "
@@ -110,6 +117,7 @@ public class Reporter {
                 for (int i = 0; i < stageScripts.length; i++) {
                     reportScript(i + 1, stageScripts[i], pw);
                 }
+
             }
             String[] spriteNames = sb2.getSpriteNames();
             if (shouldReport(SPRITES_PER_PROJECT)) {
@@ -132,6 +140,11 @@ public class Reporter {
         if (shouldReport(SPRITE_HEADERS)) {
             pw.write("\n" + tab + "Sprite " + spriteNo + ": " + spriteName + "\n");
         }
+        int spriteVars = sb2.getSpriteVariableCount(spriteName);
+        if (shouldReport(SPRITE_VARIABLES)) {
+            pw.write(tab + spriteVars + " variables\n");
+        }
+        int[] scriptLengths = sb2.getScriptLengthsForSprite(spriteName);
         Script[] scripts = sb2.getScriptsForSprite(spriteName);
         if (shouldReport(SCRIPTS_PER_SPRITE)) {
             pw.write(tab + scripts.length + " scripts\n");

@@ -3,18 +3,20 @@ Scratch Report
 Number of projects: 1
 
 
-Project 1: WizardProject
+Project 1: WizardSpells.sb2
 
     Sprite 1: Creature
+    0 variables
             length = 2
             length = 2
             length = 2
             length = 2
 
     Sprite 2: Instructions
+    0 variables
 
     Sprite 3: Wizard Girl
+    0 variables
             length = 4
             length = 4
             length = 4
-

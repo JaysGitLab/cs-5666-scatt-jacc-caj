@@ -46,10 +46,11 @@ public class ReporterTest {
     @Test
     public void testOddCombo() {
         testReporterConfig(
-            Reporter.NUM_PROJECTS 
+            Reporter.NUM_PROJECTS
             | Reporter.PROJECT_HEADERS
             | Reporter.SPRITE_HEADERS
-            | Reporter.SCRIPT_LENGTHS,
+            | Reporter.SCRIPT_LENGTHS
+            | Reporter.SPRITE_VARIABLES,
             "OddCombo");
     }
 
@@ -69,7 +70,7 @@ public class ReporterTest {
         reporter.writeReport(sw, sb2List);
         String actualOutput = sw.toString();
         //Uncomment the following line when you want actual output printed to file.
-        //Utils.writeToFile("Actual_" + expectedOutputFileName, actualOutput);
+        Utils.writeToFile("Actual_" + expectedOutputFileName, actualOutput);
         String expectedOutput = Utils.getResourceContent(
             "ReportTestFiles/" + expectedOutputFileName);
         if (!actualOutput.equals(expectedOutput)) {

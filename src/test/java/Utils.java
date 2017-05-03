@@ -67,7 +67,7 @@ public class Utils {
     static JSONObject getResourceJSONObject(String jsonFileName) {
         return Sb2.createJSONObject(getResourceContent("ScratchJsonFiles/" + jsonFileName));
     }
-     
+
      /**
      * Given two strings, find the difference, print from 10 characters before
      * difference to 5 lines after difference.
@@ -126,7 +126,7 @@ public class Utils {
      * @param pathStr Path relative to the project root.
      * @param text Text to write to file.
      */
-    public void writeToFile(String pathStr, String text) {
+    public static void writeToFile(String pathStr, String text) {
         byte[] bytes = text.getBytes();
         try {
             Path path = Paths.get(pathStr);
