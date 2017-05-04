@@ -3,8 +3,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.StringWriter;
-import java.io.IOException;
 import java.io.File;
+import java.io.FileNotFoundException;
 /**
  * This test class is meant to test that the reporter outputs the appropriate
  * information in relation to the ouptut from SB2 and the given test JSON
@@ -58,9 +58,11 @@ public class ReporterTest {
     /**
      * This makes the resource directory unwritable in order to
      * generate an exception.
+     * @throws FileNotFoundException - this should always be thrown
+     * 	because the directory should not be writable.
      */
-    @Test(expected = IOException.class)
-    public void testUnwritableDir() {
+    @Test(expected = FileNotFoundException.class)
+    public void testUnwritableDir() throws FileNotFoundException {
         // remove write permission from directory
         String directory = Utils.getTestResourcePath("GoodSb2Dir_unwritable");
         File resourceDir = new File(directory);

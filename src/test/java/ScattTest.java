@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.File;
+import java.io.FileNotFoundException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -84,7 +85,11 @@ public class ScattTest {
                 return null;
             }
         }, 0b111_1111);
-        scatt.generateReport();
+        try {
+            scatt.generateReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -114,8 +119,9 @@ public class ScattTest {
      * @param testDir - The directory containing the sb2s
      * @param reporterFlags - Flags to be passed through to the reporter
      * @return The File object for the generated report
+     * @throws FileNotFoundException - if writing the file fails
      */
-    public static File prepEndToEnd(File testDir, int reporterFlags) {
+    public static File prepEndToEnd(File testDir, int reporterFlags) throws FileNotFoundException {
         Scatt scatt = new Scatt(new FileChooser() {
             @Override
             public File getDirectoryFromUser() {
@@ -143,24 +149,31 @@ public class ScattTest {
      */
     public static void testEndToEnd(String testDirName, int reporterFlags) {
         File testDir = new File(Utils.getTestResourcePath(testDirName));
-	File reportFile = prepEndToEnd(testDir, reporterFlags);
-        String expected = "";
-        String actual = "";
         try {
-            actual = Utils.getFileContents(reportFile.getAbsolutePath());
-        } catch (IOException e) {
-            fail("The test failed to generate a report.");
+    	    File reportFile = prepEndToEnd(testDir, reporterFlags);
+    	    String expected = "";
+            String actual = "";
+            try {
+                actual = Utils.getFileContents(reportFile.getAbsolutePath());
+            } catch (IOException e) {
+                fail("The test failed to generate a report.");
+            }
+            try {
+                String expectedFilePath = Utils.getTestResourcePath(testDir.getName()
+                     + "_Report.txt");
+                expected = Utils.getFileContents(expectedFilePath);
+            } catch (IOException e) {
+                fail("You need to put a file called " + testDir.getName() + "_Report.txt containing"
+                     + " the expected report contents in the test resources directory");
+            }
+            if (!actual.equals(expected)) {
+                Utils.diffStrings(actual, expected);
+            }
+            assertEquals(expected, actual);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail("Failed to generate report");
         }
-        try {
-            String expectedFilePath = Utils.getTestResourcePath(testDir.getName() + "_Report.txt");
-            expected = Utils.getFileContents(expectedFilePath);
-        } catch (IOException e) {
-            fail("You need to put a file called " + testDir.getName() + "_Report.txt containing"
-                 + " the expected report contents in the test resources directory");
-        }
-        if (!actual.equals(expected)) {
-            Utils.diffStrings(actual, expected);
-        }
-        assertEquals(expected, actual);
+
     }
 }

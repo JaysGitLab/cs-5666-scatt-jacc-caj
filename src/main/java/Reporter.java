@@ -59,12 +59,11 @@ public class Reporter {
      * Write report to a file.
      * @param destPath Path to the destinatin file.
      * @param sb2List List of Sb2 objects which are the subject of the report.
+     * @throws FileNotFoundException if the destPath doesn't exist or can't be created
      */
-    public void writeReport(String destPath, List<Sb2> sb2List) {
+    public void writeReport(String destPath, List<Sb2> sb2List) throws FileNotFoundException {
         try (PrintWriter printWriter = new PrintWriter(new File(destPath))) {
             writeReport(printWriter, sb2List);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
     /**

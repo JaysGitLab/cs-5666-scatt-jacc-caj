@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,13 +55,18 @@ public class Scatt {
      */
     public static void main(String... args) {
         Scatt sc = new Scatt();
-        sc.generateReport();
+        try {
+            sc.generateReport();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Generate report for Sb2's in targetDirectory.
+     * @throws FileNotFoundException - if unable to write the report
      */
-    public void generateReport() {
+    public void generateReport() throws FileNotFoundException {
         if (sb2Dir == null) {
             throw new IllegalArgumentException("User clicked cancel or for "
                 + "some other reason file chosen is null.");
