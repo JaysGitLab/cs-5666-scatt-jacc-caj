@@ -55,18 +55,14 @@ public class Scatt {
      */
     public static void main(String... args) {
         Scatt sc = new Scatt();
-        try {
-            sc.generateReport();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        sc.generateReport(); 
     }
 
     /**
      * Generate report for Sb2's in targetDirectory.
      * @throws FileNotFoundException - if unable to write the report
      */
-    public void generateReport() throws FileNotFoundException {
+    public void generateReport() {
         if (sb2Dir == null) {
             throw new IllegalArgumentException("User clicked cancel or for "
                 + "some other reason file chosen is null.");
@@ -85,9 +81,14 @@ public class Scatt {
         }
         String reportPath = new File(sb2Dir, sb2Dir.getName()
             + Reporter.REPORT_SUFFIX).getAbsolutePath();
-        Reporter reporter = new Reporter(reporterFlags);
-        reporter.writeReport(reportPath, sb2s);
-        notifier.notify("Report generated at " + reportPath);
+        try {
+            Reporter reporter = new Reporter(reporterFlags);
+            reporter.writeReport(reportPath, sb2s);
+            notifier.notify("Report generated at " + reportPath);
+        } catch (FileNotFoundException e) {
+            notifier.notify("Error generating report: " + e);
+            e.printStackTrace();
+        }
     }
     /**
      * We need an OS neutral way to sort files for testing purposes.
